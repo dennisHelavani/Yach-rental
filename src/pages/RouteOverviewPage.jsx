@@ -12,6 +12,7 @@ import HotRouteCards from '../components/booking/HotRouteCards'
 import DATA from '../data/yachtDaysGreece.json'
 import { HERO_IMAGES, WHOLE_YACHT_PACKAGES, WHOLE_CABIN_PACKAGES, WHOLE_YACHT_ALCOHOL_PRICE, ALCOHOL_PRICE_PER_PERSON } from '../data/constants'
 import { useBooking } from '../context/BookingProvider'
+import SEO from '../components/SEO'
 
 const ROUTE_CONFIG = {
     '5-nights': { packageId: '5n', routeId: 'route_greece_5n', accent: 'neon-aqua', otherSlug: '7-nights', otherLabel: '7 Nights', vibePct: 72 },
@@ -31,7 +32,6 @@ export default function RouteOverviewPage() {
     const [faqOpen, setFaqOpen] = useState(null)
 
     useEffect(() => {
-        if (pkg) document.title = `${pkg.nights} Night Route | Yacht Days Greece`
         window.scrollTo(0, 0)
         setActiveStop(0)
         setFaqOpen(null)
@@ -97,6 +97,11 @@ export default function RouteOverviewPage() {
 
     return (
         <div className="min-h-screen bg-background-light text-slate-900 selection:bg-neon-pink selection:text-white">
+            <SEO
+                title={`${pkg.nights} Night Greece Party Yacht Cruise | Epic Sail Week`}
+                description={`Experience our unforgettable ${pkg.nights}-night Greece party yacht cruise. A curated, highly social island-hopping route packed with fun. Check availability and book online.`}
+                keywords={`${pkg.nights} night Greece party yacht cruise, 1 week Greek island party cruise, ${pkg.nights} days social sailing Greece`}
+            />
             <Navbar />
 
             {/* ═══════════════════════════════════════════
@@ -125,12 +130,13 @@ export default function RouteOverviewPage() {
                         {pkg.nights} Night Route · Greece · Cyclades
                     </div>
 
-                    <h1 className="text-6xl md:text-9xl font-punchy text-white mb-6 leading-[0.9] italic drop-shadow-[0_5px_15px_rgba(0,0,0,0.5)]">
+                    <h1 className="sr-only">{pkg.nights}-Night Premium Greece Yacht Cruise</h1>
+                    <h2 className="text-6xl md:text-9xl font-punchy text-white mb-6 leading-[0.9] italic drop-shadow-[0_5px_15px_rgba(0,0,0,0.5)]">
                         {pkg.nights} NIGHTS. <br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-neon-aqua to-neon-pink">
                             {route.stopsByNights.length} ISLANDS.
                         </span>
-                    </h1>
+                    </h2>
 
                     <p className="text-lg md:text-2xl text-white/90 mb-10 max-w-xl mx-auto font-medium leading-relaxed drop-shadow-md">
                         {route.stopsByNights.map(s => s.name).join(' → ')}

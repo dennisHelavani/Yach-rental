@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+import SEO from '../components/SEO'
 
 export default function ContactPage() {
     const [formStatus, setFormStatus] = useState('idle') // idle, submitting, success
@@ -15,6 +16,11 @@ export default function ContactPage() {
 
     return (
         <div className="bg-background-sand text-slate-900 selection:bg-neon-pink selection:text-white overflow-x-hidden min-h-screen flex flex-col">
+            <SEO
+                title="Contact Us | Plan Your Greece Party Yacht Vacation"
+                description="Ready to plan your Greek island party holiday? Contact our trusted team today. We help travelers from AU, NZ, UK, and beyond book epic social yacht escapes."
+                keywords="Contact Greece party yacht charter, Inquire about Greek social sailing, Book party yacht holidays"
+            />
             <Navbar />
 
             {/* HERO */}

@@ -1,4 +1,5 @@
 import { useSearchParams, Link } from 'react-router-dom'
+import SEO from '../components/SEO'
 
 export default function SuccessPage() {
     const [params] = useSearchParams()
@@ -6,6 +7,10 @@ export default function SuccessPage() {
 
     return (
         <div className="result-page">
+            <SEO
+                title="Booking Confirmed | Yacht Days Greece"
+                description="Your Greece yacht vacation has been successfully booked."
+            />
             <div className="result-card">
                 <div className="result-icon">✅</div>
                 <h1>Booking Confirmed!</h1>

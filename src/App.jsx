@@ -15,6 +15,7 @@ import QuotePage from './pages/QuotePage'
 import SuccessPage from './pages/SuccessPage'
 import CancelPage from './pages/CancelPage'
 import ContactPage from './pages/ContactPage'
+import NotFoundPage from './pages/NotFoundPage'
 
 export default function App() {
   return (
@@ -25,8 +26,8 @@ export default function App() {
         <Route path="/how-it-works" element={<HowItWorksPage />} />
         <Route path="/faq" element={<FaqPage />} />
         <Route path="/gallery" element={<GalleryPage />} />
-        <Route path="/destinations" element={<DestinationsPage />} />
-        <Route path="/destinations/:slug" element={<DestinationDetailPage />} />
+        {/* <Route path="/destinations" element={<DestinationsPage />} /> */}
+        {/* <Route path="/destinations/:slug" element={<DestinationDetailPage />} /> */}
         <Route path="/routes" element={<RoutesIndexPage />} />
         <Route path="/routes/:nights" element={<RouteOverviewPage />} />
         <Route path="/quote" element={<QuotePage />} />
@@ -38,6 +39,7 @@ export default function App() {
         <Route path="/success" element={<SuccessPage />} />
         <Route path="/cancel" element={<CancelPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>
   )

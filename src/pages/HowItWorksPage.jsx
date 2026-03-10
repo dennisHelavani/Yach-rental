@@ -7,6 +7,7 @@ import { HERO_IMAGES } from '../data/constants'
 import HotRouteCards from '../components/booking/HotRouteCards'
 import Testimonials from '../components/Testimonials'
 import PaymentPolicyCard from '../components/PaymentPolicyCard'
+import SEO from '../components/SEO'
 
 const faqItems = [
     { q: 'What if I need to cancel?', a: 'Cancellation and refund terms to be confirmed. Please check back soon or contact us for the latest policy.', color: 'neon-pink' },
@@ -35,6 +36,11 @@ export default function HowItWorksPage() {
 
     return (
         <div className="bg-background-sand text-slate-900 selection:bg-neon-pink selection:text-white overflow-x-hidden">
+            <SEO
+                title="How to Book an Epic Party Yacht Cruise in Greece"
+                description="Wondering how to plan your Greek sailing holiday? Learn how our social, hassle-free booking process gets you from AU/NZ to the Aegean Sea."
+                keywords="How to book a party yacht in Greece, Planning a Greek social sailing holiday, Greece party yacht cruise guide"
+            />
             <Navbar />
 
             {/* ═══════════════════════════════════════════

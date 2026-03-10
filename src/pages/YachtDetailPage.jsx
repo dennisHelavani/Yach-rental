@@ -8,6 +8,7 @@ import { useBooking } from '../context/BookingProvider'
 import { getYachtBySlug, yachtsData, PACKAGES, getYachtCopy } from '../data/yachts'
 import { HERO_IMAGES, WHOLE_YACHT_PACKAGES, WHOLE_CABIN_PACKAGES, WHOLE_YACHT_ALCOHOL_PRICE, ALCOHOL_PRICE_PER_PERSON } from '../data/constants'
 import HotRouteCards from '../components/booking/HotRouteCards'
+import SEO from '../components/SEO'
 
 export default function YachtDetailPage() {
     const { slug } = useParams()
@@ -33,6 +34,11 @@ export default function YachtDetailPage() {
 
     return (
         <div className="min-h-screen bg-background-light text-slate-900 selection:bg-neon-pink selection:text-white">
+            <SEO
+                title={`${yacht.name} Party Charter Greece | Epic Social Sailing`}
+                description={`Book your ${yacht.name} party charter in Greece. Outstanding comfort, amazing vibes, and a fun crew for the perfect island-hopping party vacation.`}
+                keywords={`${yacht.name} party charter Greece, Rent ${yacht.name} party boat Greece, Book ${yacht.name} in Greece`}
+            />
             <Navbar />
 
             {/* ═══════════════════════════════════════════════════════════
@@ -59,12 +65,13 @@ export default function YachtDetailPage() {
                         {yacht.badge} · Azimut Fleet · Greece
                     </div>
 
-                    <h1 className="text-6xl md:text-9xl font-punchy text-white mb-6 leading-none italic drop-shadow-[0_5px_15px_rgba(0,0,0,0.5)] overflow-visible py-2">
+                    <h1 className="sr-only">{yacht.name} Charter in Greece</h1>
+                    <h2 className="text-6xl md:text-9xl font-punchy text-white mb-6 leading-none italic drop-shadow-[0_5px_15px_rgba(0,0,0,0.5)] overflow-visible py-2">
                         {nameBase} <br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-neon-aqua to-neon-pink inline-block pb-2">
                             {nameNumber}
                         </span>
-                    </h1>
+                    </h2>
 
                     <p className="text-lg md:text-2xl text-white/90 mb-10 max-w-xl mx-auto font-medium leading-relaxed drop-shadow-md">
                         {copy.headline}

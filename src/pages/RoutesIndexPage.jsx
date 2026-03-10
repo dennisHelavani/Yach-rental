@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+import SEO from '../components/SEO'
 import Testimonials from '../components/Testimonials'
 import HotRouteCards from '../components/booking/HotRouteCards'
 import HotDealsCard from '../components/booking/HotDealsCard'
@@ -72,12 +73,16 @@ export default function RoutesIndexPage() {
     const [openFaq, setOpenFaq] = useState(null)
 
     useEffect(() => {
-        document.title = 'Our Routes | Yacht Days Greece'
         window.scrollTo(0, 0)
     }, [])
 
     return (
         <div className="min-h-screen bg-slate-50 text-slate-900">
+            <SEO
+                title="Epic Greece Sailing Itineraries & Party Yacht Routes"
+                description="Browse our expertly crafted Greece party sailing itineraries. Find the perfect epic social yacht cruise for your Greek holiday."
+                keywords="Greece party sailing itineraries, Greek party yacht routes, 7 day Greece social sail"
+            />
             <Navbar />
 
             {/* ═══════════════════════════════════════════════
@@ -104,9 +109,10 @@ export default function RoutesIndexPage() {
                         Party Hostel on the Water
                     </span>
 
-                    <h1 className="font-punchy text-5xl md:text-8xl font-black uppercase tracking-tighter italic leading-none mb-4 md:mb-6 text-white drop-shadow-lg">
+                    <h1 className="sr-only">Epic Greece Sailing Itineraries</h1>
+                    <h2 className="font-punchy text-5xl md:text-8xl font-black uppercase tracking-tighter italic leading-none mb-4 md:mb-6 text-white drop-shadow-lg">
                         OUR <span className="text-neon-aqua">ROUTES</span>
-                    </h1>
+                    </h2>
 
                     <p className="text-white/90 text-sm md:text-xl max-w-2xl mx-auto mb-6 md:mb-10 leading-relaxed font-medium drop-shadow-md">
                         Two epic routes through the Greek Cyclades. {DATA.operations.flotilla.publicCopy}

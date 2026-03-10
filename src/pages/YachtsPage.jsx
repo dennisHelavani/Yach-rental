@@ -5,12 +5,18 @@ import { useBooking } from '../context/BookingProvider'
 import { yachtsData, PACKAGES, hotDeals } from '../data/yachts'
 import { HERO_IMAGES } from '../data/constants'
 import HotRouteCards from '../components/booking/HotRouteCards'
+import SEO from '../components/SEO'
 
 export default function YachtsPage() {
     const { openBooking } = useBooking()
 
     return (
         <div className="bg-background-sand text-slate-900 selection:bg-neon-pink selection:text-white overflow-x-hidden font-body min-h-screen">
+            <SEO
+                title="Party Charter Yachts Greece | Flotilla Fleet"
+                description="Explore our modern fleet of party charter yachts in Greece. Find the perfect boat for your crew and join the flotilla."
+                keywords="Party charter yachts Greece, Greece flotilla yacht fleet, Rent a party yacht Greek islands"
+            />
             <Navbar />
 
             {/* ═══ HERO ═══ */}
@@ -22,7 +28,7 @@ export default function YachtsPage() {
                 </div>
                 <div className="relative z-10 max-w-5xl mx-auto text-center">
                     <span className="inline-block bg-neon-pink/10 text-neon-pink px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mb-6 font-space border border-neon-pink/20">
-                        Premium Azimut Fleet
+                        Epic Azimut Party Fleet
                     </span>
                     <h1 className="text-6xl md:text-8xl lg:text-9xl font-punchy text-white mb-6 leading-[0.85] italic uppercase tracking-tighter">
                         THE <span className="text-neon-aqua">FLEET</span>

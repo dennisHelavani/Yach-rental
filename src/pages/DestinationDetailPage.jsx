@@ -5,6 +5,7 @@ import Footer from '../components/Footer'
 import { useBooking } from '../context/BookingProvider'
 import { getDestinationBySlug } from '../data/destinations'
 import TripMapStops from '../components/TripMapStops'
+import SEO from '../components/SEO'
 
 export default function DestinationDetailPage() {
     const { slug } = useParams()
@@ -16,14 +17,6 @@ export default function DestinationDetailPage() {
     const [countdown, setCountdown] = useState({ h: 4, m: 22, s: 10 })
 
     useEffect(() => { if (!dest) navigate('/destinations', { replace: true }) }, [dest, navigate])
-
-    useEffect(() => {
-        if (!dest) return
-        document.title = `${dest.name} | SALTIE Greece – ${dest.tagline}`
-        let meta = document.querySelector('meta[name="description"]')
-        if (!meta) { meta = document.createElement('meta'); meta.name = 'description'; document.head.appendChild(meta) }
-        meta.content = `Experience ${dest.name}: ${dest.tagline}. Choose 5-Night (€739) or 7-Night (€929) voyages.`
-    }, [dest])
 
     useEffect(() => {
         const id = setInterval(() => {
@@ -50,6 +43,11 @@ export default function DestinationDetailPage() {
 
     return (
         <div className="bg-[#f8fafc] text-slate-900 selection:bg-neon-pink selection:text-white overflow-x-hidden font-body min-h-screen">
+            <SEO
+                title={`${dest.name} Party Yacht Cruise | Epic Island Hopping`}
+                description={`Join our highly social ${dest.name} party yacht cruise. Island hop through hidden gems. Secure your cabin or private yacht today!`}
+                keywords={`${dest.name} party yacht cruise, Sail the ${dest.name} with friends, Best ${dest.name} party yacht cruise for young adults`}
+            />
 
             {/* ═══ MOBILE: Top Urgency Bar ═══ */}
             <div className="md:hidden bg-background-dark text-white py-2 px-4 text-[10px] font-bold uppercase tracking-widest flex justify-center items-center gap-2 sticky top-0 z-50">
@@ -83,13 +81,14 @@ export default function DestinationDetailPage() {
 
                 {/* MOBILE hero content */}
                 <div className="relative z-10 p-6 space-y-4 md:hidden">
+                    <h1 className="sr-only">{dest.name}: Epic Island Hopping Party</h1>
                     <div className="inline-block px-3 py-1 rounded-full border border-white/30 backdrop-blur-sm text-[10px] text-white font-bold uppercase tracking-widest">
                         🇬🇷 Greek Island Odyssey
                     </div>
-                    <h1 className="font-punchy text-5xl font-bold leading-none text-white uppercase italic">
+                    <h2 className="font-punchy text-5xl font-bold leading-none text-white uppercase italic">
                         {dest.name} <span className="text-neon-aqua italic">&</span><br />
                         <span className="text-neon-pink">{dest.heroHeadlineSuffix}</span>
-                    </h1>
+                    </h2>
                     <p className="text-white/80 text-sm max-w-[280px]">{dest.heroSubtitle}</p>
                     <div className="flex flex-wrap gap-2 pt-2">
                         {dest.vibeTags.map((t) => (
@@ -111,10 +110,10 @@ export default function DestinationDetailPage() {
                         <span className="w-2 h-2 rounded-full bg-neon-aqua animate-pulse" />
                         <span className="text-xs font-bold uppercase tracking-widest">Greek Island Odyssey</span>
                     </div>
-                    <h1 className="font-punchy text-8xl font-bold uppercase leading-[0.9] mb-4 tracking-tighter italic">
+                    <h2 className="font-punchy text-8xl font-bold uppercase leading-[0.9] mb-4 tracking-tighter italic">
                         {dest.name} <span className="text-primary">&</span> <br />
                         <span className="text-neon-pink">{dest.heroHeadlineSuffix}</span>
-                    </h1>
+                    </h2>
                     <p className="text-2xl font-medium mb-8 opacity-90 max-w-2xl mx-auto">{dest.heroSubtitle}</p>
                     <div className="flex flex-wrap justify-center gap-3 mb-10">
                         {dest.vibeTags.map((t) => (

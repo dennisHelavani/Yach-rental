@@ -1,8 +1,13 @@
 import { Link } from 'react-router-dom'
+import SEO from '../components/SEO'
 
 export default function CancelPage() {
     return (
         <div className="result-page">
+            <SEO
+                title="Payment Cancelled | Yacht Days Greece"
+                description="Your booking payment was cancelled."
+            />
             <div className="result-card">
                 <div className="result-icon">😔</div>
                 <h1>Payment Cancelled</h1>

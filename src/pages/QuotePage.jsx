@@ -10,6 +10,7 @@ import { saveLead } from '../lib/leadsApi'
 import { trackEvent } from '../lib/bookingTracker'
 import DATA from '../data/yachtDaysGreece.json'
 import { getPersistedIntent, clearIntent } from '../utils/bookingIntent'
+import SEO from '../components/SEO'
 
 export default function QuotePage() {
     const [params] = useSearchParams()
@@ -33,10 +34,7 @@ export default function QuotePage() {
     const [submitted, setSubmitted] = useState(false)
 
     useEffect(() => {
-        document.title = 'Get a Quote | Yacht Days Greece'
-        let meta = document.querySelector('meta[name="description"]')
-        if (!meta) { meta = document.createElement('meta'); meta.name = 'description'; document.head.appendChild(meta) }
-        meta.content = 'Request a custom quote for your Greek island-hopping adventure. 5 or 7 night packages from €739 pp.'
+        window.scrollTo(0, 0)
     }, [])
 
     const update = (key, value) => setForm(f => ({ ...f, [key]: value }))
@@ -62,20 +60,26 @@ export default function QuotePage() {
     // ── Success Screen ──
     if (submitted) return (
         <div className="min-h-screen bg-[#f8fafc] text-slate-900">
+            <SEO
+                title="Greece Yacht Vacation Cost | Get a Custom Quote"
+                description="Find out the cost of a highly social Greece party yacht vacation. Get a personalized quote for your unforgettable Greek island sailing holiday today."
+                keywords="Greece party yacht vacation cost, Greek social sailing holiday prices, Yacht cruise quote"
+            />
             <Navbar />
             <div className="max-w-lg mx-auto px-6 pt-32 pb-20 text-center">
                 <div className="w-20 h-20 bg-neon-aqua/10 rounded-full flex items-center justify-center mx-auto mb-6">
                     <span className="material-icons text-neon-aqua text-4xl">check_circle</span>
                 </div>
-                <h1 className="font-punchy text-3xl italic uppercase mb-3">Request <span className="text-neon-aqua">Sent!</span></h1>
+                <h1 className="sr-only">Get a Quote for Your Greek Yacht Vacation</h1>
+                <h2 className="font-punchy text-3xl italic uppercase mb-3">Request <span className="text-neon-aqua">Sent!</span></h2>
                 <p className="text-sm text-slate-500 mb-8 max-w-xs mx-auto">We'll reply within 24 hours. Check your inbox (and spam) for a confirmation.</p>
                 <div className="space-y-3">
                     <Link to="/" className="block w-full px-10 py-4 bg-neon-aqua text-slate-900 font-punchy rounded-2xl hover:bg-slate-900 hover:text-white transition-all uppercase tracking-widest text-sm text-center">
                         Back to Home
                     </Link>
-                    <Link to="/destinations" className="block w-full px-10 py-4 bg-slate-100 text-slate-900 font-punchy rounded-2xl hover:bg-slate-200 transition-all uppercase tracking-widest text-sm text-center">
+                    {/* <Link to="/destinations" className="block w-full px-10 py-4 bg-slate-100 text-slate-900 font-punchy rounded-2xl hover:bg-slate-200 transition-all uppercase tracking-widest text-sm text-center">
                         Explore Destinations
-                    </Link>
+                    </Link> */}
                 </div>
             </div>
             <Footer />
@@ -84,12 +88,17 @@ export default function QuotePage() {
 
     return (
         <div className="min-h-screen bg-[#f8fafc] text-slate-900">
+            <SEO
+                title="Greece Yacht Vacation Cost | Get a Custom Quote"
+                description="Find out the cost of a highly social Greece party yacht vacation. Get a personalized quote for your unforgettable Greek island sailing holiday today."
+                keywords="Greece party yacht vacation cost, Greek social sailing holiday prices, Yacht cruise quote"
+            />
             <Navbar />
             <div className="max-w-2xl mx-auto px-6 pt-28 pb-20">
-                {/* Header */}
-                <h1 className="font-punchy text-3xl md:text-4xl italic uppercase mb-2">
+                <h1 className="sr-only">Get a Quote for Your Greek Yacht Vacation</h1>
+                <h2 className="font-punchy text-3xl md:text-4xl italic uppercase mb-2">
                     Get a <span className="text-neon-aqua">Quote</span>
-                </h1>
+                </h2>
                 <p className="text-sm text-slate-500 mb-8">Tell us what you're looking for — we'll reply within 24 hours.</p>
 
                 {/* Prefill indicator */}

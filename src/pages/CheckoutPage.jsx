@@ -12,6 +12,7 @@ import { trackEvent } from '../lib/bookingTracker'
 import { yachtsData } from '../data/yachts'
 import PriceBreakdownCard from '../components/booking/PriceBreakdownCard'
 import RouteCard from '../components/booking/RouteCard'
+import SEO from '../components/SEO'
 
 export default function CheckoutPage() {
     const [params] = useSearchParams()
@@ -81,12 +82,18 @@ export default function CheckoutPage() {
     // ── Mock success screen ──
     if (mockSuccess) return (
         <div className="min-h-screen bg-white">
+            <SEO
+                title="Secure Checkout | Book Your Greece Yacht Holiday"
+                description="Finalize your Greece yacht vacation booking. Secure checkout for our epic 5-night and 7-night party sailing packages."
+                keywords="Book Greece party yacht, Secure checkout yacht charter, Pay for Greek sailing holiday"
+            />
             <Navbar />
             <div className="max-w-lg mx-auto px-4 pt-32 pb-20 text-center">
                 <div className="w-20 h-20 bg-amber-50 rounded-full flex items-center justify-center mx-auto mb-6">
                     <span className="material-icons text-amber-500 text-4xl">check_circle</span>
                 </div>
-                <h1 className="font-punchy text-3xl italic uppercase mb-3">Booking <span className="text-amber-500">Saved!</span></h1>
+                <h1 className="sr-only">Secure Booking Checkout</h1>
+                <h2 className="font-punchy text-3xl italic uppercase mb-3">Booking <span className="text-amber-500">Saved!</span></h2>
                 <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6 text-left">
                     <div className="flex items-start gap-2">
                         <span className="material-icons text-amber-500 text-base mt-0.5">info</span>
@@ -109,12 +116,18 @@ export default function CheckoutPage() {
 
     return (
         <div className="min-h-screen bg-white">
+            <SEO
+                title="Secure Checkout | Book Your Greece Yacht Holiday"
+                description="Finalize your Greece yacht vacation booking. Secure checkout for our epic 5-night and 7-night party sailing packages."
+                keywords="Book Greece party yacht, Secure checkout yacht charter, Pay for Greek sailing holiday"
+            />
             <Navbar />
             <div className="max-w-2xl mx-auto px-4 pt-28 pb-20">
                 {/* Header */}
-                <h1 className="font-punchy text-3xl md:text-4xl italic uppercase mb-2">
+                <h1 className="sr-only">Secure Booking Checkout</h1>
+                <h2 className="font-punchy text-3xl md:text-4xl italic uppercase mb-2">
                     {wholeCabin ? 'Whole Cabin' : wholeYacht ? 'Whole Yacht' : flow === 'BOOK_YACHT' ? 'Yacht' : 'Tour'} <span className="text-amber-500">Checkout</span>
-                </h1>
+                </h2>
                 <p className="text-sm text-slate-500 mb-8">Review your booking and complete payment</p>
 
                 <div className="grid grid-cols-1 md:grid-cols-5 gap-8">

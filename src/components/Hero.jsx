@@ -28,10 +28,11 @@ export default function Hero() {
                     Season Starts 20 April · Mon / Wed / Fri Departures
                 </div>
 
-                <h1 className="text-6xl md:text-9xl font-punchy text-white mb-6 leading-[0.9] italic drop-shadow-[0_5px_15px_rgba(0,0,0,0.5)]">
+                <h1 className="sr-only">The Ultimate Premium Greece Yacht Vacation</h1>
+                <h2 className="text-6xl md:text-9xl font-punchy text-white mb-6 leading-[0.9] italic drop-shadow-[0_5px_15px_rgba(0,0,0,0.5)]">
                     LESS SLEEP. <br />
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-neon-aqua to-neon-pink">MORE WAVES.</span>
-                </h1>
+                </h2>
 
                 <p className="text-lg md:text-2xl text-white/90 mb-10 max-w-xl mx-auto font-medium leading-relaxed drop-shadow-md">
                     GREEK ISLAND-HOPPING FOR PEOPLE WHO DIDN’T COME TO CHILL

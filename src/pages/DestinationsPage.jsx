@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { useBooking } from '../context/BookingProvider'
 import EarlyBirdBanner from '../components/EarlyBirdBanner'
+import SEO from '../components/SEO'
 
 /* ── Image URLs ──────────────────────────────────────────── */
 const IMG = {
@@ -98,6 +99,11 @@ export default function DestinationsPage() {
 
     return (
         <div className="bg-[#f8fafc] text-slate-900 selection:bg-neon-pink selection:text-white overflow-x-hidden font-body min-h-screen">
+            <SEO
+                title="Greek Island Hopping & Top Sailing Destinations"
+                description="Discover the best Greek island hopping routes. Explore highly social party sailing destinations in Greece from the Cyclades to the Ionian Sea. Start planning!"
+                keywords="Greek island hopping party, Best Greek islands to sail for young adults, Greece party sailing destinations"
+            />
             <Navbar />
 
             {/* ─── ANNOUNCEMENT BAR ──────────────────────────────── */}
@@ -125,9 +131,10 @@ export default function DestinationsPage() {
                     <div className="inline-block px-3 py-1 rounded-full bg-primary/20 border border-primary/30 backdrop-blur-md text-primary text-[10px] md:text-xs font-bold uppercase tracking-widest">
                         This Summer Season
                     </div>
-                    <h1 className="font-punchy text-5xl md:text-7xl font-bold text-white uppercase tracking-tighter leading-[1.1] italic">
+                    <h1 className="sr-only">Discover Top Greek Island Hopping Party Destinations</h1>
+                    <h2 className="font-punchy text-5xl md:text-7xl font-bold text-white uppercase tracking-tighter leading-[1.1] italic">
                         The Aegean <br /><span className="text-primary">Awaits</span>
-                    </h1>
+                    </h2>
                     <p className="text-white/80 text-lg max-w-xs md:max-w-xl">
                         Join the ~50 yacht flotilla. Experience Greece like never before. Season starts 20 April with Monday, Wednesday, and Friday departures.
                     </p>

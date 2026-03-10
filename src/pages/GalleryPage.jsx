@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { useBooking } from '../context/BookingProvider'
 import HotRouteCards from '../components/booking/HotRouteCards'
+import SEO from '../components/SEO'
 
 /* ── Image URLs ──────────────────────────────────────────── */
 const IMG = {
@@ -148,6 +149,11 @@ export default function GalleryPage() {
 
     return (
         <div className="bg-[#f8fafc] text-slate-900 selection:bg-neon-pink selection:text-white overflow-x-hidden font-body min-h-screen">
+            <SEO
+                title="Greece Party Yacht Photos | See the Epic Adventure"
+                description="See the flotilla in action. Browse photos and videos of our party yachts, island destinations, and epic social moments."
+                keywords="Greece party yacht pictures, Social sailing Greece photos, Yacht party images"
+            />
             <Navbar />
 
             {/* ─── HERO ──────────────────────────────────────────── */}
@@ -174,9 +180,10 @@ export default function GalleryPage() {
                             </span>
                         ))}
                     </div>
-                    <h1 className="font-punchy text-5xl md:text-8xl text-white italic font-black uppercase leading-tight drop-shadow-lg">
+                    <h1 className="sr-only">Greece Yacht Charter Gallery</h1>
+                    <h2 className="font-punchy text-5xl md:text-8xl text-white italic font-black uppercase leading-tight drop-shadow-lg">
                         GALL<span className="text-neon-aqua">E</span>RY
-                    </h1>
+                    </h2>
                     <p className="text-base md:text-2xl text-white/90 mt-3 md:mt-4 font-medium max-w-2xl mx-auto font-display">
                         50 yachts. 500 travelers. One unforgettable week.
                     </p>
