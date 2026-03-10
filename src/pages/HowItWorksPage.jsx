@@ -37,9 +37,9 @@ export default function HowItWorksPage() {
     return (
         <div className="bg-background-sand text-slate-900 selection:bg-neon-pink selection:text-white overflow-x-hidden">
             <SEO
-                title="How to Book an Epic Party Yacht Cruise in Greece"
-                description="Wondering how to plan your Greek sailing holiday? Learn how our social, hassle-free booking process gets you from AU/NZ to the Aegean Sea."
-                keywords="How to book a party yacht in Greece, Planning a Greek social sailing holiday, Greece party yacht cruise guide"
+                title="How to Book a Party Yacht in Greece | Itinerary & Info"
+                description="Planning a Greek social sailing holiday? Learn how our simple booking process gets you from AU/NZ/UK to the ultimate Greece party cruise."
+                keywords="how to book a party yacht in Greece, planning a Greek social sailing holiday, Greece party cruise guide"
             />
             <Navbar />
 
@@ -52,10 +52,11 @@ export default function HowItWorksPage() {
                     <div className="absolute inset-0 bg-black/50" />
                 </div>
                 <div className="relative z-10 text-center px-6 pt-20">
-                    <h1 className="text-6xl md:text-9xl font-punchy text-white mb-6 leading-[0.9] italic drop-shadow-[0_5px_15px_rgba(0,0,0,0.5)]">
+                    <h1 className="sr-only">How to Book a Party Yacht in Greece</h1>
+                    <h2 className="text-6xl md:text-9xl font-punchy text-white mb-6 leading-[0.9] italic drop-shadow-[0_5px_15px_rgba(0,0,0,0.5)]">
                         HOW IT <br className="hidden md:block" />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-neon-aqua to-neon-pink">WORKS</span>
-                    </h1>
+                    </h2>
                     <p className="text-white/80 text-lg md:text-2xl font-space max-w-2xl mx-auto mt-6">
                         Three simple steps to your dream Greek island adventure
                     </p>

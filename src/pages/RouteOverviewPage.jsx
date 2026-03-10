@@ -98,9 +98,9 @@ export default function RouteOverviewPage() {
     return (
         <div className="min-h-screen bg-background-light text-slate-900 selection:bg-neon-pink selection:text-white">
             <SEO
-                title={`${pkg.nights} Night Greece Party Yacht Cruise | Epic Sail Week`}
-                description={`Experience our unforgettable ${pkg.nights}-night Greece party yacht cruise. A curated, highly social island-hopping route packed with fun. Check availability and book online.`}
-                keywords={`${pkg.nights} night Greece party yacht cruise, 1 week Greek island party cruise, ${pkg.nights} days social sailing Greece`}
+                title={`${pkg.nights} Day Sailing Greece | Social Island Hopping Route`}
+                description={`Join our epic ${pkg.nights} day sailing Greece route. A highly social sailing holiday through the top Greek islands, perfect for 20s and 30s.`}
+                keywords={`7 day sailing Greece, social sailing holiday Greece, yacht trip Greece, Greece sailing for 20s and 30s`}
             />
             <Navbar />
 
@@ -130,7 +130,7 @@ export default function RouteOverviewPage() {
                         {pkg.nights} Night Route · Greece · Cyclades
                     </div>
 
-                    <h1 className="sr-only">{pkg.nights}-Night Premium Greece Yacht Cruise</h1>
+                    <h1 className="sr-only">Epic {pkg.nights} Day Sailing Greece Route</h1>
                     <h2 className="text-6xl md:text-9xl font-punchy text-white mb-6 leading-[0.9] italic drop-shadow-[0_5px_15px_rgba(0,0,0,0.5)]">
                         {pkg.nights} NIGHTS. <br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-neon-aqua to-neon-pink">
@@ -138,7 +138,11 @@ export default function RouteOverviewPage() {
                         </span>
                     </h2>
 
-                    <p className="text-lg md:text-2xl text-white/90 mb-10 max-w-xl mx-auto font-medium leading-relaxed drop-shadow-md">
+                    <p className="text-lg md:text-2xl text-white/90 mb-6 max-w-xl mx-auto font-medium leading-relaxed drop-shadow-md">
+                        Your ready-made itinerary for the most unforgettable social sailing holiday in Greece. Perfectly paced for travelers in their 20s and 30s.
+                    </p>
+
+                    <p className="text-sm md:text-base text-white/80 mb-10 max-w-2xl mx-auto font-medium leading-relaxed">
                         {route.stopsByNights.map(s => s.name).join(' → ')}
                     </p>
                 </div>
@@ -152,7 +156,7 @@ export default function RouteOverviewPage() {
                     <div className="p-6 md:p-8">
                         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                             <div>
-                                <h2 className="font-punchy text-2xl md:text-3xl uppercase italic tracking-tighter">Route Details</h2>
+                                <h2 className="font-punchy text-2xl md:text-3xl uppercase italic tracking-tighter">Your Social Sailing Holiday Itinerary</h2>
                                 <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 font-space">
                                     Party-hostel on the water • Greece only
                                 </p>

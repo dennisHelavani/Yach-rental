@@ -398,9 +398,9 @@ export default function FaqPage() {
     return (
         <div className="bg-background-sand text-slate-900 selection:bg-neon-pink selection:text-white overflow-x-hidden mesh-bg font-body min-h-screen">
             <SEO
-                title="Greece Party Yacht Charter FAQ & Sailing Tips"
+                title="FAQ | Greece Party Yacht Charter & Social Sailing Tips"
                 description="Got questions about sailing the Greek islands? Read our FAQ for everything you need to know about our epic, highly social, and fun party yacht vacations."
-                keywords="Greece party yacht charter FAQ, Social sailing Greece questions, Greek island party cruise tips"
+                keywords="Greece party yacht charter FAQ, social sailing Greece questions, Greek island party cruise tips"
             />
             <Navbar />
 
@@ -414,7 +414,7 @@ export default function FaqPage() {
                     <span className="inline-block bg-neon-pink/10 text-neon-pink px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mb-6 font-display border border-neon-pink/20">
                         The Rules of the Game
                     </span>
-                    <h1 className="sr-only">Frequently Asked Questions</h1>
+                    <h1 className="sr-only">Greece Party Yacht Charter FAQ</h1>
                     <h2 className="text-7xl md:text-9xl font-punchy text-slate-900 mb-6 leading-[0.9] italic drop-shadow-sm uppercase">
                         F.A.<span className="text-neon-pink">Q.</span>
                     </h2>

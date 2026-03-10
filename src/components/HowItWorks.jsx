@@ -13,7 +13,7 @@ export default function HowItWorks() {
                 <div className="text-center mb-12">
                     <span className="md:hidden text-neon-pink font-black uppercase tracking-widest text-xs font-space mb-4 block">The Process</span>
                     <h2 className="text-5xl md:text-7xl font-punchy italic uppercase leading-none tracking-tighter text-center mb-6 text-slate-900">
-                        HOW IT <span className="text-neon-pink">WORKS</span>
+                        WHY CHOOSE OUR <span className="text-neon-pink">YACHT TRIP IN GREECE?</span>
                     </h2>
                     <p className="hidden md:block text-slate-500 font-space font-bold uppercase tracking-[0.2em] mt-4">Four steps to the Aegean</p>
                 </div>

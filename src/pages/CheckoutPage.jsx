@@ -92,7 +92,7 @@ export default function CheckoutPage() {
                 <div className="w-20 h-20 bg-amber-50 rounded-full flex items-center justify-center mx-auto mb-6">
                     <span className="material-icons text-amber-500 text-4xl">check_circle</span>
                 </div>
-                <h1 className="sr-only">Secure Booking Checkout</h1>
+                <h1 className="sr-only">Secure Booking Checkout for Your Greece Party Yacht</h1>
                 <h2 className="font-punchy text-3xl italic uppercase mb-3">Booking <span className="text-amber-500">Saved!</span></h2>
                 <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6 text-left">
                     <div className="flex items-start gap-2">
@@ -124,7 +124,7 @@ export default function CheckoutPage() {
             <Navbar />
             <div className="max-w-2xl mx-auto px-4 pt-28 pb-20">
                 {/* Header */}
-                <h1 className="sr-only">Secure Booking Checkout</h1>
+                <h1 className="sr-only">Secure Booking Checkout for Your Greece Party Yacht</h1>
                 <h2 className="font-punchy text-3xl md:text-4xl italic uppercase mb-2">
                     {wholeCabin ? 'Whole Cabin' : wholeYacht ? 'Whole Yacht' : flow === 'BOOK_YACHT' ? 'Yacht' : 'Tour'} <span className="text-amber-500">Checkout</span>
                 </h2>

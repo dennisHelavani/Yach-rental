@@ -61,7 +61,7 @@ export default function QuotePage() {
     if (submitted) return (
         <div className="min-h-screen bg-[#f8fafc] text-slate-900">
             <SEO
-                title="Greece Yacht Vacation Cost | Get a Custom Quote"
+                title="Get a Quote | Greece Party Yacht Vacation Cost"
                 description="Find out the cost of a highly social Greece party yacht vacation. Get a personalized quote for your unforgettable Greek island sailing holiday today."
                 keywords="Greece party yacht vacation cost, Greek social sailing holiday prices, Yacht cruise quote"
             />
@@ -70,7 +70,7 @@ export default function QuotePage() {
                 <div className="w-20 h-20 bg-neon-aqua/10 rounded-full flex items-center justify-center mx-auto mb-6">
                     <span className="material-icons text-neon-aqua text-4xl">check_circle</span>
                 </div>
-                <h1 className="sr-only">Get a Quote for Your Greek Yacht Vacation</h1>
+                <h1 className="sr-only">Get a Quote for Your Greek Party Yacht Vacation</h1>
                 <h2 className="font-punchy text-3xl italic uppercase mb-3">Request <span className="text-neon-aqua">Sent!</span></h2>
                 <p className="text-sm text-slate-500 mb-8 max-w-xs mx-auto">We'll reply within 24 hours. Check your inbox (and spam) for a confirmation.</p>
                 <div className="space-y-3">
@@ -89,13 +89,13 @@ export default function QuotePage() {
     return (
         <div className="min-h-screen bg-[#f8fafc] text-slate-900">
             <SEO
-                title="Greece Yacht Vacation Cost | Get a Custom Quote"
+                title="Get a Quote | Greece Party Yacht Vacation Cost"
                 description="Find out the cost of a highly social Greece party yacht vacation. Get a personalized quote for your unforgettable Greek island sailing holiday today."
                 keywords="Greece party yacht vacation cost, Greek social sailing holiday prices, Yacht cruise quote"
             />
             <Navbar />
             <div className="max-w-2xl mx-auto px-6 pt-28 pb-20">
-                <h1 className="sr-only">Get a Quote for Your Greek Yacht Vacation</h1>
+                <h1 className="sr-only">Get a Quote for Your Greek Party Yacht Vacation</h1>
                 <h2 className="font-punchy text-3xl md:text-4xl italic uppercase mb-2">
                     Get a <span className="text-neon-aqua">Quote</span>
                 </h2>

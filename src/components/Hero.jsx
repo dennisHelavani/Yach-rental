@@ -28,14 +28,18 @@ export default function Hero() {
                     Season Starts 20 April · Mon / Wed / Fri Departures
                 </div>
 
-                <h1 className="sr-only">The Ultimate Premium Greece Yacht Vacation</h1>
+                <h1 className="sr-only">Book the Ultimate Greece Yacht Cruise</h1>
                 <h2 className="text-6xl md:text-9xl font-punchy text-white mb-6 leading-[0.9] italic drop-shadow-[0_5px_15px_rgba(0,0,0,0.5)]">
                     LESS SLEEP. <br />
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-neon-aqua to-neon-pink">MORE WAVES.</span>
                 </h2>
 
-                <p className="text-lg md:text-2xl text-white/90 mb-10 max-w-xl mx-auto font-medium leading-relaxed drop-shadow-md">
+                <p className="text-lg md:text-2xl text-white/90 mb-6 max-w-xl mx-auto font-medium leading-relaxed drop-shadow-md">
                     GREEK ISLAND-HOPPING FOR PEOPLE WHO DIDN’T COME TO CHILL
+                </p>
+
+                <p className="text-sm md:text-base text-white/80 mb-10 max-w-2xl mx-auto font-medium leading-relaxed">
+                    Looking for the perfect Greece island hopping cruise? We bring together 20s and 30s from around the world for a sun-soaked, stress-free social yacht trip in Greece. No hidden fees, just pure sailing and island exploration.
                 </p>
 
                 <div className="flex flex-col md:flex-row justify-center gap-3 md:gap-4 mt-6 md:mt-10 w-full max-w-xs md:max-w-none mx-auto">

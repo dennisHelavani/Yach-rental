@@ -17,8 +17,8 @@ export default function ContactPage() {
     return (
         <div className="bg-background-sand text-slate-900 selection:bg-neon-pink selection:text-white overflow-x-hidden min-h-screen flex flex-col">
             <SEO
-                title="Contact Us | Plan Your Greece Party Yacht Vacation"
-                description="Ready to plan your Greek island party holiday? Contact our trusted team today. We help travelers from AU, NZ, UK, and beyond book epic social yacht escapes."
+                title="Contact Us | Book Your Greece Party Yacht Holiday"
+                description="Ready to plan your Greek island party trip? Contact our trusted team today. We help travelers from AU, NZ, UK, and beyond book epic social yacht escapes."
                 keywords="Contact Greece party yacht charter, Inquire about Greek social sailing, Book party yacht holidays"
             />
             <Navbar />
@@ -29,9 +29,10 @@ export default function ContactPage() {
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(255,0,229,0.1)_0%,transparent_50%)] pointer-events-none" />
                 <div className="max-w-7xl mx-auto relative z-10 text-center">
                     <span className="text-neon-aqua font-black uppercase tracking-widest text-xs font-space mb-4 block">Get In Touch</span>
-                    <h1 className="text-6xl md:text-8xl font-punchy text-white italic uppercase tracking-tighter leading-none mb-6">
+                    <h1 className="sr-only">Contact Us to Book Your Greece Party Yacht Holiday</h1>
+                    <h2 className="text-6xl md:text-8xl font-punchy text-white italic uppercase tracking-tighter leading-none mb-6">
                         STAY<span className="text-neon-pink"> CONNECTED</span>
-                    </h1>
+                    </h2>
                     <p className="text-slate-400 font-medium max-w-xl mx-auto text-lg">
                         Have a question about your booking, a specific route, or general yacht life? Drop us a line.
                     </p>

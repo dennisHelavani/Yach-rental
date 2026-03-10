@@ -180,7 +180,7 @@ export default function GalleryPage() {
                             </span>
                         ))}
                     </div>
-                    <h1 className="sr-only">Greece Yacht Charter Gallery</h1>
+                    <h1 className="sr-only">Greece Party Yacht Charter Gallery</h1>
                     <h2 className="font-punchy text-5xl md:text-8xl text-white italic font-black uppercase leading-tight drop-shadow-lg">
                         GALL<span className="text-neon-aqua">E</span>RY
                     </h2>

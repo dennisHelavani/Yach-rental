@@ -15,8 +15,8 @@ export default function HomePage() {
     return (
         <>
             <SEO
-                title="SALTIE Greece | The Ultimate Mediterranean Party"
-                description="Experience the ultimate Greece party yacht vacation. Sail the Greek islands on a highly social, fun, and budget-friendly cruise. Book your epic sailing holiday today!"
+                title="SALTIE Greece | The Ultimate Greece Yacht Cruise"
+                description="Book the ultimate Greece yacht cruise. Join our social island-hopping flotilla designed for young adults. Fun, trust, and epic Mediterranean memories await."
                 keywords="Greece party yacht vacations, Greek island social yacht cruise, party sailing holidays Greece"
             />
             <Navbar />

@@ -35,8 +35,8 @@ export default function YachtDetailPage() {
     return (
         <div className="min-h-screen bg-background-light text-slate-900 selection:bg-neon-pink selection:text-white">
             <SEO
-                title={`${yacht.name} Party Charter Greece | Epic Social Sailing`}
-                description={`Book your ${yacht.name} party charter in Greece. Outstanding comfort, amazing vibes, and a fun crew for the perfect island-hopping party vacation.`}
+                title={`${yacht.name} | Ideal for a Group Yacht Trip Greece`}
+                description={`Book the ${yacht.name} for an epic group yacht trip in Greece. Space, comfort, and the perfect vibe for your yacht vacation with friends.`}
                 keywords={`${yacht.name} party charter Greece, Rent ${yacht.name} party boat Greece, Book ${yacht.name} in Greece`}
             />
             <Navbar />
@@ -65,7 +65,7 @@ export default function YachtDetailPage() {
                         {yacht.badge} · Azimut Fleet · Greece
                     </div>
 
-                    <h1 className="sr-only">{yacht.name} Charter in Greece</h1>
+                    <h1 className="sr-only">Book the {yacht.name} for an Epic Group Yacht Trip in Greece</h1>
                     <h2 className="text-6xl md:text-9xl font-punchy text-white mb-6 leading-none italic drop-shadow-[0_5px_15px_rgba(0,0,0,0.5)] overflow-visible py-2">
                         {nameBase} <br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-neon-aqua to-neon-pink inline-block pb-2">

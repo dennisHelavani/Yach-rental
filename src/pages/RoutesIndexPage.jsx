@@ -79,9 +79,9 @@ export default function RoutesIndexPage() {
     return (
         <div className="min-h-screen bg-slate-50 text-slate-900">
             <SEO
-                title="Epic Greece Sailing Itineraries & Party Yacht Routes"
-                description="Browse our expertly crafted Greece party sailing itineraries. Find the perfect epic social yacht cruise for your Greek holiday."
-                keywords="Greece party sailing itineraries, Greek party yacht routes, 7 day Greece social sail"
+                title="Greece Island Hopping Cruise Itineraries"
+                description="Explore epic Greece island hopping cruise itineraries. Choose from 5 or 7 day sailing holidays across the most beautiful Mediterranean hotspots."
+                keywords="Greece island hopping cruise, 7 day sailing Greece, Mediterranean yacht holiday, adventure sailing Greece"
             />
             <Navbar />
 
@@ -109,13 +109,17 @@ export default function RoutesIndexPage() {
                         Party Hostel on the Water
                     </span>
 
-                    <h1 className="sr-only">Epic Greece Sailing Itineraries</h1>
+                    <h1 className="sr-only">Epic Greece Island Hopping Cruise Itineraries</h1>
                     <h2 className="font-punchy text-5xl md:text-8xl font-black uppercase tracking-tighter italic leading-none mb-4 md:mb-6 text-white drop-shadow-lg">
                         OUR <span className="text-neon-aqua">ROUTES</span>
                     </h2>
 
-                    <p className="text-white/90 text-sm md:text-xl max-w-2xl mx-auto mb-6 md:mb-10 leading-relaxed font-medium drop-shadow-md">
-                        Two epic routes through the Greek Cyclades. {DATA.operations.flotilla.publicCopy}
+                    <p className="text-white/90 text-sm md:text-xl max-w-2xl mx-auto mb-6 leading-relaxed font-medium drop-shadow-md">
+                        Whether you're looking for a quick escape or a full 7 day sailing Greece adventure, our routes are crafted for the perfect Mediterranean yacht holiday. Two epic routes through the Greek Cyclades. {DATA.operations.flotilla.publicCopy}
+                    </p>
+
+                    <p className="text-sm md:text-base text-white/80 max-w-2xl mx-auto mb-6 md:mb-10 font-medium leading-relaxed">
+                        Every route balances hidden coves with legendary island nightlife, offering a true adventure sailing Greece experience that you and your crew will never forget.
                     </p>
 
                     {/* Badge Row */}
