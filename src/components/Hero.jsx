@@ -38,7 +38,7 @@ export default function Hero() {
                     GREEK ISLAND-HOPPING FOR PEOPLE WHO DIDN’T COME TO CHILL
                 </p>
 
-                <p className="text-sm md:text-base text-white/80 mb-10 max-w-2xl mx-auto font-medium leading-relaxed">
+                <p className="hidden md:block text-sm md:text-base text-white/80 mb-10 max-w-2xl mx-auto font-medium leading-relaxed">
                     Looking for the perfect Greece island hopping cruise? We bring together 20s and 30s from around the world for a sun-soaked, stress-free social yacht trip in Greece. No hidden fees, just pure sailing and island exploration.
                 </p>
 

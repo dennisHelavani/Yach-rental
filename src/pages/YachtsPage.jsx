@@ -37,7 +37,7 @@ export default function YachtsPage() {
                     <p className="text-lg md:text-xl text-slate-100 max-w-2xl mx-auto font-medium mb-4 drop-shadow-md">
                         Browse our modern flotilla fleet. Whether you're organizing a group yacht trip in Greece or planning a yacht vacation in Greece for friends, we have the perfect boat for your crew.
                     </p>
-                    <p className="text-sm md:text-base text-white/80 max-w-3xl mx-auto font-medium">
+                    <p className="hidden md:block text-sm md:text-base text-white/80 max-w-3xl mx-auto font-medium">
                         Only the boldest Azimut vessels, refitted in 2020 for the ultimate 50 yachts flotilla experience. Season starts 20 April with Monday, Wednesday, and Friday departures.
                     </p>
                 </div>
