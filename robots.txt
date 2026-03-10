@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+Disallow: /admin
+Disallow: /private
+Disallow: /thank-you
+Disallow: /checkout-success
+
+Sitemap: https://saltiecruises.com/sitemap.xml
