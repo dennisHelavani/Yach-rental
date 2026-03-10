@@ -1,0 +1,715 @@
+{
+    "meta": {
+        "brand": "Yacht Days Greece",
+        "version": "0.3.0",
+        "currency": "EUR",
+        "countryFocus": [
+            "Greece"
+        ],
+        "audience": {
+            "ageMin": 18,
+            "ageMax": 45,
+            "positioning": "party hostel on the water (budget-friendly, social, flotilla vibe)"
+        }
+    },
+    "operations": {
+        "seasonStart": "2026-03-20",
+        "departureDays": [
+            "Monday",
+            "Wednesday",
+            "Friday"
+        ],
+        "flotilla": {
+            "enabled": true,
+            "approxYachtsDepartingTogether": 50,
+            "publicCopy": "Approx. 50 yachts depart together — a floating party community."
+        },
+        "timeDisclaimer": "Departure times can change due to weather."
+    },
+    "globalRules": {
+        "noBYOAlcohol": true,
+        "safetyBriefingRequiredBeforeBoarding": true,
+        "ageCheck": {
+            "atCheckoutCheckbox": false,
+            "verifiedOnBoard": true,
+            "copy": "18+ only. Age is verified on board."
+        },
+        "excursions": {
+            "soldByCompany": false,
+            "recommendationOnly": true,
+            "providerMention": "GetYourGuide",
+            "copy": "We don't sell excursions — we'll recommend options (e.g., GetYourGuide) and you choose."
+        },
+        "intoxicationPolicy": {
+            "enabled": true,
+            "showOnlyWhenAlcoholAddonSelected": true,
+            "copyShort": "If a person becomes intoxicated and behaves in an unsafe manner, alcohol provision will be restricted for safety. No BYO alcohol."
+        }
+    },
+    "regulations": {
+        "maxGuestsPerYacht": 8
+    },
+    "promotions": {
+        "hotDealsEnabled": true,
+        "discountWindow": {
+            "enabled": true,
+            "discountEndDateExclusive": "2026-06-15",
+            "discountRules": {
+                "installments": {
+                    "discountPercent": 10,
+                    "appliesTo": "firstPaymentOnly",
+                    "description": "10% off your first payment (booking payment) when you book before June 15."
+                },
+                "fullPayment": {
+                    "method": "doubleDiscount",
+                    "effectivePercent": 19,
+                    "description": "Pay in full and get 10% off, then another 10% off the remainder — total ~19% savings."
+                }
+            },
+            "publicCopy": "Save up to 19% — book before June 14.",
+            "legalCopy": "Discount valid for bookings made before June 15 (June 15 excluded)."
+        }
+    },
+    "payments": {
+        "paymentPlans": {
+            "installments_3": {
+                "enabled": true,
+                "split": [
+                    33,
+                    33,
+                    34
+                ],
+                "frequency": "weekly",
+                "finalPaymentRule": "Must be completed at least 7 days before departure.",
+                "label": "Pay in 3 installments",
+                "hint": "33% now to book, then 33% and 34% weekly. Final payment at least 7 days before departure."
+            },
+            "short_notice": {
+                "enabled": true,
+                "minDaysBefore": 14,
+                "maxDaysBefore": 29,
+                "split": [
+                    33,
+                    67
+                ],
+                "remainderDueWithinDays": 7,
+                "label": "Pay 33% now",
+                "hint": "33% booking payment now, remaining 67% due within 7 days."
+            },
+            "full_required": {
+                "enabled": true,
+                "maxDaysBefore": 13,
+                "label": "Full payment required",
+                "hint": "Bookings within 14 days of departure require full payment."
+            }
+        },
+        "fullPayment": {
+            "enabled": true,
+            "label": "Pay in full",
+            "hint": "Pay in full now — save up to 19% before June 14."
+        },
+        "provider": {
+            "name": "Stripe",
+            "mode": "checkout",
+            "billingPortalRequired": true
+        },
+        "preBoardingSafetyInstructionCopy": "Before boarding, you must complete a brief health & safety instruction at no extra cost.",
+        "cancellation": {
+            "status": "TBD",
+            "safeCopy": "Cancellation fees depend on when you cancel (details in Terms)."
+        }
+    },
+    "addons": [
+        {
+            "id": "alcohol_unlimited",
+            "name": "Unlimited Alcohol Add-on",
+            "price": 199,
+            "priceUnit": "per_person",
+            "enabled": true,
+            "description": "Unlimited alcohol add-on (served responsibly).",
+            "disclaimer": {
+                "showCondition": "ONLY_WHEN_SELECTED",
+                "title": "Safety Disclaimer",
+                "text": "If a person becomes intoxicated and behaves in an unsafe manner, alcohol provision will be restricted for safety. No BYO alcohol."
+            },
+            "publicCapDetails": false
+        }
+    ],
+    "meals": {
+        "halfBoard": {
+            "includes": [
+                "Breakfast on board",
+                "Lunch on board"
+            ],
+            "dinner": "Always on land (restaurant).",
+            "breakfastDetails": {
+                "style": "Self-serve buffet with kitchen access",
+                "items": [
+                    "water",
+                    "milk",
+                    "cereal",
+                    "eggs"
+                ]
+            },
+            "lunchDetails": {
+                "status": "TBD"
+            }
+        }
+    },
+    "packages": [
+        {
+            "id": "package_5_nights_half_board",
+            "name": "5 Nights • Half-board",
+            "nights": 5,
+            "price": 739,
+            "priceUnit": "per_person",
+            "included": [
+                "Half-board (Breakfast + Lunch on board)",
+                "Skipper + Hostess",
+                "Port fees + fuel fees",
+                "Water + soft drinks",
+                "Bed linen + towels"
+            ],
+            "notIncluded": [
+                "Flights",
+                "Dinner on islands (restaurants)",
+                "Optional excursions (recommendations only — GetYourGuide etc.)",
+                "Travel insurance",
+                "Alcohol (unless add-on selected)"
+            ],
+            "itinerary": {
+                "routeId": "route_greece_5n",
+                "isFixed": true,
+                "showTimings": false
+            }
+        },
+        {
+            "id": "package_7_nights_half_board",
+            "name": "7 Nights • Half-board",
+            "nights": 7,
+            "price": 929,
+            "priceUnit": "per_person",
+            "included": [
+                "Half-board (Breakfast + Lunch on board)",
+                "Skipper + Hostess",
+                "Port fees + fuel fees",
+                "Water + soft drinks",
+                "Bed linen + towels"
+            ],
+            "notIncluded": [
+                "Flights",
+                "Dinner on islands (restaurants)",
+                "Optional excursions (recommendations only — GetYourGuide etc.)",
+                "Travel insurance",
+                "Alcohol (unless add-on selected)"
+            ],
+            "itinerary": {
+                "routeId": "route_greece_7n",
+                "isFixed": true,
+                "showTimings": false
+            }
+        }
+    ],
+    "routes": [
+        {
+            "id": "route_greece_5n",
+            "name": "Greece • 5 Nights • Fixed Itinerary",
+            "region": "Cyclades",
+            "startPort": "TBD",
+            "endPort": "TBD",
+            "stopsByNights": [
+                {
+                    "name": "Mykonos",
+                    "nights": 2
+                },
+                {
+                    "name": "Milos",
+                    "nights": 1
+                },
+                {
+                    "name": "Santorini",
+                    "nights": 2
+                }
+            ],
+            "highlights": [
+                "Mykonos party + culture",
+                "Milos swim spots",
+                "Santorini views + architecture"
+            ],
+            "disclaimers": [
+                "Departure times can change due to weather.",
+                "Stop order and nights are fixed; exact timings vary."
+            ],
+            "heroImage": "https://lh3.googleusercontent.com/aida-public/AB6AXuAgE9NlEKr2fUTT1mKJxU7TdM2LjJqFXYwxwk28HkwyicGUI90C0Se8eT7SeqKFW0l143hejv1qA6oyUpCzLy_vL1p1jb_ma2lBaXy8zpEjWWYKky4palOIKudvH5c4V5JkAzT6xnZJIGR-vYmG-sbecJtdMeA-p7HnMuO4L4cGIzzrbUhZweyKrvyk5wI7KKWNQzgLDbwN3vFGDpXLqwNuSBD1q-JKTRmWm2vuXnAPM_5cmxxnHjltaJ9eSNeafsx0HFXNH3OvYA",
+            "highlightCards": [
+                {
+                    "title": "Epic Parties",
+                    "copy": "50-yacht flotilla energy. Sunset bangers, dock nights, and the kind of 'how is this real?' moments you came for.",
+                    "image": "/img/gal48.webp"
+                },
+                {
+                    "title": "Floating Vibes",
+                    "copy": "Swim stops, deck music, and social chaos done right—crew supervised, safety-first, vibe-max.",
+                    "image": "/img/gal10.webp"
+                },
+                {
+                    "title": "Island Days",
+                    "copy": "Beach clubs, viewpoints, scooters, chill bays. We don't sell excursions—just recommend options like GetYourGuide.",
+                    "image": "/img/gal30.webp"
+                },
+                {
+                    "title": "The Flotilla",
+                    "copy": "This is the 'party hostel on a boat' concept. Social by default. You'll leave with new friends.",
+                    "image": "/img/gal21.webp"
+                }
+            ],
+            "routeFaq": [
+                {
+                    "q": "At what time is check-in / sailing / return / check-out?",
+                    "a": "Times vary due to weather; full details are shared after booking.",
+                    "color": "neon-aqua"
+                },
+                {
+                    "q": "What is included?",
+                    "a": "Breakfast + lunch onboard; dinner on land; skipper + hostess; port + fuel fees; soft drinks; linens and towels.",
+                    "color": "neon-pink"
+                },
+                {
+                    "q": "Can I bring my own alcohol?",
+                    "a": "No BYO. An optional Unlimited Alcohol add-on (€199/pp) is available during booking.",
+                    "color": "primary"
+                },
+                {
+                    "q": "How do payments work?",
+                    "a": "Your booking payment is 33% of the total. You then pay 33% and 34% in weekly installments — final payment must be at least 7 days before departure. Bookings within 14 days of departure require full payment. Book before June 15 and get 10% off your first payment, or pay in full for up to 19% off.",
+                    "color": "neon-aqua"
+                },
+                {
+                    "q": "Is it 18+?",
+                    "a": "Yes. Age is verified on board. All guests must be between 18 and 45.",
+                    "color": "neon-pink"
+                }
+            ],
+            "map": {
+                "asset": "/assets/maps/cyclades-flat.svg",
+                "stops": [
+                    {
+                        "id": "stop_01",
+                        "label": "01",
+                        "name": "Mykonos",
+                        "type": "party+culture",
+                        "nights": 2,
+                        "pos": {
+                            "x": 72,
+                            "y": 18
+                        },
+                        "thumb": "/img/mykonos.jpg",
+                        "viewTitle": "Mykonos (2 nights)",
+                        "viewCopy": "Beach clubs, sunset drinks, and maze-like streets. Big energy — big nights."
+                    },
+                    {
+                        "id": "stop_02",
+                        "label": "02",
+                        "name": "Milos",
+                        "type": "chill+swim",
+                        "nights": 1,
+                        "pos": {
+                            "x": 30,
+                            "y": 72
+                        },
+                        "thumb": "/img/milos.jpg",
+                        "viewTitle": "Milos (1 night)",
+                        "viewCopy": "Swim spots, caves, and recovery mode. The reset button of the trip."
+                    },
+                    {
+                        "id": "stop_03",
+                        "label": "03",
+                        "name": "Santorini",
+                        "type": "culture+views",
+                        "nights": 2,
+                        "pos": {
+                            "x": 38,
+                            "y": 82
+                        },
+                        "thumb": "/img/santorini.jpg",
+                        "viewTitle": "Santorini (2 nights)",
+                        "viewCopy": "Caldera views, iconic streets, and sunset photos. Dinner always on land."
+                    }
+                ]
+            }
+        },
+        {
+            "id": "route_greece_7n",
+            "name": "Greece • 7 Nights • Fixed Itinerary",
+            "region": "Cyclades",
+            "startPort": "TBD",
+            "endPort": "TBD",
+            "stopsByNights": [
+                {
+                    "name": "Mykonos",
+                    "nights": 2
+                },
+                {
+                    "name": "Ios",
+                    "nights": 2
+                },
+                {
+                    "name": "Santorini",
+                    "nights": 2
+                },
+                {
+                    "name": "Milos",
+                    "nights": 1
+                }
+            ],
+            "highlights": [
+                "More nights, more islands",
+                "Ios is pure party",
+                "Santorini culture + views",
+                "Milos swim spots"
+            ],
+            "disclaimers": [
+                "Departure times can change due to weather.",
+                "Stop order and nights are fixed; exact timings vary."
+            ],
+            "heroImage": "https://lh3.googleusercontent.com/aida-public/AB6AXuBPV7lrqqiPiXhxzKBslNE_PSCvhdfZyaMa_PdLxD6aDy5cCbp2B_wZ28nIoo0QKx_6AKQw-0T5OyZX0J03dCvtU2KGFz015t8bIVOXMXh3Je4Zmq40ssvS6jI2JUcrJ7z2GakdCMIjl1XC3aOytYucufBN14xzf9dlw7Lr65ewcGGRWrEuyyeTlt4XtQPBLRIeEyo_kYex2VRjt1OW3ziCTtN4ivKTpbzzMLIpMx5BSWB-v5TCeSYsK24yW2QkDN-zxhQL4v6dAQ",
+            "highlightCards": [
+                {
+                    "title": "More Islands, More Stories",
+                    "copy": "7 nights means 4 islands. Deeper connections, bigger parties, and a trip that doesn't end too soon.",
+                    "image": "/img/gal15.webp"
+                },
+                {
+                    "title": "Ios: Pure Energy",
+                    "copy": "The wildest party island in the Cyclades. Bar crawls, late nights, and absolutely no boring days.",
+                    "image": "/img/ios party.jpg"
+                },
+                {
+                    "title": "Santorini Sunsets",
+                    "copy": "Caldera views, iconic streets, and sunset scenes. Two full nights to explore at your own pace.",
+                    "image": "/img/santorini sunset.jpg"
+                },
+                {
+                    "title": "The Full Send Flotilla",
+                    "copy": "50 yachts. One crew. Seven nights of freedom. The ultimate social sailing adventure.",
+                    "image": "/img/gal10.webp"
+                }
+            ],
+            "routeFaq": [
+                {
+                    "q": "At what time is check-in / sailing / return / check-out?",
+                    "a": "Times vary due to weather; full details are shared after booking.",
+                    "color": "neon-aqua"
+                },
+                {
+                    "q": "What is included?",
+                    "a": "Breakfast + lunch onboard; dinner on land; skipper + hostess; port + fuel fees; soft drinks; linens and towels.",
+                    "color": "neon-pink"
+                },
+                {
+                    "q": "Can I bring my own alcohol?",
+                    "a": "No BYO. An optional Unlimited Alcohol add-on (€199/pp) is available during booking.",
+                    "color": "primary"
+                },
+                {
+                    "q": "How do payments work?",
+                    "a": "Your booking payment is 33% of the total. You then pay 33% and 34% in weekly installments — final payment must be at least 7 days before departure. Bookings within 14 days of departure require full payment. Book before June 15 and get 10% off your first payment, or pay in full for up to 19% off.",
+                    "color": "neon-aqua"
+                },
+                {
+                    "q": "Is it 18+?",
+                    "a": "Yes. Age is verified on board. All guests must be between 18 and 45.",
+                    "color": "neon-pink"
+                }
+            ],
+            "map": {
+                "asset": "/assets/maps/cyclades-flat.svg",
+                "stops": [
+                    {
+                        "id": "stop_01",
+                        "label": "01",
+                        "name": "Mykonos",
+                        "type": "party+culture",
+                        "nights": 2,
+                        "pos": {
+                            "x": 72,
+                            "y": 18
+                        },
+                        "thumb": "/img/mykonos.jpg",
+                        "viewTitle": "Mykonos (2 nights)",
+                        "viewCopy": "Start strong. Clubs, sunsets, and full squad energy."
+                    },
+                    {
+                        "id": "stop_02",
+                        "label": "02",
+                        "name": "Ios",
+                        "type": "party",
+                        "nights": 2,
+                        "pos": {
+                            "x": 52,
+                            "y": 62
+                        },
+                        "thumb": "/img/ios.jpg",
+                        "viewTitle": "Ios (2 nights)",
+                        "viewCopy": "The wild one. Bar crawls, late nights, and no boring days."
+                    },
+                    {
+                        "id": "stop_03",
+                        "label": "03",
+                        "name": "Santorini",
+                        "type": "culture+views",
+                        "nights": 2,
+                        "pos": {
+                            "x": 38,
+                            "y": 82
+                        },
+                        "thumb": "/img/santorini.jpg",
+                        "viewTitle": "Santorini (2 nights)",
+                        "viewCopy": "Views, architecture, and sunset scenes. Dinner always on land."
+                    },
+                    {
+                        "id": "stop_04",
+                        "label": "04",
+                        "name": "Milos",
+                        "type": "chill+swim",
+                        "nights": 1,
+                        "pos": {
+                            "x": 30,
+                            "y": 72
+                        },
+                        "thumb": "/img/milos.jpg",
+                        "viewTitle": "Milos (1 night)",
+                        "viewCopy": "Swims, caves, and a final reset before the trip ends."
+                    }
+                ]
+            }
+        }
+    ],
+    "fleet": [
+        {
+            "id": "azimut_58",
+            "name": "Azimut 58",
+            "year": 2020,
+            "capacityGuests": 6,
+            "maxGuestsDisplayed": 8,
+            "needsComplianceCheck": true,
+            "speed": {
+                "cruiseKnots": null,
+                "maxKnots": 32,
+                "maxKmh": 59
+            },
+            "cabins": [
+                {
+                    "type": "Queen",
+                    "count": 1
+                },
+                {
+                    "type": "Twin",
+                    "count": 2,
+                    "beds": "2 singles each"
+                }
+            ],
+            "bathrooms": "TBD",
+            "crew": {
+                "skipper": 1,
+                "hostess": 1
+            },
+            "media": {
+                "hero": null,
+                "gallery": [],
+                "floorPlan": null
+            }
+        },
+        {
+            "id": "azimut_66",
+            "name": "Azimut 66",
+            "year": 2020,
+            "capacityGuests": 8,
+            "maxGuestsDisplayed": 8,
+            "needsComplianceCheck": true,
+            "speed": {
+                "cruiseKnots": null,
+                "maxKnots": 32,
+                "maxKmh": 59
+            },
+            "cabins": [
+                {
+                    "type": "Queen",
+                    "count": 2
+                },
+                {
+                    "type": "Twin",
+                    "count": 2,
+                    "beds": "2 singles each"
+                }
+            ],
+            "bathrooms": "TBD",
+            "crew": {
+                "skipper": 1,
+                "hostess": 1
+            },
+            "media": {
+                "hero": null,
+                "gallery": [],
+                "floorPlan": null
+            }
+        },
+        {
+            "id": "azimut_70",
+            "name": "Azimut 70",
+            "year": 2020,
+            "capacityGuests": 10,
+            "maxGuestsDisplayed": 8,
+            "needsComplianceCheck": true,
+            "speed": {
+                "cruiseKnots": null,
+                "maxKnots": 33,
+                "maxKmh": 61
+            },
+            "cabins": [
+                {
+                    "type": "Queen",
+                    "count": 2
+                },
+                {
+                    "type": "Twin",
+                    "count": 3,
+                    "beds": "2 singles each"
+                }
+            ],
+            "bathrooms": "TBD",
+            "crew": {
+                "skipper": 1,
+                "hostess": 1
+            },
+            "media": {
+                "hero": null,
+                "gallery": [],
+                "floorPlan": null
+            }
+        }
+    ],
+    "bookingModes": {
+        "supported": [
+            "per_person_shared",
+            "private_cabin",
+            "full_yacht_buyout"
+        ],
+        "pricingRules": "TBD",
+        "availabilityModel": "TBD"
+    },
+    "bookingFlows": {
+        "quote": {
+            "enabled": true,
+            "fields": [
+                "fullName",
+                "email",
+                "phoneOptional",
+                "preferredPackage",
+                "preferredMonth",
+                "groupSize",
+                "notes"
+            ],
+            "delivery": "EMAIL_OR_WEBHOOK_TBD"
+        },
+        "bookYacht": {
+            "enabled": true,
+            "requires": [
+                "packageId",
+                "yachtId",
+                "guestCount",
+                "paymentOption"
+            ],
+            "guestCountRules": {
+                "enforceCapacity": true,
+                "maxGuests": 8
+            }
+        },
+        "bookTour": {
+            "enabled": true,
+            "requires": [
+                "packageId",
+                "guestCount",
+                "paymentOption"
+            ],
+            "note": "Tour = the fixed Greece packages (5N / 7N)."
+        }
+    },
+    "fleetCopyTemplates": {
+        "rules": {
+            "maxGuestsDisplayedDefault": 8,
+            "neverMentionLuxury": true,
+            "tone": "party-hostel-on-water, social, hype, conversion-first",
+            "showSpeed": "maxOnly",
+            "avoidExtraServices": true
+        },
+        "byModel": {
+            "azimut_58": {
+                "nickname": "Fast Social Starter",
+                "headlineTemplates": [
+                    "Azimut 58 — quick hops, big vibes",
+                    "Azimut 58 — the crew-connector rocket",
+                    "Azimut 58 — compact, fast, party-ready"
+                ],
+                "subheadTemplates": [
+                    "Max {maxKnots} kn ({maxKmh} km/h) • {cabinsSummary} • Up to {maxGuestsDisplayed} guests (regulation)",
+                    "Top speed {maxKnots} kn • {bedSummary} • Built for a tight squad and zero downtime",
+                    "{cabinsSummary} • {maxKnots} kn max • Perfect when you want action, not waiting"
+                ],
+                "whyThisYachtBullets": [
+                    "Fast transfers between stops: up to {maxKnots} kn ({maxKmh} km/h).",
+                    "Social cabin mix: {cabinsSummary}.",
+                    "Best for squads who want maximum energy with minimal fuss."
+                ],
+                "vibeLineTemplates": [
+                    "Small enough to feel like a private party, fast enough to keep the week moving.",
+                    "The 'let's go again' yacht — quick jumps, easy bonding, nonstop stories."
+                ]
+            },
+            "azimut_66": {
+                "nickname": "Balanced Party Base",
+                "headlineTemplates": [
+                    "Azimut 66 — the sweet spot for 8",
+                    "Azimut 66 — the main-character yacht",
+                    "Azimut 66 — room to party, built to move"
+                ],
+                "subheadTemplates": [
+                    "Max {maxKnots} kn ({maxKmh} km/h) • {cabinsSummary} • Up to {maxGuestsDisplayed} guests (regulation)",
+                    "Top speed {maxKnots} kn • More space, same pace • {bedSummary}",
+                    "{cabinsSummary} • {maxKnots} kn max • The best balance for a full 8-person crew"
+                ],
+                "whyThisYachtBullets": [
+                    "The balanced option: space for the squad, still fast at {maxKnots} kn.",
+                    "Comfortable sleep setup: {cabinsSummary}.",
+                    "Great for mixed groups who want both hype and reset time."
+                ],
+                "vibeLineTemplates": [
+                    "Your floating basecamp — party on deck, recharge in real cabins.",
+                    "The 'everyone's happy' pick: big energy, easy sleep setup."
+                ]
+            },
+            "azimut_70": {
+                "nickname": "Flagship Energy (Regulation-Capped)",
+                "headlineTemplates": [
+                    "Azimut 70 — flagship vibe, capped at 8",
+                    "Azimut 70 — biggest presence, still our rules",
+                    "Azimut 70 — top pace, top energy"
+                ],
+                "subheadTemplates": [
+                    "Up to {maxKnots} kn ({maxKmh} km/h) • {cabinsSummary} • Up to {maxGuestsDisplayed} guests (regulation)",
+                    "Max {maxKnots} kn • More cabins to spread out • {bedSummary}",
+                    "{cabinsSummary} • {maxKnots} kn max • Big-yacht feel with an 8-guest cap"
+                ],
+                "whyThisYachtBullets": [
+                    "Fastest in the fleet: up to {maxKnots} kn ({maxKmh} km/h).",
+                    "More cabin variety: {cabinsSummary}.",
+                    "Feels like a flagship — but we keep it capped at {maxGuestsDisplayed} for compliance."
+                ],
+                "vibeLineTemplates": [
+                    "More boat, same rules — bigger presence for the same 8-person party crew.",
+                    "The 'flagship flex' — speed + space, with regulation-first limits."
+                ]
+            }
+        }
+    }
+}
