@@ -1,5 +1,5 @@
 // ── Checkout Page ────────────────────────────────────────
-// Full checkout with T&C, disclaimers, Stripe stub CTA
+// Full checkout with T&C, disclaimers, real backend API call
 // Reads booking state from URL params
 
 import { useState, useMemo } from 'react'
@@ -7,7 +7,6 @@ import { useSearchParams, Link, useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { pricingEngine, DATA, ALCOHOL_ADDON, getFleetYacht, isEarlyBirdEligible, computeFullPayment } from '../lib/pricingEngine'
-import { createCheckoutSession, isStripeConfigured } from '../lib/stripeStub'
 import { trackEvent } from '../lib/bookingTracker'
 import { yachtsData } from '../data/yachts'
 import PriceBreakdownCard from '../components/booking/PriceBreakdownCard'
@@ -20,7 +19,11 @@ export default function CheckoutPage() {
     const [termsAccepted, setTermsAccepted] = useState(false)
     const [processing, setProcessing] = useState(false)
     const [error, setError] = useState(null)
-    const [mockSuccess, setMockSuccess] = useState(false)
+
+    // ── NEW: contact info fields for the API payload ──
+    const [fullName, setFullName] = useState('')
+    const [email, setEmail] = useState('')
+    const [phone, setPhone] = useState('')
 
     // Parse state from URL params
     const flow = params.get('flow') || 'BOOK_TOUR'
@@ -45,11 +48,30 @@ export default function CheckoutPage() {
     const fleetYacht = yachtId ? getFleetYacht(yachtId) : null
     const route = DATA.routes.find(r => r.id === (packageId === '7n' ? 'route_greece_7n' : 'route_greece_5n'))
 
+    // ── NEW: map internal flow/state to API payload schema ──
+    const mapBookingMode = (flow, wholeYacht, wholeCabin) => {
+        if (wholeYacht || flow === 'BOOK_WHOLE_YACHT') return 'full_yacht'
+        if (wholeCabin || flow === 'BOOK_WHOLE_CABIN') return 'private_cabin'
+        return 'shared'
+    }
+
+    // ── UPDATED: handleCheckout now calls real backend API ──
     const handleCheckout = async () => {
         if (!termsAccepted) {
             setError('Please accept the Terms & Conditions to continue.')
             return
         }
+
+        // Validate required contact fields
+        if (!fullName.trim()) {
+            setError('Please enter your full name.')
+            return
+        }
+        if (!email.trim()) {
+            setError('Please enter your email address.')
+            return
+        }
+
         setError(null)
         setProcessing(true)
 
@@ -58,61 +80,49 @@ export default function CheckoutPage() {
             alcohol, amountDueToday: pricing.amountDueToday,
         })
 
-        const result = await createCheckoutSession({
-            flow, packageId, yachtId, guestCount, alcohol, paymentOption,
-            date, dealId, amountDueToday: pricing.amountDueToday,
-            total: pricing.total,
-            earlyBird: pricing.earlyBird,
-        })
+        // Build API payload
+        const payload = {
+            fullName: fullName.trim(),
+            email: email.trim(),
+            phone: phone.trim() || undefined,
+            packageType: packageId === '7n' ? '7N' : '5N',
+            departureDate: date || undefined,
+            guestCount,
+            bookingMode: mapBookingMode(flow, wholeYacht, wholeCabin),
+            addOns: {
+                alcohol: !!alcohol,
+                luggageStorageBags: 0,
+            },
+            paymentPreference: paymentOption === 'FULL' ? 'full' : 'installments',
+        }
 
-        setProcessing(false)
+        try {
+            const res = await fetch(
+                `${import.meta.env.VITE_API_URL}/api/create-checkout-session`,
+                {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload),
+                }
+            )
 
-        if (result.mock) {
-            // Stripe not configured — show mock success inline
-            setMockSuccess(true)
-            trackEvent('mock_payment_success', { flow, amountDueToday: pricing.amountDueToday })
-        } else if (result.success) {
-            // Real Stripe will redirect — this line may not execute
-            navigate(`/success?session_id=${result.sessionId}`)
-        } else {
-            setError(result.message || 'Payment failed. Please try again.')
+            const data = await res.json().catch(() => ({}))
+
+            if (res.ok && data.checkoutUrl) {
+                // Redirect to Stripe Checkout (full browser redirect, not React Router)
+                window.location.href = data.checkoutUrl
+                return
+            }
+
+            // API returned an error
+            setError(data.error || 'Something went wrong. Please try again.')
+            setProcessing(false)
+        } catch (err) {
+            // Network failure
+            setError('Unable to connect to the payment server. Please check your connection and try again.')
+            setProcessing(false)
         }
     }
-
-    // ── Mock success screen ──
-    if (mockSuccess) return (
-        <div className="min-h-screen bg-white">
-            <SEO
-                title="Secure Checkout | Book Your Greece Yacht Holiday"
-                description="Finalize your Greece yacht vacation booking. Secure checkout for our epic 5-night and 7-night party sailing packages."
-                keywords="Book Greece party yacht, Secure checkout yacht charter, Pay for Greek sailing holiday"
-            />
-            <Navbar />
-            <div className="max-w-lg mx-auto px-4 pt-32 pb-20 text-center">
-                <div className="w-20 h-20 bg-amber-50 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <span className="material-icons text-amber-500 text-4xl">check_circle</span>
-                </div>
-                <h1 className="sr-only">Secure Booking Checkout for Your Greece Party Yacht</h1>
-                <h2 className="font-punchy text-3xl italic uppercase mb-3">Booking <span className="text-amber-500">Saved!</span></h2>
-                <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6 text-left">
-                    <div className="flex items-start gap-2">
-                        <span className="material-icons text-amber-500 text-base mt-0.5">info</span>
-                        <div>
-                            <p className="text-sm font-bold text-amber-800">Stripe Not Configured</p>
-                            <p className="text-xs text-amber-700 mt-1">
-                                Payment was saved locally. To enable real payments, set <code className="bg-amber-100 px-1 rounded">VITE_STRIPE_KEY</code> in your environment.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <p className="text-sm text-slate-500 mb-6">Your booking details have been saved to localStorage. In production, you would be redirected to Stripe Checkout.</p>
-                <Link to="/" className="inline-block px-10 py-4 bg-neon-pink text-white font-punchy rounded-2xl hover:shadow-neon-pink transition-all uppercase tracking-widest text-sm">
-                    Back to Home
-                </Link>
-            </div>
-            <Footer />
-        </div >
-    )
 
     return (
         <div className="min-h-screen bg-white">
@@ -157,6 +167,44 @@ export default function CheckoutPage() {
 
                         {/* Route */}
                         <RouteCard packageId={packageId} />
+
+                        {/* ── NEW: Contact Information fields ── */}
+                        <div className="bg-slate-50 rounded-2xl p-5 border border-slate-100 space-y-4">
+                            <h4 className="font-bold text-sm uppercase">Your Details</h4>
+                            <div>
+                                <label className="block text-xs text-slate-500 mb-1" htmlFor="checkout-fullname">Full Name *</label>
+                                <input
+                                    id="checkout-fullname"
+                                    type="text"
+                                    value={fullName}
+                                    onChange={e => setFullName(e.target.value)}
+                                    placeholder="e.g. Sarah Jenkins"
+                                    className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent bg-white"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-xs text-slate-500 mb-1" htmlFor="checkout-email">Email *</label>
+                                <input
+                                    id="checkout-email"
+                                    type="email"
+                                    value={email}
+                                    onChange={e => setEmail(e.target.value)}
+                                    placeholder="e.g. sarah@example.com"
+                                    className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent bg-white"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-xs text-slate-500 mb-1" htmlFor="checkout-phone">Phone (optional)</label>
+                                <input
+                                    id="checkout-phone"
+                                    type="tel"
+                                    value={phone}
+                                    onChange={e => setPhone(e.target.value)}
+                                    placeholder="e.g. +44 7700 900000"
+                                    className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent bg-white"
+                                />
+                            </div>
+                        </div>
 
                         {/* What's included */}
                         <div className="bg-slate-50 rounded-2xl p-5 border border-slate-100">
@@ -220,7 +268,7 @@ export default function CheckoutPage() {
                                 </span>
                             </label>
 
-                            {/* Error */}
+                            {/* Error — visible in the UI near the submit button */}
                             {error && (
                                 <div className="p-3 bg-red-50 border border-red-200 rounded-xl mt-3">
                                     <p className="text-xs text-red-600 font-bold">{error}</p>
@@ -236,10 +284,6 @@ export default function CheckoutPage() {
                             >
                                 {processing ? 'Processing...' : `Pay €${pricing.amountDueToday} Now →`}
                             </button>
-
-                            {!isStripeConfigured() && (
-                                <p className="text-center text-[10px] text-amber-500 mt-2 font-space">⚠ Dev mode — Stripe not configured</p>
-                            )}
 
                             <p className="text-center text-[10px] text-slate-400 mt-2 font-space">
                                 Secure payment via Stripe. Your card details never touch our servers.

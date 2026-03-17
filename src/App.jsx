@@ -16,6 +16,9 @@ import SuccessPage from './pages/SuccessPage'
 import CancelPage from './pages/CancelPage'
 import ContactPage from './pages/ContactPage'
 import NotFoundPage from './pages/NotFoundPage'
+// NEW: post-payment flow pages
+import BookingSuccessPage from './pages/BookingSuccessPage'
+import BookingCancelledPage from './pages/BookingCancelledPage'
 
 export default function App() {
   return (
@@ -38,6 +41,9 @@ export default function App() {
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/success" element={<SuccessPage />} />
         <Route path="/cancel" element={<CancelPage />} />
+        {/* NEW: post-payment flow routes */}
+        <Route path="/booking-success" element={<BookingSuccessPage />} />
+        <Route path="/booking-cancelled" element={<BookingCancelledPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
