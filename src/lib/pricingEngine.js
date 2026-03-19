@@ -53,7 +53,9 @@ export function getPaymentPlan(departureDate) {
 }
 
 // ── Compute installment amounts ──
-export function computeInstallments(total, eligible) {
+// Discount applies ONLY to basePrice; addOnsTotal is distributed across installments without discount
+export function computeInstallments(basePrice, eligible, addOnsTotal = 0) {
+    const total = basePrice + addOnsTotal
     const split = [33, 33, 34]
     const amounts = split.map(pct => Math.round(total * pct / 100))
     // Adjust rounding so amounts sum exactly to total
@@ -61,37 +63,43 @@ export function computeInstallments(total, eligible) {
     if (sum !== total) amounts[2] += (total - sum)
 
     if (eligible) {
-        // 10% off first payment only
-        const discount = Math.round(amounts[0] * 0.1)
+        // 10% off the base-price portion of the first payment only
+        const baseFirstPayment = Math.round(basePrice * 33 / 100)
+        const discount = Math.round(baseFirstPayment * 0.1)
         amounts[0] -= discount
-        return { amounts, discount, labels: ['Booking payment (33%)', '2nd payment (33%)', 'Final payment (34%)'] }
+        return { amounts, discount, total, labels: ['Booking payment (33%)', '2nd payment (33%)', 'Final payment (34%)'] }
     }
-    return { amounts, discount: 0, labels: ['Booking payment (33%)', '2nd payment (33%)', 'Final payment (34%)'] }
+    return { amounts, discount: 0, total, labels: ['Booking payment (33%)', '2nd payment (33%)', 'Final payment (34%)'] }
 }
 
 // ── Compute short-notice amounts (33% + 67%) ──
-export function computeShortNotice(total, eligible) {
+// Discount applies ONLY to basePrice portion of the first payment
+export function computeShortNotice(basePrice, eligible, addOnsTotal = 0) {
+    const total = basePrice + addOnsTotal
     const first = Math.round(total * 0.33)
     const remainder = total - first
 
     if (eligible) {
-        const discount = Math.round(first * 0.1)
-        return { amounts: [first - discount, remainder], discount, labels: ['Booking payment (33%)', 'Remainder due within 7 days'] }
+        const baseFirstPayment = Math.round(basePrice * 0.33)
+        const discount = Math.round(baseFirstPayment * 0.1)
+        return { amounts: [first - discount, remainder], discount, total, labels: ['Booking payment (33%)', 'Remainder due within 7 days'] }
     }
-    return { amounts: [first, remainder], discount: 0, labels: ['Booking payment (33%)', 'Remainder due within 7 days'] }
+    return { amounts: [first, remainder], discount: 0, total, labels: ['Booking payment (33%)', 'Remainder due within 7 days'] }
 }
 
 // ── Compute full payment with double discount ──
-export function computeFullPayment(total, eligible) {
+// Discount applies ONLY to basePrice; addOnsTotal is added after discounting
+export function computeFullPayment(basePrice, eligible, addOnsTotal = 0) {
     if (eligible) {
-        // First discount: 10% off total
-        const afterFirst = Math.round(total * 0.9)
-        // Second discount: 10% off the remaining amount
-        const finalAmount = Math.round(afterFirst * 0.9)
-        const totalDiscount = total - finalAmount
-        return { amount: finalAmount, discount: totalDiscount, effectivePercent: 19 }
+        // First discount: 10% off base price
+        const afterFirst = Math.round(basePrice * 0.9)
+        // Second discount: 10% off the remaining base amount
+        const discountedBase = Math.round(afterFirst * 0.9)
+        const baseDiscount = basePrice - discountedBase
+        const finalAmount = discountedBase + addOnsTotal
+        return { amount: finalAmount, discount: baseDiscount, effectivePercent: 19 }
     }
-    return { amount: total, discount: 0, effectivePercent: 0 }
+    return { amount: basePrice + addOnsTotal, discount: 0, effectivePercent: 0 }
 }
 
 // ── Main pricing engine ──
@@ -118,9 +126,10 @@ export function pricingEngine({
         const alcoholTotal = alcoholPrice * guestCount
         const subtotal = basePrice + alcoholTotal
 
-        const fullPay = computeFullPayment(subtotal, eligible)
-        const installments = computeInstallments(subtotal, eligible)
-        const shortNotice = computeShortNotice(subtotal, eligible)
+        // Discount only on basePrice, alcoholTotal added separately
+        const fullPay = computeFullPayment(basePrice, eligible, alcoholTotal)
+        const installments = computeInstallments(basePrice, eligible, alcoholTotal)
+        const shortNotice = computeShortNotice(basePrice, eligible, alcoholTotal)
 
         const effectiveOption = plan === 'FULL_ONLY' ? 'FULL' : paymentOption
         let amountDueToday, discountAmount, total
@@ -167,9 +176,10 @@ export function pricingEngine({
         const alcoholTotal = alcoholPrice * guestCount
         const subtotal = basePrice + alcoholTotal
 
-        const fullPay = computeFullPayment(subtotal, eligible)
-        const installments = computeInstallments(subtotal, eligible)
-        const shortNotice = computeShortNotice(subtotal, eligible)
+        // Discount only on basePrice, alcoholTotal added separately
+        const fullPay = computeFullPayment(basePrice, eligible, alcoholTotal)
+        const installments = computeInstallments(basePrice, eligible, alcoholTotal)
+        const shortNotice = computeShortNotice(basePrice, eligible, alcoholTotal)
 
         const effectiveOption = plan === 'FULL_ONLY' ? 'FULL' : paymentOption
         let amountDueToday, discountAmount, total
@@ -211,11 +221,14 @@ export function pricingEngine({
     const perPerson = pkg.price
     const addonPerPerson = alcohol && ALCOHOL_ADDON ? ALCOHOL_ADDON.price : 0
     const subtotalPerPerson = perPerson + addonPerPerson
-    const subtotal = subtotalPerPerson * guestCount
+    const baseTotal = perPerson * guestCount
+    const alcoholTotal = addonPerPerson * guestCount
+    const subtotal = baseTotal + alcoholTotal
 
-    const fullPay = computeFullPayment(subtotal, eligible)
-    const installments = computeInstallments(subtotal, eligible)
-    const shortNotice = computeShortNotice(subtotal, eligible)
+    // Discount only on baseTotal (package price), alcoholTotal added separately
+    const fullPay = computeFullPayment(baseTotal, eligible, alcoholTotal)
+    const installments = computeInstallments(baseTotal, eligible, alcoholTotal)
+    const shortNotice = computeShortNotice(baseTotal, eligible, alcoholTotal)
 
     const effectiveOption = plan === 'FULL_ONLY' ? 'FULL' : paymentOption
     let amountDueToday, discountAmount, total
@@ -248,6 +261,7 @@ export function pricingEngine({
         pkg,
         guestCount,
         alcoholAddon: ALCOHOL_ADDON,
+        alcoholTotal,
     }
 }
 

@@ -55,7 +55,7 @@ export default function CheckoutPage() {
         return 'shared'
     }
 
-    // ── UPDATED: handleCheckout now calls real backend API ──
+    // ── handleCheckout — calls real backend API ──
     const handleCheckout = async () => {
         if (!termsAccepted) {
             setError('Please accept the Terms & Conditions to continue.')
@@ -80,21 +80,23 @@ export default function CheckoutPage() {
             alcohol, amountDueToday: pricing.amountDueToday,
         })
 
-        // Build API payload
+        // Build API payload — keys match backend schema exactly
         const payload = {
             fullName: fullName.trim(),
             email: email.trim(),
             phone: phone.trim() || undefined,
-            packageType: packageId === '7n' ? '7N' : '5N',
-            departureDate: date || undefined,
-            guestCount,
+            packageType: packageId.toUpperCase(),
+            departureDate: date ? date.slice(0, 10) : undefined,
+            guestCount: guestCount,
             bookingMode: mapBookingMode(flow, wholeYacht, wholeCabin),
             addOns: {
                 alcohol: !!alcohol,
-                luggageStorageBags: 0,
+                luggageStorageBags: 0
             },
-            paymentPreference: paymentOption === 'FULL' ? 'full' : 'installments',
-        }
+            paymentPreference: paymentOption.toUpperCase() === 'FULL' ? 'full' : 'installments'
+        };
+
+        console.log('[SALTIE Checkout] Sending payload:', JSON.stringify(payload, null, 2))
 
         try {
             const res = await fetch(
@@ -106,16 +108,21 @@ export default function CheckoutPage() {
                 }
             )
 
+
+
             const data = await res.json().catch(() => ({}))
 
-            if (res.ok && data.checkoutUrl) {
-                // Redirect to Stripe Checkout (full browser redirect, not React Router)
-                window.location.href = data.checkoutUrl
-                return
+            // Check for BOTH checkoutUrl and url to be safe
+            const redirectUrl = data.checkoutUrl || data.url;
+
+            if (res.ok && redirectUrl) {
+                // Redirect to Stripe Checkout (full browser redirect)
+                window.location.href = redirectUrl;
+                return;
             }
 
-            // API returned an error
-            setError(data.error || 'Something went wrong. Please try again.')
+            // API returned an error — surface backend validation errors if present
+            setError(data.error || data.errors?.join(', ') || 'Something went wrong. Please try again.')
             setProcessing(false)
         } catch (err) {
             // Network failure
@@ -160,7 +167,7 @@ export default function CheckoutPage() {
                             <h4 className="font-bold text-sm uppercase">Package Details</h4>
                             <div className="flex justify-between text-sm"><span className="text-slate-500">Package</span><span className="font-bold">{pricing.pkg?.name}</span></div>
                             <div className="flex justify-between text-sm"><span className="text-slate-500">Guests</span><span className="font-bold">{guestCount}</span></div>
-                            {date && <div className="flex justify-between text-sm"><span className="text-slate-500">Date</span><span className="font-bold">{date}</span></div>}
+                            {date && <div className="flex justify-between text-sm"><span className="text-slate-500">Date</span><span className="font-bold">{new Date(date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</span></div>}
                             <div className="flex justify-between text-sm"><span className="text-slate-500">Alcohol Add-on</span><span className="font-bold">{alcohol ? '✓ Yes' : '✗ No'}</span></div>
                             <div className="flex justify-between text-sm"><span className="text-slate-500">Payment</span><span className="font-bold">{paymentOption === 'FULL' ? 'Full Payment' : 'Booking Payment (33%)'}</span></div>
                         </div>

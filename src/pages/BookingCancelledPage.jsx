@@ -21,13 +21,13 @@ export default function BookingCancelledPage() {
                     <span className="material-icons text-slate-400 text-4xl">credit_card_off</span>
                 </div>
 
-                <h1 className="sr-only">Payment Not Completed</h1>
+                <h1 className="sr-only">Booking Not Completed</h1>
                 <h2 className="font-punchy text-3xl italic uppercase mb-3">
-                    Payment <span className="text-slate-400">Not Completed</span>
+                    Booking <span className="text-slate-400">Not Completed</span>
                 </h2>
 
                 <p className="text-sm text-slate-600 mb-8">
-                    Your payment was not taken and no booking has been made. You can go back and try again.
+                    Your payment was not taken. You can try again below.
                 </p>
 
                 {/* Action buttons */}

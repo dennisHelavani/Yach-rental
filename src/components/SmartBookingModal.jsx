@@ -380,13 +380,28 @@ export default function SmartBookingModal() {
         // Step 5 — Payment option
         if (step === 5) {
             const eligible = isEarlyBirdEligible()
-            const fullPay = computeFullPayment(pricing.subtotal, eligible)
-            const installments = computeInstallments(pricing.subtotal, eligible)
+            const basePrice = pricing.subtotal - (pricing.alcoholTotal || 0)
+            const alcoholTotal = pricing.alcoholTotal || 0
+            const fullPay = computeFullPayment(basePrice, eligible, alcoholTotal)
+            const installments = computeInstallments(basePrice, eligible, alcoholTotal)
+            const showInstallments = pricing.paymentPlan === 'INSTALLMENTS_3'
+            // Auto-select FULL when installments not available
+            if (!showInstallments && state.paymentOption !== 'FULL') updateState({ paymentOption: 'FULL' })
             return (
                 <div className="space-y-5">
                     <h2 className="font-punchy text-2xl italic uppercase">Payment <span className="text-amber-500">Option</span></h2>
                     <div className="space-y-3">
-                        {/* Installments */}
+                        {/* Short notice banner */}
+                        {!showInstallments && (
+                            <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 flex items-center gap-2">
+                                <span className="material-icons text-amber-500 text-sm">info</span>
+                                <span className="text-[10px] font-bold text-amber-700 uppercase font-space">
+                                    {pricing.paymentPlan === 'FULL_ONLY' ? 'Departure within 14 days — full payment required' : 'Short notice booking — full payment required'}
+                                </span>
+                            </div>
+                        )}
+                        {/* Installments — only when >29 days to departure */}
+                        {showInstallments && (
                         <button
                             onClick={() => updateState({ paymentOption: 'INSTALLMENTS' })}
                             className={`w-full p-5 rounded-2xl border-2 transition-all text-left cursor-pointer ${state.paymentOption === 'INSTALLMENTS' ? 'border-amber-500 bg-amber-50' : 'border-slate-100 hover:border-slate-200'}`}
@@ -413,6 +428,7 @@ export default function SmartBookingModal() {
                                 </div>
                             </div>
                         </button>
+                        )}
                         {/* Full Pay */}
                         <button
                             onClick={() => updateState({ paymentOption: 'FULL' })}
@@ -645,12 +661,25 @@ export default function SmartBookingModal() {
         // Step 5 — Payment option
         if (step === 5) {
             const eligible = isEarlyBirdEligible()
-            const fullPay = computeFullPayment(pricing.subtotal, eligible)
-            const installments = computeInstallments(pricing.subtotal, eligible)
+            const basePrice = pricing.subtotal - (pricing.alcoholTotal || 0)
+            const alcoholTotal = pricing.alcoholTotal || 0
+            const fullPay = computeFullPayment(basePrice, eligible, alcoholTotal)
+            const installments = computeInstallments(basePrice, eligible, alcoholTotal)
+            const showInstallments = pricing.paymentPlan === 'INSTALLMENTS_3'
+            if (!showInstallments && state.paymentOption !== 'FULL') updateState({ paymentOption: 'FULL' })
             return (
                 <div className="space-y-5">
                     <h2 className="font-punchy text-2xl italic uppercase">Payment <span className="text-amber-500">Option</span></h2>
                     <div className="space-y-3">
+                        {!showInstallments && (
+                            <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 flex items-center gap-2">
+                                <span className="material-icons text-amber-500 text-sm">info</span>
+                                <span className="text-[10px] font-bold text-amber-700 uppercase font-space">
+                                    {pricing.paymentPlan === 'FULL_ONLY' ? 'Departure within 14 days — full payment required' : 'Short notice booking — full payment required'}
+                                </span>
+                            </div>
+                        )}
+                        {showInstallments && (
                         <button
                             onClick={() => updateState({ paymentOption: 'INSTALLMENTS' })}
                             className={`w-full p-5 rounded-2xl border-2 transition-all text-left cursor-pointer ${state.paymentOption === 'INSTALLMENTS' ? 'border-amber-500 bg-amber-50' : 'border-slate-100 hover:border-slate-200'}`}
@@ -677,6 +706,7 @@ export default function SmartBookingModal() {
                                 </div>
                             </div>
                         </button>
+                        )}
                         <button
                             onClick={() => updateState({ paymentOption: 'FULL' })}
                             className={`w-full p-5 rounded-2xl border-2 transition-all text-left cursor-pointer ${state.paymentOption === 'FULL' ? 'border-amber-500 bg-amber-50' : 'border-slate-100 hover:border-slate-200'}`}
@@ -881,12 +911,25 @@ export default function SmartBookingModal() {
         // Step 4 — Payment option
         if (step === 4) {
             const eligible = isEarlyBirdEligible()
-            const fullPay = computeFullPayment(pricing.subtotal, eligible)
-            const installments = computeInstallments(pricing.subtotal, eligible)
+            const basePrice = pricing.wholeYachtBasePrice || (pricing.subtotal - (pricing.alcoholTotal || 0))
+            const alcoholTotal = pricing.alcoholTotal || 0
+            const fullPay = computeFullPayment(basePrice, eligible, alcoholTotal)
+            const installments = computeInstallments(basePrice, eligible, alcoholTotal)
+            const showInstallments = pricing.paymentPlan === 'INSTALLMENTS_3'
+            if (!showInstallments && state.paymentOption !== 'FULL') updateState({ paymentOption: 'FULL' })
             return (
                 <div className="space-y-5">
                     <h2 className="font-punchy text-2xl italic uppercase">Payment <span className="text-amber-500">Option</span></h2>
                     <div className="space-y-3">
+                        {!showInstallments && (
+                            <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 flex items-center gap-2">
+                                <span className="material-icons text-amber-500 text-sm">info</span>
+                                <span className="text-[10px] font-bold text-amber-700 uppercase font-space">
+                                    {pricing.paymentPlan === 'FULL_ONLY' ? 'Departure within 14 days — full payment required' : 'Short notice booking — full payment required'}
+                                </span>
+                            </div>
+                        )}
+                        {showInstallments && (
                         <button
                             onClick={() => updateState({ paymentOption: 'INSTALLMENTS' })}
                             className={`w-full p-5 rounded-2xl border-2 transition-all text-left cursor-pointer ${state.paymentOption === 'INSTALLMENTS' ? 'border-amber-500 bg-amber-50' : 'border-slate-100 hover:border-slate-200'}`}
@@ -913,6 +956,7 @@ export default function SmartBookingModal() {
                                 </div>
                             </div>
                         </button>
+                        )}
                         <button
                             onClick={() => updateState({ paymentOption: 'FULL' })}
                             className={`w-full p-5 rounded-2xl border-2 transition-all text-left cursor-pointer ${state.paymentOption === 'FULL' ? 'border-amber-500 bg-amber-50' : 'border-slate-100 hover:border-slate-200'}`}
@@ -1120,12 +1164,25 @@ export default function SmartBookingModal() {
         // Step 4 — Payment option
         if (step === 4) {
             const eligible = isEarlyBirdEligible()
-            const fullPay = computeFullPayment(pricing.subtotal, eligible)
-            const installments = computeInstallments(pricing.subtotal, eligible)
+            const basePrice = pricing.wholeCabinBasePrice || (pricing.subtotal - (pricing.alcoholTotal || 0))
+            const alcoholTotal = pricing.alcoholTotal || 0
+            const fullPay = computeFullPayment(basePrice, eligible, alcoholTotal)
+            const installments = computeInstallments(basePrice, eligible, alcoholTotal)
+            const showInstallments = pricing.paymentPlan === 'INSTALLMENTS_3'
+            if (!showInstallments && state.paymentOption !== 'FULL') updateState({ paymentOption: 'FULL' })
             return (
                 <div className="space-y-5">
                     <h2 className="font-punchy text-2xl italic uppercase">Payment <span className="text-neon-pink">Option</span></h2>
                     <div className="space-y-3">
+                        {!showInstallments && (
+                            <div className="bg-neon-pink/5 border border-neon-pink/20 rounded-xl p-3 flex items-center gap-2">
+                                <span className="material-icons text-neon-pink text-sm">info</span>
+                                <span className="text-[10px] font-bold text-neon-pink uppercase font-space">
+                                    {pricing.paymentPlan === 'FULL_ONLY' ? 'Departure within 14 days — full payment required' : 'Short notice booking — full payment required'}
+                                </span>
+                            </div>
+                        )}
+                        {showInstallments && (
                         <button
                             onClick={() => updateState({ paymentOption: 'INSTALLMENTS' })}
                             className={`w-full p-5 rounded-2xl border-2 transition-all text-left cursor-pointer ${state.paymentOption === 'INSTALLMENTS' ? 'border-neon-pink bg-neon-pink/5' : 'border-slate-100 hover:border-slate-200'}`}
@@ -1152,6 +1209,7 @@ export default function SmartBookingModal() {
                                 </div>
                             </div>
                         </button>
+                        )}
                         <button
                             onClick={() => updateState({ paymentOption: 'FULL' })}
                             className={`w-full p-5 rounded-2xl border-2 transition-all text-left cursor-pointer ${state.paymentOption === 'FULL' ? 'border-neon-pink bg-neon-pink/5' : 'border-slate-100 hover:border-slate-200'}`}
