@@ -40,9 +40,9 @@ export default function Footer() {
                     <div className="hidden md:block">
                         <h4 className="font-punchy uppercase italic text-lg mb-4">Experience</h4>
                         <ul className="space-y-2 text-slate-400 font-medium text-sm">
-                            <li><a href="/how-it-works" className="hover:text-neon-aqua transition-colors">How It Works</a></li>
+                            <li><Link to="/how-it-works" className="hover:text-neon-aqua transition-colors">How It Works</Link></li>
                             {/* <li><a href="#add-ons" className="hover:text-neon-aqua transition-colors">Add-Ons</a></li> */}
-                            <li><a href="/faq" className="hover:text-neon-aqua transition-colors">FAQ</a></li>
+                            <li><Link to="/faq" className="hover:text-neon-aqua transition-colors">FAQ</Link></li>
                         </ul>
                     </div>
 
