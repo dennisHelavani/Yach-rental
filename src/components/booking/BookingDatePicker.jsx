@@ -2,7 +2,7 @@
 // Calendar grid: only Mon/Wed/Fri from 20 Apr 2026 → 31 Oct 2026 are selectable
 import { useState, useMemo } from 'react'
 
-const SEASON_START = new Date(2026, 3, 20) // Apr 20 2026
+const SEASON_START = new Date(2026, 2, 20) // Apr 20 2026
 const SEASON_END = new Date(2026, 9, 31) // Oct 31 2026
 const ALLOWED_DAYS = [1, 3, 5]             // Mon, Wed, Fri
 

@@ -4,33 +4,48 @@ import { isDiscountEligible, DATA } from '../../lib/pricingEngine'
 export default function PriceBreakdownCard({ pricing, state }) {
     if (!pricing) return null
 
-    const { perPerson, addonPerPerson, subtotal, earlyBird, discountAmount, total, amountDueToday, remaining, paymentOption, guestCount } = pricing
+    const { subtotal, earlyBird, lastMinute, discountAmount, total, amountDueToday, remaining, paymentOption, guestCount } = pricing
+
+    // Determine the base package price (before add-ons)
+    const packagePrice = pricing.wholeYachtBasePrice || pricing.wholeCabinBasePrice || (pricing.perPerson * guestCount)
+
+    // Determine alcohol total from pricing engine (already uses alcoholQuantity)
+    const alcoholTotal = pricing.alcoholTotal || 0
+    const alcoholQty = pricing.alcoholQuantity != null ? pricing.alcoholQuantity : (pricing.addonPerPerson > 0 ? guestCount : 0)
+    const alcoholUnitPrice = pricing.addonPerPerson || 0
+
+    // Determine booking type label
+    const bookingLabel = pricing.wholeYacht
+        ? `Whole Yacht (${pricing.pkg?.nights || '?'}N)`
+        : pricing.wholeCabin
+            ? `Whole Cabin (${pricing.pkg?.nights || '?'}N)`
+            : `Package (${pricing.pkg?.nights || '?'}N × ${guestCount} guest${guestCount > 1 ? 's' : ''})`
+
+    // Discount label
+    const discountLabel = lastMinute
+        ? 'Last-Minute Discount (10% OFF)'
+        : paymentOption === 'FULL'
+            ? 'Full Payment Discount (~19% OFF)'
+            : '10% off booking payment'
 
     return (
         <div className="bg-slate-50 rounded-2xl p-5 space-y-3 border border-slate-100">
             <h4 className="text-[10px] font-bold uppercase text-slate-400 font-space">Price Breakdown</h4>
 
             {/* Base package */}
-            {pricing.wholeYacht ? (
-                <div className="flex justify-between text-sm">
-                    <span className="text-slate-500">Whole Yacht ({pricing.pkg?.nights || '?'}N)</span>
-                    <span className="font-bold">€{pricing.wholeYachtBasePrice}</span>
-                </div>
-            ) : (
-                <div className="flex justify-between text-sm">
-                    <span className="text-slate-500">Package ({pricing.pkg?.nights || '?'}N × {guestCount} guest{guestCount > 1 ? 's' : ''})</span>
-                    <span className="font-bold">€{perPerson * guestCount}</span>
-                </div>
-            )}
+            <div className="flex justify-between text-sm">
+                <span className="text-slate-500">{bookingLabel}</span>
+                <span className="font-bold">€{packagePrice}</span>
+            </div>
 
             {/* Alcohol addon */}
-            {addonPerPerson > 0 && (
+            {alcoholTotal > 0 && (
                 <div className="flex justify-between text-sm">
                     <span className="text-slate-500">
-                        Alcohol Add-on {pricing.wholeYacht ? `(${guestCount} × €${addonPerPerson})` : `(${guestCount} × €${addonPerPerson})`}
-                        {pricing.wholeYacht && <span className="text-[9px] text-amber-600 ml-1 font-bold">DISCOUNTED</span>}
+                        Alcohol Add-on ({alcoholQty} × €{alcoholUnitPrice})
+                        {(pricing.wholeYacht || pricing.wholeCabin) && <span className="text-[9px] text-amber-600 ml-1 font-bold">DISCOUNTED</span>}
                     </span>
-                    <span className={`font-bold ${pricing.wholeYacht ? 'text-amber-600' : 'text-neon-pink'}`}>+€{addonPerPerson * guestCount}</span>
+                    <span className={`font-bold ${(pricing.wholeYacht || pricing.wholeCabin) ? 'text-amber-600' : 'text-neon-pink'}`}>+€{alcoholTotal}</span>
                 </div>
             )}
 
@@ -41,11 +56,11 @@ export default function PriceBreakdownCard({ pricing, state }) {
             </div>
 
             {/* Discount */}
-            {earlyBird && discountAmount > 0 && (
+            {(earlyBird || lastMinute) && discountAmount > 0 && (
                 <div className="flex justify-between text-sm">
                     <span className="text-emerald-600 flex items-center gap-1">
                         <span className="material-icons text-xs">local_offer</span>
-                        {paymentOption === 'FULL' ? 'Full Payment Discount (~19% OFF)' : '10% off booking payment'}
+                        {discountLabel}
                     </span>
                     <span className="font-bold text-emerald-600">−€{discountAmount}</span>
                 </div>
@@ -102,8 +117,8 @@ export default function PriceBreakdownCard({ pricing, state }) {
                                 <span className="text-[10px] font-bold uppercase text-emerald-600 font-space">
                                     Full Payment Today
                                 </span>
-                                {earlyBird && discountAmount > 0 && (
-                                    <p className="text-[10px] text-emerald-600 mt-0.5 font-bold">You're saving €{discountAmount} with full payment discount!</p>
+                                {(earlyBird || lastMinute) && discountAmount > 0 && (
+                                    <p className="text-[10px] text-emerald-600 mt-0.5 font-bold">You're saving €{discountAmount} with {lastMinute ? 'last-minute' : 'full payment'} discount!</p>
                                 )}
                             </div>
                             <span className="font-punchy text-2xl italic text-emerald-600">€{total}</span>
@@ -111,7 +126,7 @@ export default function PriceBreakdownCard({ pricing, state }) {
                     </div>
 
                     {/* Original vs discounted */}
-                    {earlyBird && discountAmount > 0 && (
+                    {(earlyBird || lastMinute) && discountAmount > 0 && (
                         <div className="flex justify-between text-sm">
                             <span className="text-slate-400">Original price</span>
                             <span className="text-slate-400 line-through">€{subtotal}</span>

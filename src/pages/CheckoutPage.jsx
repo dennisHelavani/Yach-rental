@@ -31,18 +31,19 @@ export default function CheckoutPage() {
     const yachtId = params.get('yacht') || null
     const guestCount = parseInt(params.get('guests') || '1', 10)
     const alcohol = params.get('alcohol') === '1'
+    const alcoholQuantity = parseInt(params.get('alcoholQuantity') || '0', 10)
     const paymentOption = params.get('payment') || 'INSTALLMENTS'
     const date = params.get('date') || ''
     const dealId = params.get('deal') || null
     const wholeYacht = params.get('wholeYacht') === '1' || flow === 'BOOK_WHOLE_YACHT'
     const wholeCabin = params.get('wholeCabin') === '1' || flow === 'BOOK_WHOLE_CABIN'
 
-    const state = { packageId, yachtId, guestCount, alcohol, paymentOption, date, flow, wholeYacht, wholeCabin }
+    const state = { packageId, yachtId, guestCount, alcohol, alcoholQuantity, paymentOption, date, flow, wholeYacht, wholeCabin }
 
     const pricing = useMemo(() => pricingEngine({
-        packageId, alcohol, guestCount, paymentOption, wholeYacht, wholeCabin,
+        packageId, alcohol, alcoholQuantity, guestCount, paymentOption, wholeYacht, wholeCabin,
         departureDate: date || null,
-    }), [packageId, alcohol, guestCount, paymentOption, wholeYacht, wholeCabin, date])
+    }), [packageId, alcohol, alcoholQuantity, guestCount, paymentOption, wholeYacht, wholeCabin, date])
 
     const yacht = yachtId ? yachtsData.find(y => y.slug === yachtId.replace(/_/g, '-')) : null
     const fleetYacht = yachtId ? getFleetYacht(yachtId) : null
@@ -91,6 +92,7 @@ export default function CheckoutPage() {
             bookingMode: mapBookingMode(flow, wholeYacht, wholeCabin),
             addOns: {
                 alcohol: !!alcohol,
+                alcoholQuantity: alcoholQuantity,
                 luggageStorageBags: 0
             },
             paymentPreference: paymentOption.toUpperCase() === 'FULL' ? 'full' : 'installments'

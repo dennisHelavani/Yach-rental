@@ -21,6 +21,7 @@ const INITIAL_STATE = {
     packageId: '5n',
     guestCount: 1,
     alcohol: false,
+    alcoholQuantity: 0,       // 0 = none, n = number of alcohol packages (for cabin/yacht)
     paymentOption: 'INSTALLMENTS', // 'INSTALLMENTS' | 'FULL'
     date: '',
     // Yacht-specific
@@ -42,12 +43,13 @@ export default function BookingProvider({ children }) {
     const pricing = useMemo(() => pricingEngine({
         packageId: state.packageId,
         alcohol: state.alcohol,
+        alcoholQuantity: state.alcoholQuantity,
         guestCount: state.guestCount,
         paymentOption: state.paymentOption,
         wholeYacht: state.wholeYacht,
         wholeCabin: state.wholeCabin,
         departureDate: state.date || null,
-    }), [state.packageId, state.alcohol, state.guestCount, state.paymentOption, state.wholeYacht, state.wholeCabin, state.date])
+    }), [state.packageId, state.alcohol, state.alcoholQuantity, state.guestCount, state.paymentOption, state.wholeYacht, state.wholeCabin, state.date])
 
     const openBooking = useCallback((opts = {}) => {
         const intent = detectIntent(opts)

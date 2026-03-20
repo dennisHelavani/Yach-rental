@@ -396,38 +396,38 @@ export default function SmartBookingModal() {
                             <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 flex items-center gap-2">
                                 <span className="material-icons text-amber-500 text-sm">info</span>
                                 <span className="text-[10px] font-bold text-amber-700 uppercase font-space">
-                                    {pricing.paymentPlan === 'FULL_ONLY' ? 'Departure within 14 days — full payment required' : 'Short notice booking — full payment required'}
+                                    {pricing.paymentPlan === 'FULL_ONLY' ? 'Last-minute booking: 10% discount applied. Full payment required.' : 'Short notice booking — full payment required'}
                                 </span>
                             </div>
                         )}
                         {/* Installments — only when >29 days to departure */}
                         {showInstallments && (
-                        <button
-                            onClick={() => updateState({ paymentOption: 'INSTALLMENTS' })}
-                            className={`w-full p-5 rounded-2xl border-2 transition-all text-left cursor-pointer ${state.paymentOption === 'INSTALLMENTS' ? 'border-amber-500 bg-amber-50' : 'border-slate-100 hover:border-slate-200'}`}
-                        >
-                            <div className="flex items-center justify-between">
-                                <h4 className="font-bold text-sm uppercase">{DATA.payments.paymentPlans.installments_3.label}</h4>
-                                {eligible && (
-                                    <span className="text-[9px] bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-space">10% off booking payment</span>
-                                )}
-                            </div>
-                            <p className="text-xs text-slate-500 mt-1">{DATA.payments.paymentPlans.installments_3.hint}</p>
-                            <div className="mt-3 pt-3 border-t border-slate-100 space-y-1">
-                                <div className="flex justify-between text-sm">
-                                    <span className="text-slate-500">To be paid now</span>
-                                    <span className="font-bold text-slate-900">€{installments.amounts[0]}</span>
+                            <button
+                                onClick={() => updateState({ paymentOption: 'INSTALLMENTS' })}
+                                className={`w-full p-5 rounded-2xl border-2 transition-all text-left cursor-pointer ${state.paymentOption === 'INSTALLMENTS' ? 'border-amber-500 bg-amber-50' : 'border-slate-100 hover:border-slate-200'}`}
+                            >
+                                <div className="flex items-center justify-between">
+                                    <h4 className="font-bold text-sm uppercase">{DATA.payments.paymentPlans.installments_3.label}</h4>
+                                    {eligible && (
+                                        <span className="text-[9px] bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-space">10% off booking payment</span>
+                                    )}
                                 </div>
-                                <div className="flex justify-between text-xs">
-                                    <span className="text-slate-400">Left to pay</span>
-                                    <span className="text-slate-500">€{pricing.subtotal - installments.amounts[0]}</span>
+                                <p className="text-xs text-slate-500 mt-1">{DATA.payments.paymentPlans.installments_3.hint}</p>
+                                <div className="mt-3 pt-3 border-t border-slate-100 space-y-1">
+                                    <div className="flex justify-between text-sm">
+                                        <span className="text-slate-500">To be paid now</span>
+                                        <span className="font-bold text-slate-900">€{installments.amounts[0]}</span>
+                                    </div>
+                                    <div className="flex justify-between text-xs">
+                                        <span className="text-slate-400">Left to pay</span>
+                                        <span className="text-slate-500">€{pricing.subtotal - installments.amounts[0]}</span>
+                                    </div>
+                                    <div className="flex justify-between text-xs">
+                                        <span className="text-slate-400">Total trip price</span>
+                                        <span className="text-slate-500">€{pricing.subtotal}</span>
+                                    </div>
                                 </div>
-                                <div className="flex justify-between text-xs">
-                                    <span className="text-slate-400">Total trip price</span>
-                                    <span className="text-slate-500">€{pricing.subtotal}</span>
-                                </div>
-                            </div>
-                        </button>
+                            </button>
                         )}
                         {/* Full Pay */}
                         <button
@@ -437,7 +437,7 @@ export default function SmartBookingModal() {
                             <div className="flex items-center justify-between">
                                 <h4 className="font-bold text-sm uppercase">{DATA.payments.fullPayment.label}</h4>
                                 {eligible && (
-                                    <span className="text-[9px] bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-space">Save 19%</span>
+                                    <span className="text-[9px] bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-space">{pricing.lastMinute ? 'Save 10%' : 'Save 19%'}</span>
                                 )}
                             </div>
                             <p className="text-xs text-slate-500 mt-1">{DATA.payments.fullPayment.hint}</p>
@@ -487,7 +487,7 @@ export default function SmartBookingModal() {
                         const params = new URLSearchParams({
                             flow: 'BOOK_YACHT',
                             package: state.packageId, yacht: state.yachtId || '',
-                            guests: state.guestCount, alcohol: state.alcohol ? '1' : '0',
+                            guests: state.guestCount, alcohol: state.alcohol ? '1' : '0', alcoholQuantity: String(state.alcoholQuantity || 0),
                             payment: state.paymentOption, date: state.date || '',
                         })
                         closeBooking()
@@ -680,32 +680,32 @@ export default function SmartBookingModal() {
                             </div>
                         )}
                         {showInstallments && (
-                        <button
-                            onClick={() => updateState({ paymentOption: 'INSTALLMENTS' })}
-                            className={`w-full p-5 rounded-2xl border-2 transition-all text-left cursor-pointer ${state.paymentOption === 'INSTALLMENTS' ? 'border-amber-500 bg-amber-50' : 'border-slate-100 hover:border-slate-200'}`}
-                        >
-                            <div className="flex items-center justify-between">
-                                <h4 className="font-bold text-sm uppercase">{DATA.payments.paymentPlans.installments_3.label}</h4>
-                                {eligible && (
-                                    <span className="text-[9px] bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-space">10% off booking payment</span>
-                                )}
-                            </div>
-                            <p className="text-xs text-slate-500 mt-1">{DATA.payments.paymentPlans.installments_3.hint}</p>
-                            <div className="mt-3 pt-3 border-t border-amber-100 space-y-1">
-                                <div className="flex justify-between text-sm">
-                                    <span className="text-slate-500">To be paid now</span>
-                                    <span className="font-bold text-slate-900">€{installments.amounts[0]}</span>
+                            <button
+                                onClick={() => updateState({ paymentOption: 'INSTALLMENTS' })}
+                                className={`w-full p-5 rounded-2xl border-2 transition-all text-left cursor-pointer ${state.paymentOption === 'INSTALLMENTS' ? 'border-amber-500 bg-amber-50' : 'border-slate-100 hover:border-slate-200'}`}
+                            >
+                                <div className="flex items-center justify-between">
+                                    <h4 className="font-bold text-sm uppercase">{DATA.payments.paymentPlans.installments_3.label}</h4>
+                                    {eligible && (
+                                        <span className="text-[9px] bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-space">10% off booking payment</span>
+                                    )}
                                 </div>
-                                <div className="flex justify-between text-xs">
-                                    <span className="text-slate-400">Left to pay</span>
-                                    <span className="text-slate-500">€{pricing.subtotal - installments.amounts[0]}</span>
+                                <p className="text-xs text-slate-500 mt-1">{DATA.payments.paymentPlans.installments_3.hint}</p>
+                                <div className="mt-3 pt-3 border-t border-amber-100 space-y-1">
+                                    <div className="flex justify-between text-sm">
+                                        <span className="text-slate-500">To be paid now</span>
+                                        <span className="font-bold text-slate-900">€{installments.amounts[0]}</span>
+                                    </div>
+                                    <div className="flex justify-between text-xs">
+                                        <span className="text-slate-400">Left to pay</span>
+                                        <span className="text-slate-500">€{pricing.subtotal - installments.amounts[0]}</span>
+                                    </div>
+                                    <div className="flex justify-between text-xs">
+                                        <span className="text-slate-400">Total trip price</span>
+                                        <span className="text-slate-500">€{pricing.subtotal}</span>
+                                    </div>
                                 </div>
-                                <div className="flex justify-between text-xs">
-                                    <span className="text-slate-400">Total trip price</span>
-                                    <span className="text-slate-500">€{pricing.subtotal}</span>
-                                </div>
-                            </div>
-                        </button>
+                            </button>
                         )}
                         <button
                             onClick={() => updateState({ paymentOption: 'FULL' })}
@@ -714,7 +714,7 @@ export default function SmartBookingModal() {
                             <div className="flex items-center justify-between">
                                 <h4 className="font-bold text-sm uppercase">{DATA.payments.fullPayment.label}</h4>
                                 {eligible && (
-                                    <span className="text-[9px] bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-space">Save 19%</span>
+                                    <span className="text-[9px] bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-space">{pricing.lastMinute ? 'Save 10%' : 'Save 19%'}</span>
                                 )}
                             </div>
                             <p className="text-xs text-slate-500 mt-1">{DATA.payments.fullPayment.hint}</p>
@@ -765,7 +765,7 @@ export default function SmartBookingModal() {
                         const params = new URLSearchParams({
                             flow: 'BOOK_TOUR',
                             package: state.packageId, yacht: state.yachtId || '',
-                            guests: state.guestCount, alcohol: state.alcohol ? '1' : '0',
+                            guests: state.guestCount, alcohol: state.alcohol ? '1' : '0', alcoholQuantity: String(state.alcoholQuantity || 0),
                             payment: state.paymentOption, date: state.date || '',
                         })
                         closeBooking()
@@ -871,42 +871,65 @@ export default function SmartBookingModal() {
             </div>
         )
 
-        // Step 3 — Add-ons (discounted alcohol)
-        if (step === 3) return (
-            <div className="space-y-5">
-                <h2 className="font-punchy text-2xl italic uppercase">Add-<span className="text-amber-500">ons</span></h2>
-                <div
-                    className={`flex items-center justify-between p-4 rounded-2xl border-2 transition-all cursor-pointer ${state.alcohol ? 'border-amber-500 bg-amber-50' : 'border-slate-100'}`}
-                    onClick={() => updateState({ alcohol: !state.alcohol })}
-                >
-                    <div>
-                        <span className="block font-bold text-sm">{ALCOHOL_ADDON.name}</span>
-                        <span className="block text-xs text-slate-500">{ALCOHOL_ADDON.description}</span>
-                    </div>
-                    <div className="flex flex-col items-end shrink-0 ml-4">
-                        <div className="flex items-center gap-2">
-                            <span className="text-xs text-slate-400 line-through">€{ALCOHOL_ADDON.price}/pp</span>
-                            <span className="font-bold text-amber-600 text-sm">€{WHOLE_YACHT_ALCOHOL_PRICE}/pp</span>
+        // Step 3 — Add-ons (alcohol quantity selector)
+        if (step === 3) {
+            const alcQty = state.alcoholQuantity || 0
+            const maxQty = 8  // whole yacht — up to 8 alcohol packages
+            return (
+                <div className="space-y-5">
+                    <h2 className="font-punchy text-2xl italic uppercase">Add-<span className="text-amber-500">ons</span></h2>
+                    <div className={`p-4 rounded-2xl border-2 transition-all ${alcQty > 0 ? 'border-amber-500 bg-amber-50' : 'border-slate-100'}`}>
+                        <div className="flex items-center justify-between mb-3">
+                            <div>
+                                <span className="block font-bold text-sm">{ALCOHOL_ADDON.name}</span>
+                                <span className="block text-xs text-slate-500">{ALCOHOL_ADDON.description}</span>
+                            </div>
+                            <div className="flex flex-col items-end shrink-0 ml-4">
+                                <div className="flex items-center gap-2">
+                                    <span className="text-xs text-slate-400 line-through">€{ALCOHOL_ADDON.price}/pp</span>
+                                    <span className="font-bold text-amber-600 text-sm">€{WHOLE_YACHT_ALCOHOL_PRICE}/pp</span>
+                                </div>
+                                <span className="text-[9px] bg-amber-100 text-amber-700 font-bold px-2 py-0.5 rounded-full mt-1 font-space">SAVE €{ALCOHOL_ADDON.price - WHOLE_YACHT_ALCOHOL_PRICE}</span>
+                            </div>
                         </div>
-                        <span className="text-[9px] bg-amber-100 text-amber-700 font-bold px-2 py-0.5 rounded-full mt-1 font-space">SAVE €{ALCOHOL_ADDON.price - WHOLE_YACHT_ALCOHOL_PRICE}</span>
-                        <div className={`w-11 h-6 rounded-full relative transition-colors mt-1 ${state.alcohol ? 'bg-amber-500' : 'bg-slate-200'}`}>
-                            <span className={`absolute top-[2px] w-5 h-5 bg-white rounded-full transition-transform shadow ${state.alcohol ? 'left-[22px]' : 'left-[2px]'}`} />
+                        {/* Quantity selector */}
+                        <div className="flex items-center justify-between pt-3 border-t border-amber-100">
+                            <span className="text-xs font-bold text-slate-600 uppercase font-space">How many packages?</span>
+                            <div className="flex items-center gap-3">
+                                <button
+                                    onClick={() => { const q = Math.max(0, alcQty - 1); updateState({ alcoholQuantity: q, alcohol: q > 0 }) }}
+                                    disabled={alcQty === 0}
+                                    className="w-8 h-8 rounded-full border-2 border-slate-200 flex items-center justify-center text-slate-500 hover:border-amber-500 hover:text-amber-600 disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer"
+                                >−</button>
+                                <span className="font-bold text-lg w-6 text-center">{alcQty}</span>
+                                <button
+                                    onClick={() => { const q = Math.min(maxQty, alcQty + 1); updateState({ alcoholQuantity: q, alcohol: true }) }}
+                                    disabled={alcQty >= maxQty}
+                                    className="w-8 h-8 rounded-full border-2 border-slate-200 flex items-center justify-center text-slate-500 hover:border-amber-500 hover:text-amber-600 disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer"
+                                >+</button>
+                            </div>
                         </div>
+                        {alcQty > 0 && (
+                            <div className="text-right mt-2">
+                                <span className="text-xs text-amber-600 font-bold">{alcQty} × €{WHOLE_YACHT_ALCOHOL_PRICE} = €{alcQty * WHOLE_YACHT_ALCOHOL_PRICE}</span>
+                            </div>
+                        )}
+                        <p className="text-[9px] text-slate-400 mt-2 font-space">Max {maxQty} (one per guest)</p>
                     </div>
-                </div>
-                {state.alcohol && (
-                    <div className="p-4 bg-amber-50 border border-amber-200 rounded-xl">
-                        <h4 className="text-xs font-bold text-amber-700 uppercase mb-1 font-space">{ALCOHOL_ADDON.disclaimer.title}</h4>
-                        <p className="text-[10px] text-slate-600 leading-tight font-bold">{ALCOHOL_ADDON.disclaimer.text}</p>
+                    {alcQty > 0 && (
+                        <div className="p-4 bg-amber-50 border border-amber-200 rounded-xl">
+                            <h4 className="text-xs font-bold text-amber-700 uppercase mb-1 font-space">{ALCOHOL_ADDON.disclaimer.title}</h4>
+                            <p className="text-[10px] text-slate-600 leading-tight font-bold">{ALCOHOL_ADDON.disclaimer.text}</p>
+                        </div>
+                    )}
+                    <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl flex items-center gap-2">
+                        <span className="material-icons text-neon-pink text-sm">block</span>
+                        <span className="text-[10px] font-bold text-slate-600 uppercase font-space">No BYO alcohol — for licensing & safety</span>
                     </div>
-                )}
-                <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl flex items-center gap-2">
-                    <span className="material-icons text-neon-pink text-sm">block</span>
-                    <span className="text-[10px] font-bold text-slate-600 uppercase font-space">No BYO alcohol — for licensing & safety</span>
+                    <CTA onClick={nextStep}>Continue</CTA>
                 </div>
-                <CTA onClick={nextStep}>Continue</CTA>
-            </div>
-        )
+            )
+        }
 
         // Step 4 — Payment option
         if (step === 4) {
@@ -930,32 +953,32 @@ export default function SmartBookingModal() {
                             </div>
                         )}
                         {showInstallments && (
-                        <button
-                            onClick={() => updateState({ paymentOption: 'INSTALLMENTS' })}
-                            className={`w-full p-5 rounded-2xl border-2 transition-all text-left cursor-pointer ${state.paymentOption === 'INSTALLMENTS' ? 'border-amber-500 bg-amber-50' : 'border-slate-100 hover:border-slate-200'}`}
-                        >
-                            <div className="flex items-center justify-between">
-                                <h4 className="font-bold text-sm uppercase">{DATA.payments.paymentPlans.installments_3.label}</h4>
-                                {eligible && (
-                                    <span className="text-[9px] bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-space">10% off booking payment</span>
-                                )}
-                            </div>
-                            <p className="text-xs text-slate-500 mt-1">{DATA.payments.paymentPlans.installments_3.hint}</p>
-                            <div className="mt-3 pt-3 border-t border-amber-100 space-y-1">
-                                <div className="flex justify-between text-sm">
-                                    <span className="text-slate-500">To be paid now</span>
-                                    <span className="font-bold text-amber-600">€{installments.amounts[0]}</span>
+                            <button
+                                onClick={() => updateState({ paymentOption: 'INSTALLMENTS' })}
+                                className={`w-full p-5 rounded-2xl border-2 transition-all text-left cursor-pointer ${state.paymentOption === 'INSTALLMENTS' ? 'border-amber-500 bg-amber-50' : 'border-slate-100 hover:border-slate-200'}`}
+                            >
+                                <div className="flex items-center justify-between">
+                                    <h4 className="font-bold text-sm uppercase">{DATA.payments.paymentPlans.installments_3.label}</h4>
+                                    {eligible && (
+                                        <span className="text-[9px] bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-space">10% off booking payment</span>
+                                    )}
                                 </div>
-                                <div className="flex justify-between text-xs">
-                                    <span className="text-slate-400">Left to pay</span>
-                                    <span className="text-slate-500">€{pricing.subtotal - installments.amounts[0]}</span>
+                                <p className="text-xs text-slate-500 mt-1">{DATA.payments.paymentPlans.installments_3.hint}</p>
+                                <div className="mt-3 pt-3 border-t border-amber-100 space-y-1">
+                                    <div className="flex justify-between text-sm">
+                                        <span className="text-slate-500">To be paid now</span>
+                                        <span className="font-bold text-amber-600">€{installments.amounts[0]}</span>
+                                    </div>
+                                    <div className="flex justify-between text-xs">
+                                        <span className="text-slate-400">Left to pay</span>
+                                        <span className="text-slate-500">€{pricing.subtotal - installments.amounts[0]}</span>
+                                    </div>
+                                    <div className="flex justify-between text-xs">
+                                        <span className="text-slate-400">Total trip price</span>
+                                        <span className="text-slate-500">€{pricing.subtotal}</span>
+                                    </div>
                                 </div>
-                                <div className="flex justify-between text-xs">
-                                    <span className="text-slate-400">Total trip price</span>
-                                    <span className="text-slate-500">€{pricing.subtotal}</span>
-                                </div>
-                            </div>
-                        </button>
+                            </button>
                         )}
                         <button
                             onClick={() => updateState({ paymentOption: 'FULL' })}
@@ -964,7 +987,7 @@ export default function SmartBookingModal() {
                             <div className="flex items-center justify-between">
                                 <h4 className="font-bold text-sm uppercase">{DATA.payments.fullPayment.label}</h4>
                                 {eligible && (
-                                    <span className="text-[9px] bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-space">Save 19%</span>
+                                    <span className="text-[9px] bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-space">{pricing.lastMinute ? 'Save 10%' : 'Save 19%'}</span>
                                 )}
                             </div>
                             <p className="text-xs text-slate-500 mt-1">{DATA.payments.fullPayment.hint}</p>
@@ -1017,7 +1040,7 @@ export default function SmartBookingModal() {
                         const params = new URLSearchParams({
                             flow: 'BOOK_WHOLE_YACHT',
                             package: state.packageId, yacht: state.yachtId || '',
-                            guests: state.guestCount, alcohol: state.alcohol ? '1' : '0',
+                            guests: state.guestCount, alcohol: state.alcohol ? '1' : '0', alcoholQuantity: String(state.alcoholQuantity || 0),
                             payment: state.paymentOption, wholeYacht: '1',
                             date: state.date || '',
                         })
@@ -1124,42 +1147,65 @@ export default function SmartBookingModal() {
             </div>
         )
 
-        // Step 3 — Add-ons (discounted alcohol)
-        if (step === 3) return (
-            <div className="space-y-5">
-                <h2 className="font-punchy text-2xl italic uppercase">Add-<span className="text-neon-pink">ons</span></h2>
-                <div
-                    className={`flex items-center justify-between p-4 rounded-2xl border-2 transition-all cursor-pointer ${state.alcohol ? 'border-neon-pink bg-neon-pink/5' : 'border-slate-100'}`}
-                    onClick={() => updateState({ alcohol: !state.alcohol })}
-                >
-                    <div>
-                        <span className="block font-bold text-sm">{ALCOHOL_ADDON.name}</span>
-                        <span className="block text-xs text-slate-500">{ALCOHOL_ADDON.description}</span>
-                    </div>
-                    <div className="flex flex-col items-end shrink-0 ml-4">
-                        <div className="flex items-center gap-2">
-                            <span className="text-xs text-slate-400 line-through">€{ALCOHOL_ADDON.price}/pp</span>
-                            <span className="font-bold text-neon-pink text-sm">€{WHOLE_YACHT_ALCOHOL_PRICE}/pp</span>
+        // Step 3 — Add-ons (alcohol quantity selector)
+        if (step === 3) {
+            const alcQty = state.alcoholQuantity || 0
+            const maxQty = 2  // whole cabin — up to 2 alcohol packages
+            return (
+                <div className="space-y-5">
+                    <h2 className="font-punchy text-2xl italic uppercase">Add-<span className="text-neon-pink">ons</span></h2>
+                    <div className={`p-4 rounded-2xl border-2 transition-all ${alcQty > 0 ? 'border-neon-pink bg-neon-pink/5' : 'border-slate-100'}`}>
+                        <div className="flex items-center justify-between mb-3">
+                            <div>
+                                <span className="block font-bold text-sm">{ALCOHOL_ADDON.name}</span>
+                                <span className="block text-xs text-slate-500">{ALCOHOL_ADDON.description}</span>
+                            </div>
+                            <div className="flex flex-col items-end shrink-0 ml-4">
+                                <div className="flex items-center gap-2">
+                                    <span className="text-xs text-slate-400 line-through">€{ALCOHOL_ADDON.price}/pp</span>
+                                    <span className="font-bold text-neon-pink text-sm">€{WHOLE_YACHT_ALCOHOL_PRICE}/pp</span>
+                                </div>
+                                <span className="text-[9px] bg-neon-pink/10 text-neon-pink font-bold px-2 py-0.5 rounded-full mt-1 font-space">SAVE €{ALCOHOL_ADDON.price - WHOLE_YACHT_ALCOHOL_PRICE}</span>
+                            </div>
                         </div>
-                        <span className="text-[9px] bg-neon-pink/10 text-neon-pink font-bold px-2 py-0.5 rounded-full mt-1 font-space">SAVE €{ALCOHOL_ADDON.price - WHOLE_YACHT_ALCOHOL_PRICE}</span>
-                        <div className={`w-11 h-6 rounded-full relative transition-colors mt-1 ${state.alcohol ? 'bg-neon-pink' : 'bg-slate-200'}`}>
-                            <span className={`absolute top-[2px] w-5 h-5 bg-white rounded-full transition-transform shadow ${state.alcohol ? 'left-[22px]' : 'left-[2px]'}`} />
+                        {/* Quantity selector */}
+                        <div className="flex items-center justify-between pt-3 border-t border-pink-100">
+                            <span className="text-xs font-bold text-slate-600 uppercase font-space">How many packages?</span>
+                            <div className="flex items-center gap-3">
+                                <button
+                                    onClick={() => { const q = Math.max(0, alcQty - 1); updateState({ alcoholQuantity: q, alcohol: q > 0 }) }}
+                                    disabled={alcQty === 0}
+                                    className="w-8 h-8 rounded-full border-2 border-slate-200 flex items-center justify-center text-slate-500 hover:border-neon-pink hover:text-neon-pink disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer"
+                                >−</button>
+                                <span className="font-bold text-lg w-6 text-center">{alcQty}</span>
+                                <button
+                                    onClick={() => { const q = Math.min(maxQty, alcQty + 1); updateState({ alcoholQuantity: q, alcohol: true }) }}
+                                    disabled={alcQty >= maxQty}
+                                    className="w-8 h-8 rounded-full border-2 border-slate-200 flex items-center justify-center text-slate-500 hover:border-neon-pink hover:text-neon-pink disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer"
+                                >+</button>
+                            </div>
                         </div>
+                        {alcQty > 0 && (
+                            <div className="text-right mt-2">
+                                <span className="text-xs text-neon-pink font-bold">{alcQty} × €{WHOLE_YACHT_ALCOHOL_PRICE} = €{alcQty * WHOLE_YACHT_ALCOHOL_PRICE}</span>
+                            </div>
+                        )}
+                        <p className="text-[9px] text-slate-400 mt-2 font-space">Max {maxQty} (one per guest)</p>
                     </div>
-                </div>
-                {state.alcohol && (
-                    <div className="p-4 bg-neon-pink/5 border border-neon-pink/20 rounded-xl">
-                        <h4 className="text-xs font-bold text-neon-pink uppercase mb-1 font-space">{ALCOHOL_ADDON.disclaimer.title}</h4>
-                        <p className="text-[10px] text-slate-600 leading-tight font-bold">{ALCOHOL_ADDON.disclaimer.text}</p>
+                    {alcQty > 0 && (
+                        <div className="p-4 bg-neon-pink/5 border border-neon-pink/20 rounded-xl">
+                            <h4 className="text-xs font-bold text-neon-pink uppercase mb-1 font-space">{ALCOHOL_ADDON.disclaimer.title}</h4>
+                            <p className="text-[10px] text-slate-600 leading-tight font-bold">{ALCOHOL_ADDON.disclaimer.text}</p>
+                        </div>
+                    )}
+                    <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl flex items-center gap-2">
+                        <span className="material-icons text-neon-pink text-sm">block</span>
+                        <span className="text-[10px] font-bold text-slate-600 uppercase font-space">No BYO alcohol — for licensing & safety</span>
                     </div>
-                )}
-                <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl flex items-center gap-2">
-                    <span className="material-icons text-neon-pink text-sm">block</span>
-                    <span className="text-[10px] font-bold text-slate-600 uppercase font-space">No BYO alcohol — for licensing & safety</span>
+                    <CTA onClick={nextStep}>Continue</CTA>
                 </div>
-                <CTA onClick={nextStep}>Continue</CTA>
-            </div>
-        )
+            )
+        }
 
         // Step 4 — Payment option
         if (step === 4) {
@@ -1183,32 +1229,32 @@ export default function SmartBookingModal() {
                             </div>
                         )}
                         {showInstallments && (
-                        <button
-                            onClick={() => updateState({ paymentOption: 'INSTALLMENTS' })}
-                            className={`w-full p-5 rounded-2xl border-2 transition-all text-left cursor-pointer ${state.paymentOption === 'INSTALLMENTS' ? 'border-neon-pink bg-neon-pink/5' : 'border-slate-100 hover:border-slate-200'}`}
-                        >
-                            <div className="flex items-center justify-between">
-                                <h4 className="font-bold text-sm uppercase">{DATA.payments.paymentPlans.installments_3.label}</h4>
-                                {eligible && (
-                                    <span className="text-[9px] bg-neon-pink/10 text-neon-pink px-2 py-0.5 rounded-full font-space">10% off booking payment</span>
-                                )}
-                            </div>
-                            <p className="text-xs text-slate-500 mt-1">{DATA.payments.paymentPlans.installments_3.hint}</p>
-                            <div className="mt-3 pt-3 border-t border-pink-100 space-y-1">
-                                <div className="flex justify-between text-sm">
-                                    <span className="text-slate-500">To be paid now</span>
-                                    <span className="font-bold text-slate-900">€{installments.amounts[0]}</span>
+                            <button
+                                onClick={() => updateState({ paymentOption: 'INSTALLMENTS' })}
+                                className={`w-full p-5 rounded-2xl border-2 transition-all text-left cursor-pointer ${state.paymentOption === 'INSTALLMENTS' ? 'border-neon-pink bg-neon-pink/5' : 'border-slate-100 hover:border-slate-200'}`}
+                            >
+                                <div className="flex items-center justify-between">
+                                    <h4 className="font-bold text-sm uppercase">{DATA.payments.paymentPlans.installments_3.label}</h4>
+                                    {eligible && (
+                                        <span className="text-[9px] bg-neon-pink/10 text-neon-pink px-2 py-0.5 rounded-full font-space">10% off booking payment</span>
+                                    )}
                                 </div>
-                                <div className="flex justify-between text-xs">
-                                    <span className="text-slate-400">Left to pay</span>
-                                    <span className="text-slate-500">€{pricing.subtotal - installments.amounts[0]}</span>
+                                <p className="text-xs text-slate-500 mt-1">{DATA.payments.paymentPlans.installments_3.hint}</p>
+                                <div className="mt-3 pt-3 border-t border-pink-100 space-y-1">
+                                    <div className="flex justify-between text-sm">
+                                        <span className="text-slate-500">To be paid now</span>
+                                        <span className="font-bold text-slate-900">€{installments.amounts[0]}</span>
+                                    </div>
+                                    <div className="flex justify-between text-xs">
+                                        <span className="text-slate-400">Left to pay</span>
+                                        <span className="text-slate-500">€{pricing.subtotal - installments.amounts[0]}</span>
+                                    </div>
+                                    <div className="flex justify-between text-xs">
+                                        <span className="text-slate-400">Total trip price</span>
+                                        <span className="text-slate-500">€{pricing.subtotal}</span>
+                                    </div>
                                 </div>
-                                <div className="flex justify-between text-xs">
-                                    <span className="text-slate-400">Total trip price</span>
-                                    <span className="text-slate-500">€{pricing.subtotal}</span>
-                                </div>
-                            </div>
-                        </button>
+                            </button>
                         )}
                         <button
                             onClick={() => updateState({ paymentOption: 'FULL' })}
@@ -1217,7 +1263,7 @@ export default function SmartBookingModal() {
                             <div className="flex items-center justify-between">
                                 <h4 className="font-bold text-sm uppercase">{DATA.payments.fullPayment.label}</h4>
                                 {eligible && (
-                                    <span className="text-[9px] bg-neon-pink/10 text-neon-pink px-2 py-0.5 rounded-full font-space">Save 19%</span>
+                                    <span className="text-[9px] bg-neon-pink/10 text-neon-pink px-2 py-0.5 rounded-full font-space">{pricing.lastMinute ? 'Save 10%' : 'Save 19%'}</span>
                                 )}
                             </div>
                             <p className="text-xs text-slate-500 mt-1">{DATA.payments.fullPayment.hint}</p>
@@ -1270,7 +1316,7 @@ export default function SmartBookingModal() {
                         const params = new URLSearchParams({
                             flow: 'BOOK_WHOLE_CABIN',
                             package: state.packageId, yacht: state.yachtId || '',
-                            guests: state.guestCount, alcohol: state.alcohol ? '1' : '0',
+                            guests: state.guestCount, alcohol: state.alcohol ? '1' : '0', alcoholQuantity: String(state.alcoholQuantity || 0),
                             payment: state.paymentOption, wholeCabin: '1',
                             date: state.date || '',
                         })

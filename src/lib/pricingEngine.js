@@ -102,10 +102,20 @@ export function computeFullPayment(basePrice, eligible, addOnsTotal = 0) {
     return { amount: basePrice + addOnsTotal, discount: 0, effectivePercent: 0 }
 }
 
+// ── Compute last-minute full payment (flat 10% off base) ──
+// Used when FULL_ONLY (≤13 days to departure)
+export function computeLastMinuteFullPayment(basePrice, addOnsTotal = 0) {
+    const discountedBase = Math.round(basePrice * 0.9)
+    const baseDiscount = basePrice - discountedBase
+    const finalAmount = discountedBase + addOnsTotal
+    return { amount: finalAmount, discount: baseDiscount, effectivePercent: 10 }
+}
+
 // ── Main pricing engine ──
 export function pricingEngine({
     packageId = '5n',
     alcohol = false,
+    alcoholQuantity = null,  // null = use guestCount (legacy), number = exact quantity
     guestCount = 1,
     paymentOption = 'INSTALLMENTS', // 'INSTALLMENTS' | 'FULL'
     wholeYacht = false,
@@ -123,11 +133,15 @@ export function pricingEngine({
         const cabinPkg = WHOLE_CABIN_PACKAGES[packageId] || WHOLE_CABIN_PACKAGES['5n']
         const basePrice = cabinPkg.price
         const alcoholPrice = alcohol ? WHOLE_YACHT_ALCOHOL_PRICE : 0
-        const alcoholTotal = alcoholPrice * guestCount
+        const alcQty = alcoholQuantity != null ? alcoholQuantity : guestCount
+        const alcoholTotal = alcoholPrice * alcQty
         const subtotal = basePrice + alcoholTotal
 
         // Discount only on basePrice, alcoholTotal added separately
-        const fullPay = computeFullPayment(basePrice, eligible, alcoholTotal)
+        const isLastMinute = plan === 'FULL_ONLY'
+        const fullPay = isLastMinute
+            ? computeLastMinuteFullPayment(basePrice, alcoholTotal)
+            : computeFullPayment(basePrice, eligible, alcoholTotal)
         const installments = computeInstallments(basePrice, eligible, alcoholTotal)
         const shortNotice = computeShortNotice(basePrice, eligible, alcoholTotal)
 
@@ -151,6 +165,7 @@ export function pricingEngine({
             subtotal,
             eligible,
             earlyBird: eligible,
+            lastMinute: isLastMinute,
             discountAmount,
             total,
             amountDueToday,
@@ -161,6 +176,7 @@ export function pricingEngine({
             fullPayment: effectiveOption === 'FULL' ? fullPay : null,
             pkg: { ...pkg, name: cabinPkg.label, price: cabinPkg.price },
             guestCount,
+            alcoholQuantity: alcQty,
             alcoholAddon: ALCOHOL_ADDON,
             wholeCabin: true,
             wholeCabinBasePrice: basePrice,
@@ -173,11 +189,15 @@ export function pricingEngine({
         const wholeYachtPkg = WHOLE_YACHT_PACKAGES[packageId] || WHOLE_YACHT_PACKAGES['5n']
         const basePrice = wholeYachtPkg.price
         const alcoholPrice = alcohol ? WHOLE_YACHT_ALCOHOL_PRICE : 0
-        const alcoholTotal = alcoholPrice * guestCount
+        const alcQty = alcoholQuantity != null ? alcoholQuantity : guestCount
+        const alcoholTotal = alcoholPrice * alcQty
         const subtotal = basePrice + alcoholTotal
 
         // Discount only on basePrice, alcoholTotal added separately
-        const fullPay = computeFullPayment(basePrice, eligible, alcoholTotal)
+        const isLastMinute = plan === 'FULL_ONLY'
+        const fullPay = isLastMinute
+            ? computeLastMinuteFullPayment(basePrice, alcoholTotal)
+            : computeFullPayment(basePrice, eligible, alcoholTotal)
         const installments = computeInstallments(basePrice, eligible, alcoholTotal)
         const shortNotice = computeShortNotice(basePrice, eligible, alcoholTotal)
 
@@ -200,7 +220,8 @@ export function pricingEngine({
             subtotalPerPerson: 0,
             subtotal,
             eligible,
-            earlyBird: eligible, // compat
+            earlyBird: eligible,
+            lastMinute: isLastMinute,
             discountAmount,
             total,
             amountDueToday,
@@ -211,6 +232,7 @@ export function pricingEngine({
             fullPayment: effectiveOption === 'FULL' ? fullPay : null,
             pkg: { ...pkg, name: wholeYachtPkg.label, price: wholeYachtPkg.price },
             guestCount,
+            alcoholQuantity: alcQty,
             alcoholAddon: ALCOHOL_ADDON,
             wholeYacht: true,
             wholeYachtBasePrice: basePrice,
@@ -226,7 +248,10 @@ export function pricingEngine({
     const subtotal = baseTotal + alcoholTotal
 
     // Discount only on baseTotal (package price), alcoholTotal added separately
-    const fullPay = computeFullPayment(baseTotal, eligible, alcoholTotal)
+    const isLastMinute = plan === 'FULL_ONLY'
+    const fullPay = isLastMinute
+        ? computeLastMinuteFullPayment(baseTotal, alcoholTotal)
+        : computeFullPayment(baseTotal, eligible, alcoholTotal)
     const installments = computeInstallments(baseTotal, eligible, alcoholTotal)
     const shortNotice = computeShortNotice(baseTotal, eligible, alcoholTotal)
 
@@ -249,7 +274,8 @@ export function pricingEngine({
         subtotalPerPerson,
         subtotal,
         eligible,
-        earlyBird: eligible, // compat
+        earlyBird: eligible,
+        lastMinute: isLastMinute,
         discountAmount,
         total,
         amountDueToday,
