@@ -8,7 +8,7 @@ export default function SuccessPage() {
     return (
         <div className="result-page">
             <SEO
-                title="Booking Confirmed | Yacht Days Greece"
+                title="Booking Confirmed | SALTIE CRUISES Greece"
                 description="Your Greece yacht vacation has been successfully booked."
             />
             <div className="result-card">

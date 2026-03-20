@@ -1,5 +1,5 @@
 # MEGA PROJECT TRUTH DOC (Refactored — Updated Confirmations Applied)
-Project: Yacht Days Greece (Jack / JDW)
+Project: SALTIE CRUISES Greece (Jack / JDW)
 Purpose: Single source of truth for all AIs + dev work (React + Tailwind)
 Last updated: 2026-02-21 (Europe/Warsaw)
 

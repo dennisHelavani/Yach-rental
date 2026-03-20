@@ -13,7 +13,7 @@ export default function BookingSuccessPage() {
     return (
         <div className="min-h-screen bg-white">
             <SEO
-                title="Booking Confirmed | Yacht Days Greece"
+                title="Booking Confirmed | SALTIE CRUISES Greece"
                 description="Your Greece yacht vacation has been successfully booked."
             />
             <Navbar />

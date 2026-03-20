@@ -11,7 +11,7 @@ export default function BookingCancelledPage() {
     return (
         <div className="min-h-screen bg-white">
             <SEO
-                title="Payment Not Completed | Yacht Days Greece"
+                title="Payment Not Completed | SALTIE CRUISES Greece"
                 description="Your booking payment was not completed. You can go back and try again."
             />
             <Navbar />

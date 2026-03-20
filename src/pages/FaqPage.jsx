@@ -8,7 +8,7 @@ import HotRouteCards from '../components/booking/HotRouteCards'
 import SEO from '../components/SEO'
 
 /* ══════════════════════════════════════════════════════════════
-   FAQ DATA — rewritten from reference, adapted for Yacht Days Greece
+   FAQ DATA — rewritten from reference, adapted for SALTIE CRUISES Greece
    ══════════════════════════════════════════════════════════════ */
 const faqCategories = [
     {
@@ -53,7 +53,7 @@ const faqCategories = [
             },
             {
                 q: 'What does the wristband cover?',
-                a: 'Your wristband is included in the booking price. It identifies you as a Yacht Days guest and grants you entry to selected partner events, beach clubs, and exclusive discounts on extra activities and excursions throughout the week.',
+                a: 'Your wristband is included in the booking price. It identifies you as a SALTIE CRUISES guest and grants you entry to selected partner events, beach clubs, and exclusive discounts on extra activities and excursions throughout the week.',
             },
             {
                 q: 'What type of clothes should I pack?',

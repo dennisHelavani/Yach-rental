@@ -15,7 +15,7 @@ const faqItems = [
     { q: 'Should I book a cabin (spot) or a full yacht?', a: 'For groups of 6+, a full yacht is usually better value — lower per-person cost and guaranteed togetherness. Cabin bookings are ideal if you want to meet new people. You\'ll be grouped with like-minded travelers and don\'t need to coordinate a full crew. If friends book separately, just reference each other\'s reservation numbers and we\'ll place you together.', color: 'primary' },
     { q: 'When are payments due?', a: 'Your booking payment is 33% of the total, followed by 33% and 34% in weekly installments. Final payment must be at least 7 days before departure. Bookings within 14 days require full payment. Book before June 15 for a 10% discount on your first payment, or up to 19% off with full payment!', color: 'neon-pink' },
     { q: 'Is there an age limit?', a: 'Yes. All guests must be between 18 and 45 years old. Our trips are designed as high-energy, social experiences for this demographic. If we discover guests outside this range, we reserve the right to cancel without refund.', color: 'neon-aqua' },
-    { q: 'What does the wristband cover?', a: 'Your wristband is included in the booking price. It identifies you as a Yacht Days guest and grants you entry to selected partner events, beach clubs, and exclusive discounts on extra activities and excursions throughout the week.', color: 'primary' },
+    { q: 'What does the wristband cover?', a: 'Your wristband is included in the booking price. It identifies you as a SALTIE CRUISES guest and grants you entry to selected partner events, beach clubs, and exclusive discounts on extra activities and excursions throughout the week.', color: 'primary' },
     { q: 'What type of yachts do you use?', a: 'Our fleet consists entirely of premium Azimut models refitted in 2020: the Azimut 58, Azimut 66, and Azimut 70. We don\'t do "budget" boats — every vessel in the flotilla is built for an incredible social sailing experience.', color: 'neon-pink' },
 ]
 
@@ -279,7 +279,7 @@ export default function HowItWorksPage() {
                     <div className="text-center mb-14">
                         <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-slate-400 font-space">Why us?</span>
                         <h2 className="text-4xl md:text-5xl lg:text-7xl font-punchy italic uppercase leading-none tracking-tighter mt-3 text-slate-900">
-                            YACHT DAYS <span className="text-neon-aqua">vs</span> DIY
+                            SALTIE CRUISES <span className="text-neon-aqua">vs</span> DIY
                         </h2>
                         <p className="mt-4 text-slate-500 font-space text-lg">See what you get when everything's taken care of.</p>
                     </div>
@@ -290,7 +290,7 @@ export default function HowItWorksPage() {
                         <div className="grid grid-cols-3 bg-slate-900 text-white">
                             <div className="p-5 font-space text-xs font-bold uppercase tracking-widest text-slate-400">Feature</div>
                             <div className="p-5 text-center">
-                                <span className="font-punchy text-lg italic uppercase text-neon-aqua">Yacht Days</span>
+                                <span className="font-punchy text-lg italic uppercase text-neon-aqua">SALTIE CRUISES</span>
                             </div>
                             <div className="p-5 text-center">
                                 <span className="font-punchy text-lg italic uppercase text-slate-400">Plan It Yourself</span>

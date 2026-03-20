@@ -5,7 +5,7 @@ export default function CancelPage() {
     return (
         <div className="result-page">
             <SEO
-                title="Payment Cancelled | Yacht Days Greece"
+                title="Payment Cancelled | SALTIE CRUISES Greece"
                 description="Your booking payment was cancelled."
             />
             <div className="result-card">
