@@ -58,7 +58,7 @@ export default function ContactPage() {
                                 </div>
                                 <div>
                                     <h4 className="font-punchy uppercase text-lg mb-1">Email Us</h4>
-                                    <a href="mailto:info@yachtdays.gr" className="text-slate-500 font-medium hover:text-primary transition-colors inline-block">info@yachtdays.gr</a>
+                                    <a href="mailto:support@saltiecruises.com" className="text-slate-500 font-medium hover:text-primary transition-colors inline-block">support@saltiecruises.com</a>
                                     <p className="text-xs text-slate-400 mt-1">We usually reply within 24 hours.</p>
                                 </div>
                             </div>

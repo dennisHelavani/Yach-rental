@@ -44,7 +44,7 @@ serve(async (req: Request) => {
           You will be contacted later by our cruise partner who will share the needed data with you 1 week prior to the sailing.
         </p>
         <p style="font-size:13px;color:#94a3b8;margin-top:24px;">
-          If you have any questions, reply to this email or contact us at info@saltiecruises.com.
+          If you have any questions, reply to this email or contact us at support@saltiecruises.com.
         </p>
         <p style="font-size:13px;color:#94a3b8;">— The SALTIE Cruises Team</p>
       </div>

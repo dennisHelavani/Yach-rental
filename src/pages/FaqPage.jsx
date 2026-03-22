@@ -61,11 +61,11 @@ const faqCategories = [
             },
             {
                 q: 'Are there health requirements to join?',
-                a: 'You must not have any medical conditions that would make sailing unsafe. The trip is not physically strenuous unless you opt into activities like snorkeling or sailing participation. If you have concerns, please <a href="mailto:info@yachtdays.gr" class="text-primary underline font-bold">contact us</a> before booking.',
+                a: 'You must not have any medical conditions that would make sailing unsafe. The trip is not physically strenuous unless you opt into activities like snorkeling or sailing participation. If you have concerns, please <a href="mailto:support@saltiecruises.com" class="text-primary underline font-bold">contact us</a> before booking.',
             },
             {
                 q: 'What if someone in my group has a disability?',
-                a: 'We want everyone to have an incredible time. If you or any member of your group has a disability, please contact us at <a href="mailto:info@yachtdays.gr" class="text-primary underline font-bold">info@yachtdays.gr</a> <strong>before</strong> completing your reservation so we can make the necessary arrangements.',
+                a: 'We want everyone to have an incredible time. If you or any member of your group has a disability, please contact us at <a href="mailto:support@saltiecruises.com" class="text-primary underline font-bold">support@saltiecruises.com</a> <strong>before</strong> completing your reservation so we can make the necessary arrangements.',
             },
             {
                 q: 'Will there be photos taken during the trip?',
@@ -131,7 +131,7 @@ const faqCategories = [
             },
             {
                 q: 'Can I book a spot if I\'m traveling solo?',
-                a: 'Yes! We have individual cabin/spot bookings available. Book online through our website, or contact us by email at <a href="mailto:info@yachtdays.gr" class="text-primary underline font-bold">info@yachtdays.gr</a> if you need assistance.',
+                a: 'Yes! We have individual cabin/spot bookings available. Book online through our website, or contact us by email at <a href="mailto:support@saltiecruises.com" class="text-primary underline font-bold">support@saltiecruises.com</a> if you need assistance.',
             },
             {
                 q: 'Is there an age limit?',
@@ -139,7 +139,7 @@ const faqCategories = [
             },
             {
                 q: 'How can I guarantee my friends and I are on the same yacht?',
-                a: 'Three scenarios:<ol class="list-decimal ml-6 mt-2 space-y-2"><li><strong>Book & pay together:</strong> Same reservation number = same yacht, automatically.</li><li><strong>Book separately:</strong> Add a note with your friends\' names or reservation numbers when booking, and we\'ll place you together.</li><li><strong>Already booked separately:</strong> Email us at <a href="mailto:info@yachtdays.gr" class="text-primary underline font-bold">info@yachtdays.gr</a> with all names and reservation numbers at least 60 days before departure.</li></ol><br/>Note: yachts hold 6–10 guests. Groups larger than 6 may be split across yachts if cabins are unavailable — in that case, consider a full yacht booking.',
+                a: 'Three scenarios:<ol class="list-decimal ml-6 mt-2 space-y-2"><li><strong>Book & pay together:</strong> Same reservation number = same yacht, automatically.</li><li><strong>Book separately:</strong> Add a note with your friends\' names or reservation numbers when booking, and we\'ll place you together.</li><li><strong>Already booked separately:</strong> Email us at <a href="mailto:support@saltiecruises.com" class="text-primary underline font-bold">support@saltiecruises.com</a> with all names and reservation numbers at least 60 days before departure.</li></ol><br/>Note: yachts hold 6–10 guests. Groups larger than 6 may be split across yachts if cabins are unavailable — in that case, consider a full yacht booking.',
             },
             {
                 q: 'Can a small group rent a full yacht for more people?',
@@ -166,7 +166,7 @@ const faqCategories = [
             },
             {
                 q: 'What is the cancellation policy?',
-                a: 'Cancellation and refund terms are to be confirmed. Please check back soon or contact us directly at <a href="mailto:info@yachtdays.gr" class="text-primary underline font-bold">info@yachtdays.gr</a> for the latest policy information.',
+                a: 'Cancellation and refund terms are to be confirmed. Please check back soon or contact us directly at <a href="mailto:support@saltiecruises.com" class="text-primary underline font-bold">support@saltiecruises.com</a> for the latest policy information.',
             },
             {
                 q: 'Can I postpone my trip to a future season?',
