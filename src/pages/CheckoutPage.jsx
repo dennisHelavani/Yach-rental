@@ -90,6 +90,7 @@ export default function CheckoutPage() {
             departureDate: date ? date.slice(0, 10) : undefined,
             guestCount: guestCount,
             bookingMode: mapBookingMode(flow, wholeYacht, wholeCabin),
+            yachtType: yacht?.name || fleetYacht?.name || yachtId || 'Not specified',
             addOns: {
                 alcohol: !!alcohol,
                 alcoholQuantity: alcoholQuantity,
