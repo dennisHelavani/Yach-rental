@@ -32,10 +32,12 @@ serve(async (req: Request) => {
       date,
       guests,
       alcohol_selected,
+      alcohol_quantity,
       payment_choice,
       customer_name,
       customer_email,
       customer_phone,
+      yacht_type,
       notes,
     } = body;
 
@@ -92,7 +94,8 @@ serve(async (req: Request) => {
 
     // ── Calculate pricing ───────────────────────────────────
     const basePrice = yacht.base_price_eur;
-    const alcoholTotal = alcohol_selected ? guestCount * alcoholPricePerPerson : 0;
+    const alcoholQty = Number(alcohol_quantity) || 0;
+    const alcoholTotal = alcohol_selected ? alcoholQty * alcoholPricePerPerson : 0;
 
     let subtotal = basePrice + alcoholTotal;
     let discountEur = 0;
@@ -189,9 +192,11 @@ serve(async (req: Request) => {
         status: "pending",
         yacht_slug,
         yacht_name: yacht.name,
+        yacht_type: yacht_type || null,
         date,
         guests: guestCount,
         alcohol_selected: !!alcohol_selected,
+        alcohol_quantity: alcoholQty,
         alcohol_price_total: alcoholTotal,
         payment_choice,
         subtotal_eur: subtotal,

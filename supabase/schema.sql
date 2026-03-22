@@ -35,6 +35,7 @@ create table if not exists bookings (
   date                    date        not null,
   guests                  int         not null,
   alcohol_selected        boolean     not null default false,
+  alcohol_quantity        int         not null default 0,
   alcohol_price_total     int         not null default 0,
   payment_choice          text        not null,
     -- deposit | full
@@ -45,6 +46,7 @@ create table if not exists bookings (
   customer_name           text,
   customer_email          text,
   customer_phone          text,
+  yacht_type              text,
   notes                   text,
   stripe_session_id       text,
   stripe_payment_intent_id text
