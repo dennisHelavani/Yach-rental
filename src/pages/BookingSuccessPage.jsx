@@ -52,18 +52,7 @@ export default function BookingSuccessPage() {
                     </div>
                 )}
 
-                {/* Important local fees notice — visually distinct box */}
-                <div className="mb-6 p-4 bg-amber-50 border border-amber-200 rounded-xl text-left">
-                    <div className="flex items-start gap-2">
-                        <span className="material-icons text-amber-500 text-base mt-0.5">warning</span>
-                        <div>
-                            <p className="text-sm font-bold text-amber-800">Important</p>
-                            <p className="text-xs text-amber-700 mt-1">
-                                Please bring €150 per person in cash on check-in day for local fees (tourist tax, marina/port fees, fuel). This is not included in your online payment.
-                            </p>
-                        </div>
-                    </div>
-                </div>
+
 
                 {/* Safety briefing reminder */}
                 <p className="text-sm text-slate-500 mb-6">
