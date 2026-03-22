@@ -101,8 +101,13 @@ export default function CheckoutPage() {
         console.log('[SALTIE Checkout] Sending payload:', JSON.stringify(payload, null, 2))
 
         try {
+            const API_BASE = import.meta.env.VITE_API_URL || 'https://api.saltiecruises.com'
+            const checkoutEndpoint = `${API_BASE}/api/create-checkout-session`
+            console.log('[SALTIE Checkout] VITE_API_URL =', import.meta.env.VITE_API_URL)
+            console.log('[SALTIE Checkout] POST →', checkoutEndpoint)
+
             const res = await fetch(
-                `${import.meta.env.VITE_API_URL}/api/create-checkout-session`,
+                checkoutEndpoint,
                 {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
