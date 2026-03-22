@@ -273,7 +273,7 @@ export default function CheckoutPage() {
                                     className="mt-1 w-4 h-4 rounded accent-amber-500"
                                 />
                                 <span className="text-xs text-slate-500 leading-tight">
-                                    I agree to the <a href="#" className="text-amber-600 underline">Terms & Conditions</a>, <a href="#" className="text-amber-600 underline">Privacy Policy</a>, and the cancellation policy. I confirm I am at least 18 years old.
+                                    I agree to the <a href="#" className="text-amber-600 underline">Terms & Conditions</a>, <a href="/policy.pdf" target="_blank" rel="noopener noreferrer" className="text-amber-600 underline">Privacy Policy</a>, and the cancellation policy. I confirm I am at least 18 years old.
                                 </span>
                             </label>
 

@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 export default function AddOns() {
     return (
         <section className="py-32 px-6" id="add-ons">
@@ -30,9 +32,9 @@ export default function AddOns() {
                                 </div>
                             ))}
                         </div>
-                        <button className="bg-white text-slate-900 px-12 py-5 rounded-2xl font-punchy text-xl hover:bg-neon-pink hover:text-white transition-all shadow-xl cursor-pointer">
-                            VIEW ADD-ONS
-                        </button>
+                        <Link to="/routes" className="inline-block bg-white text-slate-900 px-12 py-5 rounded-2xl font-punchy text-xl hover:bg-neon-pink hover:text-white transition-all shadow-xl cursor-pointer">
+                            VIEW ROUTES
+                        </Link>
                     </div>
 
                     <div className="hidden lg:flex justify-end">

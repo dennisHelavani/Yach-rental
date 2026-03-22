@@ -70,17 +70,17 @@ export default function PriceBreakdownCard({ pricing, state }) {
             {paymentOption !== 'FULL' ? (
                 <div className="border-t border-slate-200 pt-3 space-y-3">
                     {/* To be paid now */}
-                    <div className="bg-emerald-600/10 border border-emerald-600/20 rounded-xl p-3">
+                    <div className="bg-slate-800 border border-slate-700 rounded-xl p-3">
                         <div className="flex justify-between items-center">
                             <div>
-                                <span className="text-[10px] font-bold uppercase text-emerald-600 font-space">
+                                <span className="text-[10px] font-bold uppercase text-slate-300 font-space">
                                     To be paid now (33%)
                                 </span>
                                 {earlyBird && discountAmount > 0 && (
-                                    <p className="text-[10px] text-emerald-600 mt-0.5 font-bold">Saving €{discountAmount} on your booking payment!</p>
+                                    <p className="text-[10px] text-emerald-400 mt-0.5 font-bold">Saving €{discountAmount} on your booking payment!</p>
                                 )}
                             </div>
-                            <span className="font-punchy text-2xl italic text-emerald-600">€{amountDueToday}</span>
+                            <span className="font-punchy text-2xl italic text-white">€{amountDueToday}</span>
                         </div>
                     </div>
 
@@ -111,17 +111,17 @@ export default function PriceBreakdownCard({ pricing, state }) {
                 /* ── FULL PAYMENT: Discounted total ── */
                 <div className="border-t border-slate-200 pt-3 space-y-3">
                     {/* Pay today */}
-                    <div className="bg-emerald-600/10 border border-emerald-600/20 rounded-xl p-3">
+                    <div className="bg-slate-800 border border-slate-700 rounded-xl p-3">
                         <div className="flex justify-between items-center">
                             <div>
-                                <span className="text-[10px] font-bold uppercase text-emerald-600 font-space">
+                                <span className="text-[10px] font-bold uppercase text-slate-300 font-space">
                                     Full Payment Today
                                 </span>
                                 {(earlyBird || lastMinute) && discountAmount > 0 && (
-                                    <p className="text-[10px] text-emerald-600 mt-0.5 font-bold">You're saving €{discountAmount} with {lastMinute ? 'last-minute' : 'full payment'} discount!</p>
+                                    <p className="text-[10px] text-emerald-400 mt-0.5 font-bold">You're saving €{discountAmount} with {lastMinute ? 'last-minute' : 'full payment'} discount!</p>
                                 )}
                             </div>
-                            <span className="font-punchy text-2xl italic text-emerald-600">€{total}</span>
+                            <span className="font-punchy text-2xl italic text-white">€{total}</span>
                         </div>
                     </div>
 

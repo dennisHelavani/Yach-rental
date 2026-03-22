@@ -17,14 +17,7 @@ export default function Footer() {
                         <p className="text-slate-400 font-medium mb-8 max-w-sm">
                             Island-hopping the Greek Cyclades with 50 yachts. See you on the water.
                         </p>
-                        <div className="flex gap-4 justify-center md:justify-start">
-                            <a href="#" className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-neon-pink transition-all">
-                                <span className="material-icons text-xl">camera_alt</span>
-                            </a>
-                            <a href="#" className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-neon-pink transition-all">
-                                <span className="material-icons text-xl">facebook</span>
-                            </a>
-                        </div>
+
                     </div>
 
                     {/* Desktop-only columns */}
@@ -65,9 +58,12 @@ export default function Footer() {
                 {/* Bottom bar */}
                 <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 font-space">
                     <p>© 2026 SALTIE Greece. All rights reserved.</p>
-                    <p className="flex items-center gap-2 italic">
-                        FOR THE WILD AT HEART <span className="material-icons text-neon-pink text-[10px]">favorite</span>
-                    </p>
+                    <div className="flex items-center gap-4">
+                        <a href="/policy.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-neon-aqua transition-colors">Privacy Policy</a>
+                        <p className="flex items-center gap-2 italic">
+                            FOR THE WILD AT HEART <span className="material-icons text-neon-pink text-[10px]">favorite</span>
+                        </p>
+                    </div>
                 </div>
             </div>
         </footer>
