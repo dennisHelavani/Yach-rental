@@ -93,7 +93,8 @@ export default function CheckoutPage() {
             yachtType: yacht?.name || fleetYacht?.name || yachtId || 'Not specified',
             addOns: {
                 alcohol: !!alcohol,
-                alcoholQuantity: alcoholQuantity,
+                // Shared mode uses a checkbox (no qty selector), so default to guestCount when checked
+                alcoholQuantity: (!wholeYacht && !wholeCabin && alcohol) ? guestCount : alcoholQuantity,
                 luggageStorageBags: 0
             },
             paymentPreference: paymentOption.toUpperCase() === 'FULL' ? 'full' : 'installments'
