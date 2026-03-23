@@ -39,7 +39,7 @@ export default function Footer() {
                         </ul>
                     </div>
 
-                    <div className="hidden md:block" id="contact">
+                    {/* <div className="hidden md:block" id="contact">
                         <h4 className="font-punchy uppercase italic text-lg mb-4">Stay Fresh</h4>
                         <p className="text-slate-400 font-medium text-sm mb-4">Get notified about new departures and offers.</p>
                         <div className="flex gap-2">
@@ -52,7 +52,7 @@ export default function Footer() {
                                 Go
                             </button>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
 
                 {/* Bottom bar */}
