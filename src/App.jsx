@@ -19,11 +19,13 @@ import NotFoundPage from './pages/NotFoundPage'
 // NEW: post-payment flow pages
 import BookingSuccessPage from './pages/BookingSuccessPage'
 import BookingCancelledPage from './pages/BookingCancelledPage'
+import CookieBanner from './components/CookieBanner'
 
 export default function App() {
   return (
     <>
       <ScrollToTop />
+      <CookieBanner />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/how-it-works" element={<HowItWorksPage />} />

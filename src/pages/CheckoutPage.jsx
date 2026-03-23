@@ -17,6 +17,7 @@ export default function CheckoutPage() {
     const [params] = useSearchParams()
     const navigate = useNavigate()
     const [termsAccepted, setTermsAccepted] = useState(false)
+    const [privacyAccepted, setPrivacyAccepted] = useState(false)
     const [processing, setProcessing] = useState(false)
     const [error, setError] = useState(null)
 
@@ -58,8 +59,8 @@ export default function CheckoutPage() {
 
     // ── handleCheckout — calls real backend API ──
     const handleCheckout = async () => {
-        if (!termsAccepted) {
-            setError('Please accept the Terms & Conditions to continue.')
+        if (!termsAccepted || !privacyAccepted) {
+            setError('Please accept both the Terms & Conditions and Privacy Policy to continue.')
             return
         }
 
@@ -271,18 +272,32 @@ export default function CheckoutPage() {
                         <div className="md:sticky md:top-24">
                             <PriceBreakdownCard pricing={pricing} state={state} />
 
-                            {/* T&C checkbox */}
-                            <label className="flex items-start gap-3 mt-4 cursor-pointer">
-                                <input
-                                    type="checkbox"
-                                    checked={termsAccepted}
-                                    onChange={e => { setTermsAccepted(e.target.checked); setError(null) }}
-                                    className="mt-1 w-4 h-4 rounded accent-amber-500"
-                                />
-                                <span className="text-xs text-slate-500 leading-tight">
-                                    I agree to the <a href="#" className="text-amber-600 underline">Terms & Conditions</a>, <a href="/policy.pdf" target="_blank" rel="noopener noreferrer" className="text-amber-600 underline">Privacy Policy</a>, and the cancellation policy. I confirm I am at least 18 years old.
-                                </span>
-                            </label>
+                            {/* EU-compliant mandatory checkboxes */}
+                            <div className="mt-4 space-y-3">
+                                <label className="flex items-start gap-3 cursor-pointer">
+                                    <input
+                                        type="checkbox"
+                                        checked={termsAccepted}
+                                        onChange={e => { setTermsAccepted(e.target.checked); setError(null) }}
+                                        className="mt-1 w-4 h-4 rounded accent-amber-500 shrink-0"
+                                    />
+                                    <span className="text-xs text-slate-500 leading-tight">
+                                        I have read and accept the <a href="#" className="text-amber-600 underline font-bold">Terms and Conditions</a>. I confirm I am at least 18 years old.
+                                    </span>
+                                </label>
+
+                                <label className="flex items-start gap-3 cursor-pointer">
+                                    <input
+                                        type="checkbox"
+                                        checked={privacyAccepted}
+                                        onChange={e => { setPrivacyAccepted(e.target.checked); setError(null) }}
+                                        className="mt-1 w-4 h-4 rounded accent-amber-500 shrink-0"
+                                    />
+                                    <span className="text-xs text-slate-500 leading-tight">
+                                        I have read the <a href="/policy.pdf" target="_blank" rel="noopener noreferrer" className="text-amber-600 underline font-bold">Privacy Policy</a> and consent to my data being processed as described.
+                                    </span>
+                                </label>
+                            </div>
 
                             {/* Error — visible in the UI near the submit button */}
                             {error && (
@@ -291,14 +306,21 @@ export default function CheckoutPage() {
                                 </div>
                             )}
 
-                            {/* Pay button */}
+                            {/* Cancellation policy notice */}
+                            <p className="text-[10px] text-slate-400 mt-4 text-center font-space">
+                                Cancellation charges apply. See our full <a href="#" className="text-amber-600 underline">cancellation policy</a>.
+                            </p>
+
+                            {/* Book and Pay button */}
                             <button
                                 onClick={handleCheckout}
-                                disabled={processing}
-                                className={`w-full mt-4 py-4 rounded-2xl font-punchy uppercase tracking-widest transition-all text-sm cursor-pointer
-                                    ${processing ? 'bg-slate-200 text-slate-400 cursor-wait' : 'bg-amber-500 text-white hover:bg-slate-900'}`}
+                                disabled={processing || !termsAccepted || !privacyAccepted}
+                                className={`w-full mt-3 py-4 rounded-2xl font-punchy uppercase tracking-widest transition-all text-sm
+                                    ${processing ? 'bg-slate-200 text-slate-400 cursor-wait'
+                                        : (!termsAccepted || !privacyAccepted) ? 'bg-slate-200 text-slate-400 cursor-not-allowed'
+                                        : 'bg-amber-500 text-white hover:bg-slate-900 cursor-pointer'}`}
                             >
-                                {processing ? 'Processing...' : `Pay €${pricing.amountDueToday} Now →`}
+                                {processing ? 'Processing...' : `Book and Pay €${pricing.amountDueToday} →`}
                             </button>
 
                             <p className="text-center text-[10px] text-slate-400 mt-2 font-space">

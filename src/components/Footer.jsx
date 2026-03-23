@@ -17,7 +17,6 @@ export default function Footer() {
                         <p className="text-slate-400 font-medium mb-8 max-w-sm">
                             Island-hopping the Greek Cyclades with 50 yachts. See you on the water.
                         </p>
-
                     </div>
 
                     {/* Desktop-only columns */}
@@ -34,32 +33,45 @@ export default function Footer() {
                         <h4 className="font-punchy uppercase italic text-lg mb-4">Experience</h4>
                         <ul className="space-y-2 text-slate-400 font-medium text-sm">
                             <li><Link to="/how-it-works" className="hover:text-neon-aqua transition-colors">How It Works</Link></li>
-                            {/* <li><a href="#add-ons" className="hover:text-neon-aqua transition-colors">Add-Ons</a></li> */}
                             <li><Link to="/faq" className="hover:text-neon-aqua transition-colors">FAQ</Link></li>
+                            <li><Link to="/contact" className="hover:text-neon-aqua transition-colors">Contact</Link></li>
                         </ul>
                     </div>
 
-                    {/* <div className="hidden md:block" id="contact">
-                        <h4 className="font-punchy uppercase italic text-lg mb-4">Stay Fresh</h4>
-                        <p className="text-slate-400 font-medium text-sm mb-4">Get notified about new departures and offers.</p>
-                        <div className="flex gap-2">
-                            <input
-                                type="email"
-                                placeholder="you@email.com"
-                                className="bg-white/5 border border-white/10 px-4 py-2 rounded-xl text-sm focus:outline-none focus:border-neon-aqua text-white flex-1"
-                            />
-                            <button className="bg-neon-aqua text-slate-900 px-4 py-2 rounded-xl font-bold text-sm hover:bg-neon-pink hover:text-white transition-colors cursor-pointer">
-                                Go
-                            </button>
-                        </div>
-                    </div> */}
+                    {/* Legal column */}
+                    <div className="hidden md:block">
+                        <h4 className="font-punchy uppercase italic text-lg mb-4">Legal</h4>
+                        <ul className="space-y-2 text-slate-400 font-medium text-sm">
+                            <li><a href="/policy.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-neon-aqua transition-colors">Privacy Policy</a></li>
+                            <li><a href="#" className="hover:text-neon-aqua transition-colors">Terms &amp; Conditions</a></li>
+                            <li><a href="#" className="hover:text-neon-aqua transition-colors">Cookie Policy</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                {/* EU Legal Entity Info */}
+                <div className="border-t border-white/10 pt-6 mb-6">
+                    <div className="flex flex-col md:flex-row items-center justify-center gap-x-6 gap-y-1 text-[10px] text-slate-500 font-space uppercase tracking-widest text-center">
+                        <span>SALTIE Cruises Limited</span>
+                        <span className="hidden md:inline">•</span>
+                        <span>Company No: <span className="text-slate-400">[PENDING]</span></span>
+                        <span className="hidden md:inline">•</span>
+                        <span>Registered in <span className="text-slate-400">[PENDING]</span></span>
+                        <span className="hidden md:inline">•</span>
+                        <a href="mailto:support@saltiecruises.com" className="text-slate-400 hover:text-neon-aqua transition-colors">support@saltiecruises.com</a>
+                    </div>
                 </div>
 
                 {/* Bottom bar */}
-                <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 font-space">
-                    <p>© 2026 SALTIE Greece. All rights reserved.</p>
-                    <div className="flex items-center gap-4">
-                        <a href="/policy.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-neon-aqua transition-colors">Privacy Policy</a>
+                <div className="border-t border-white/10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 font-space">
+                    <p>© 2026 SALTIE Cruises Limited. All rights reserved.</p>
+                    <div className="flex items-center gap-4 flex-wrap justify-center">
+                        {/* Mobile-only legal links */}
+                        <div className="flex items-center gap-4 md:hidden">
+                            <a href="/policy.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-neon-aqua transition-colors">Privacy</a>
+                            <a href="#" className="hover:text-neon-aqua transition-colors">Terms</a>
+                            <a href="#" className="hover:text-neon-aqua transition-colors">Cookies</a>
+                        </div>
                         <p className="flex items-center gap-2 italic">
                             FOR THE WILD AT HEART <span className="material-icons text-neon-pink text-[10px]">favorite</span>
                         </p>
