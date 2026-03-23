@@ -54,10 +54,10 @@ export default function Footer() {
                     <div className="flex flex-col md:flex-row items-center justify-center gap-x-6 gap-y-1 text-[10px] text-slate-500 font-space uppercase tracking-widest text-center">
                         <span>SALTIE Cruises Limited</span>
                         <span className="hidden md:inline">•</span>
-                        <span>Company No: <span className="text-slate-400">[PENDING]</span></span>
-                        <span className="hidden md:inline">•</span>
-                        <span>Registered in <span className="text-slate-400">[PENDING]</span></span>
-                        <span className="hidden md:inline">•</span>
+                        {/* <span>Company No: <span className="text-slate-400">[PENDING]</span></span> */}
+                        {/* <span className="hidden md:inline">•</span> */}
+                        {/* <span>Registered in <span className="text-slate-400">[PENDING]</span></span> */}
+                        {/* <span className="hidden md:inline">•</span> */}
                         <a href="mailto:support@saltiecruises.com" className="text-slate-400 hover:text-neon-aqua transition-colors">support@saltiecruises.com</a>
                     </div>
                 </div>
