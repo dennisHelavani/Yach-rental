@@ -92,9 +92,14 @@ serve(async (req: Request) => {
     const discountDeadline = config?.full_discount_deadline ?? "2026-04-05";
     const alcoholPricePerPerson = config?.alcohol_price_per_person ?? 199;
 
+    // ── Failsafe: shared bookings may send alcohol=true with qty=0 ──
+    const safeAlcoholQty = (alcohol_selected && (!alcohol_quantity || Number(alcohol_quantity) === 0))
+      ? guestCount
+      : (Number(alcohol_quantity) || 0);
+
     // ── Calculate pricing ───────────────────────────────────
     const basePrice = yacht.base_price_eur;
-    const alcoholQty = Number(alcohol_quantity) || 0;
+    const alcoholQty = safeAlcoholQty;
     const alcoholTotal = alcohol_selected ? alcoholQty * alcoholPricePerPerson : 0;
 
     let subtotal = basePrice + alcoholTotal;
