@@ -20,6 +20,8 @@ import NotFoundPage from './pages/NotFoundPage'
 import BookingSuccessPage from './pages/BookingSuccessPage'
 import BookingCancelledPage from './pages/BookingCancelledPage'
 import CookieBanner from './components/CookieBanner'
+import TermsPage from './pages/TermsPage'
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
 
 export default function App() {
   return (
@@ -47,6 +49,8 @@ export default function App() {
         <Route path="/booking-success" element={<BookingSuccessPage />} />
         <Route path="/booking-cancelled" element={<BookingCancelledPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/terms" element={<TermsPage />} />
+        <Route path="/privacy" element={<PrivacyPolicyPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>

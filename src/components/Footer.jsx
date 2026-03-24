@@ -42,8 +42,8 @@ export default function Footer() {
                     <div className="hidden md:block">
                         <h4 className="font-punchy uppercase italic text-lg mb-4">Legal</h4>
                         <ul className="space-y-2 text-slate-400 font-medium text-sm">
-                            <li><a href="/policy.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-neon-aqua transition-colors">Privacy Policy</a></li>
-                            <li><a href="#" className="hover:text-neon-aqua transition-colors">Terms &amp; Conditions</a></li>
+                            <li><a href="/privacy" className="hover:text-neon-aqua transition-colors">Privacy Policy</a></li>
+                            <li><a href="/terms" className="hover:text-neon-aqua transition-colors">Terms &amp; Conditions</a></li>
                             <li><a href="#" className="hover:text-neon-aqua transition-colors">Cookie Policy</a></li>
                         </ul>
                     </div>
@@ -68,8 +68,8 @@ export default function Footer() {
                     <div className="flex items-center gap-4 flex-wrap justify-center">
                         {/* Mobile-only legal links */}
                         <div className="flex items-center gap-4 md:hidden">
-                            <a href="/policy.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-neon-aqua transition-colors">Privacy</a>
-                            <a href="#" className="hover:text-neon-aqua transition-colors">Terms</a>
+                            <a href="/privacy" className="hover:text-neon-aqua transition-colors">Privacy</a>
+                            <a href="/terms" className="hover:text-neon-aqua transition-colors">Terms</a>
                             <a href="#" className="hover:text-neon-aqua transition-colors">Cookies</a>
                         </div>
                         <p className="flex items-center gap-2 italic">

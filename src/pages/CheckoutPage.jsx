@@ -282,7 +282,7 @@ export default function CheckoutPage() {
                                         className="mt-1 w-4 h-4 rounded accent-amber-500 shrink-0"
                                     />
                                     <span className="text-xs text-slate-500 leading-tight">
-                                        I have read and accept the <a href="#" className="text-amber-600 underline font-bold">Terms and Conditions</a>. I confirm I am at least 18 years old.
+                                        I have read and accept the <a href="/terms" target="_blank" rel="noopener noreferrer" className="text-amber-600 underline font-bold">Terms and Conditions</a>. I confirm I am at least 18 years old.
                                     </span>
                                 </label>
 
@@ -294,7 +294,7 @@ export default function CheckoutPage() {
                                         className="mt-1 w-4 h-4 rounded accent-amber-500 shrink-0"
                                     />
                                     <span className="text-xs text-slate-500 leading-tight">
-                                        I have read the <a href="/policy.pdf" target="_blank" rel="noopener noreferrer" className="text-amber-600 underline font-bold">Privacy Policy</a> and consent to my data being processed as described.
+                                        I have read the <a href="/privacy" target="_blank" rel="noopener noreferrer" className="text-amber-600 underline font-bold">Privacy Policy</a> and consent to my data being processed as described.
                                     </span>
                                 </label>
                             </div>
