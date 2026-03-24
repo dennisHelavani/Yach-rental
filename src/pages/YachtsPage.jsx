@@ -148,11 +148,6 @@ export default function YachtsPage() {
 
             <Footer />
 
-            {/* WhatsApp FAB */}
-            <a className="fixed bottom-8 right-8 z-[100] w-14 h-14 md:w-16 md:h-16 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-all" href="https://wa.me/" target="_blank" rel="noopener noreferrer">
-                <span className="material-icons text-3xl md:text-4xl">chat</span>
-            </a>
-
 
         </div>
     )

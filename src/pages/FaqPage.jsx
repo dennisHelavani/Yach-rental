@@ -544,15 +544,6 @@ export default function FaqPage() {
 
             <Footer />
 
-            {/* ─── WHATSAPP FAB ──────────────────────────────────── */}
-            <a
-                className="fixed bottom-8 right-8 z-[100] w-16 h-16 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-all"
-                href="https://wa.me/"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                <span className="material-icons text-4xl">chat</span>
-            </a>
 
 
         </div>
