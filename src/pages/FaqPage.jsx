@@ -166,7 +166,27 @@ const faqCategories = [
             },
             {
                 q: 'What is the cancellation policy?',
-                a: 'Cancellation and refund terms are to be confirmed. Please check back soon or contact us directly at <a href="mailto:support@saltiecruises.com" class="text-primary underline font-bold">support@saltiecruises.com</a> for the latest policy information.',
+                a: 'If you cancel <strong>more than 7 working days</strong> before your departure date, the refundable amount is determined by the booking terms provided at the time of purchase.<br/><br/>If you cancel <strong>within 7 working days</strong> of departure, we will refund <strong>33% of the total trip price</strong> (excluding any alcohol package or other add-ons) to your original payment method.<br/><br/>Working days means Monday to Friday, excluding public holidays in New Zealand.<br/><br/>For full details, see our <a href="/cancellation" class="text-primary underline font-bold">Cancellation & Refunds Policy</a>.',
+            },
+            {
+                q: 'Are deposits refundable?',
+                a: 'Deposits are <strong>non-refundable</strong>. Full payment is required prior to departure. Cancellation charges apply depending on timing — see our <a href="/cancellation" class="text-primary underline font-bold">full cancellation policy</a> for details.',
+            },
+            {
+                q: 'What happens if I don\'t show up or miss my departure?',
+                a: 'No refund is provided for no-shows, missed departures due to late arrival, incomplete travel documents, visa issues, or personal circumstances outside our control. Unused parts of the trip after departure are also non-refundable.',
+            },
+            {
+                q: 'What if SALTIE Cruises cancels or significantly changes my trip?',
+                a: 'If we cancel your trip before departure or make a significant change to an essential part of the booked service, you will be entitled to remedies required by applicable law. This may include a replacement trip or alternative arrangement, or a partial or full refund as appropriate.',
+            },
+            {
+                q: 'How do I request a cancellation?',
+                a: 'All cancellation requests must be submitted in writing to <a href="mailto:support@saltiecruises.com" class="text-primary underline font-bold">support@saltiecruises.com</a>. Cancellation is effective from the date we receive your email.',
+            },
+            {
+                q: 'How long does a refund take?',
+                a: 'Where a refund is due, it will be processed to the original payment method within <strong>7–14 business days</strong> after the cancellation is confirmed. Bank or card processing times may vary.',
             },
             {
                 q: 'Can I postpone my trip to a future season?',
@@ -174,7 +194,7 @@ const faqCategories = [
             },
             {
                 q: 'I\'ve booked but can\'t make it anymore. What are my options?',
-                a: 'Please contact us immediately in writing. We can issue a Letter of Cancellation that you can use to file a claim with your travel insurance provider.',
+                a: 'Please contact us immediately in writing at <a href="mailto:support@saltiecruises.com" class="text-primary underline font-bold">support@saltiecruises.com</a>. We can issue a Letter of Cancellation that you can use to file a claim with your travel insurance provider.',
             },
         ],
     },

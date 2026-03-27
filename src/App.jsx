@@ -22,6 +22,7 @@ import BookingCancelledPage from './pages/BookingCancelledPage'
 import CookieBanner from './components/CookieBanner'
 import TermsPage from './pages/TermsPage'
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
+import CancellationPolicyPage from './pages/CancellationPolicyPage'
 
 export default function App() {
   return (
@@ -51,6 +52,7 @@ export default function App() {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/terms" element={<TermsPage />} />
         <Route path="/privacy" element={<PrivacyPolicyPage />} />
+        <Route path="/cancellation" element={<CancellationPolicyPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>

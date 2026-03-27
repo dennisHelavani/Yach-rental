@@ -10,7 +10,7 @@ import PaymentPolicyCard from '../components/PaymentPolicyCard'
 import SEO from '../components/SEO'
 
 const faqItems = [
-    { q: 'What if I need to cancel?', a: 'Cancellation and refund terms to be confirmed. Please check back soon or contact us for the latest policy.', color: 'neon-pink' },
+    { q: 'What if I need to cancel?', a: 'If you cancel more than 7 working days before departure, the refundable amount is determined by your booking terms. Within 7 working days, we refund 33% of the trip price (excluding add-ons). See our full Cancellation & Refunds Policy for details.', color: 'neon-pink' },
     { q: 'What are the itineraries?', a: '5 Nights: Mykonos (2 nights) → Milos (1 night) → Santorini (2 nights). 7 Nights: Mykonos (2) → Ios (2) → Santorini (2) → Milos (1). Itineraries are fixed — no custom routing.', color: 'neon-aqua' },
     { q: 'Should I book a cabin (spot) or a full yacht?', a: 'For groups of 6+, a full yacht is usually better value — lower per-person cost and guaranteed togetherness. Cabin bookings are ideal if you want to meet new people. You\'ll be grouped with like-minded travelers and don\'t need to coordinate a full crew. If friends book separately, just reference each other\'s reservation numbers and we\'ll place you together.', color: 'primary' },
     { q: 'When are payments due?', a: 'Your booking payment is 33% of the total, followed by 33% and 34% in weekly installments. Final payment must be at least 7 days before departure. Bookings within 14 days require full payment. Book before June 15 for a 10% discount on your first payment, or up to 19% off with full payment!', color: 'neon-pink' },
@@ -236,6 +236,78 @@ export default function HowItWorksPage() {
             <section className="py-16 md:py-24 px-6">
                 <div className="max-w-3xl mx-auto">
                     <PaymentPolicyCard />
+                </div>
+            </section>
+
+            {/* ═══════════════════════════════════════════
+               CANCELLATION & REFUNDS POLICY
+            ═══════════════════════════════════════════ */}
+            <section className="py-14 md:py-28 bg-white">
+                <div className="max-w-5xl mx-auto px-4 md:px-6">
+                    <div className="text-center mb-14">
+                        <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-slate-400 font-space">Good to know</span>
+                        <h2 className="text-4xl md:text-5xl lg:text-7xl font-punchy italic uppercase leading-none tracking-tighter mt-3 text-slate-900">
+                            CANCELLATION <span className="text-neon-pink">&amp; REFUNDS</span>
+                        </h2>
+                        <p className="mt-4 text-slate-500 font-space text-lg max-w-2xl mx-auto">Life happens. Here's what you need to know if plans change.</p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-8">
+                        {/* Card 1 */}
+                        <div className="bg-slate-50 rounded-2xl p-5 md:p-7 border border-slate-100">
+                            <div className="flex items-start gap-4">
+                                <div className="w-12 h-12 rounded-xl bg-neon-aqua/10 flex items-center justify-center flex-shrink-0">
+                                    <span className="material-icons text-neon-aqua text-xl">event_available</span>
+                                </div>
+                                <div>
+                                    <h5 className="font-punchy text-lg uppercase italic">More than 7 working days out</h5>
+                                    <p className="text-sm text-slate-500 font-space mt-1">The refundable amount is determined by the booking terms provided at the time of purchase.</p>
+                                </div>
+                            </div>
+                        </div>
+                        {/* Card 2 */}
+                        <div className="bg-slate-50 rounded-2xl p-5 md:p-7 border border-slate-100">
+                            <div className="flex items-start gap-4">
+                                <div className="w-12 h-12 rounded-xl bg-neon-pink/10 flex items-center justify-center flex-shrink-0">
+                                    <span className="material-icons text-neon-pink text-xl">event_busy</span>
+                                </div>
+                                <div>
+                                    <h5 className="font-punchy text-lg uppercase italic">Within 7 working days</h5>
+                                    <p className="text-sm text-slate-500 font-space mt-1">We refund 33% of the total trip price (excluding alcohol packages and add-ons) to the original payment method.</p>
+                                </div>
+                            </div>
+                        </div>
+                        {/* Card 3 */}
+                        <div className="bg-slate-50 rounded-2xl p-5 md:p-7 border border-slate-100">
+                            <div className="flex items-start gap-4">
+                                <div className="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center flex-shrink-0">
+                                    <span className="material-icons text-slate-600 text-xl">schedule</span>
+                                </div>
+                                <div>
+                                    <h5 className="font-punchy text-lg uppercase italic">Refund timing</h5>
+                                    <p className="text-sm text-slate-500 font-space mt-1">Refunds are processed to the original payment method within 7–14 business days after cancellation is confirmed.</p>
+                                </div>
+                            </div>
+                        </div>
+                        {/* Card 4 */}
+                        <div className="bg-slate-50 rounded-2xl p-5 md:p-7 border border-slate-100">
+                            <div className="flex items-start gap-4">
+                                <div className="w-12 h-12 rounded-xl bg-red-50 flex items-center justify-center flex-shrink-0">
+                                    <span className="material-icons text-red-400 text-xl">block</span>
+                                </div>
+                                <div>
+                                    <h5 className="font-punchy text-lg uppercase italic">Non-refundable</h5>
+                                    <p className="text-sm text-slate-500 font-space mt-1">No refunds for no-shows, missed departures, unused trip portions, or alcohol packages (except where required by law).</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="text-center">
+                        <a href="/cancellation" className="inline-flex items-center gap-2 bg-slate-900 text-white px-8 py-4 rounded-2xl font-punchy uppercase tracking-widest text-sm hover:bg-neon-pink transition-colors">
+                            Full Cancellation Policy <span className="material-icons text-lg">arrow_forward</span>
+                        </a>
+                    </div>
                 </div>
             </section>
 

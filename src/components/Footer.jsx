@@ -44,32 +44,38 @@ export default function Footer() {
                         <ul className="space-y-2 text-slate-400 font-medium text-sm">
                             <li><a href="/privacy" className="hover:text-neon-aqua transition-colors">Privacy Policy</a></li>
                             <li><a href="/terms" className="hover:text-neon-aqua transition-colors">Terms &amp; Conditions</a></li>
+                            <li><a href="/cancellation" className="hover:text-neon-aqua transition-colors">Cancellation Policy</a></li>
                             <li><a href="#" className="hover:text-neon-aqua transition-colors">Cookie Policy</a></li>
                         </ul>
                     </div>
                 </div>
 
-                {/* EU Legal Entity Info */}
+                {/* Legal Entity Info */}
                 <div className="border-t border-white/10 pt-6 mb-6">
-                    <div className="flex flex-col md:flex-row items-center justify-center gap-x-6 gap-y-1 text-[10px] text-slate-500 font-space uppercase tracking-widest text-center">
-                        <span>SALTIE Cruises Limited</span>
-                        <span className="hidden md:inline">•</span>
-                        {/* <span>Company No: <span className="text-slate-400">[PENDING]</span></span> */}
-                        {/* <span className="hidden md:inline">•</span> */}
-                        {/* <span>Registered in <span className="text-slate-400">[PENDING]</span></span> */}
-                        {/* <span className="hidden md:inline">•</span> */}
-                        <a href="mailto:support@saltiecruises.com" className="text-slate-400 hover:text-neon-aqua transition-colors">support@saltiecruises.com</a>
+                    <div className="flex flex-col items-center justify-center gap-y-1 text-[10px] text-slate-500 font-space tracking-widest text-center">
+                        <span className="uppercase font-bold">SALTIE Cruises is a trading name of HASSLICH HOLTZ LIMITED</span>
+                        <div className="flex flex-col md:flex-row items-center justify-center gap-x-3 gap-y-1 mt-1">
+                            <span>Company No: <span className="text-slate-400">9413423</span></span>
+                            <span className="hidden md:inline">•</span>
+                            <span>NZBN: <span className="text-slate-400">9429053520005</span></span>
+                        </div>
+                        <div className="flex flex-col md:flex-row items-center justify-center gap-x-3 gap-y-1 mt-1">
+                            <span>Registered Address: <span className="text-slate-400">10D/76 Albert Street, Auckland 1010</span></span>
+                            <span className="hidden md:inline">•</span>
+                            <a href="mailto:support@saltiecruises.com" className="text-slate-400 hover:text-neon-aqua transition-colors">support@saltiecruises.com</a>
+                        </div>
                     </div>
                 </div>
 
                 {/* Bottom bar */}
                 <div className="border-t border-white/10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 font-space">
-                    <p>© 2026 SALTIE Cruises Limited. All rights reserved.</p>
+                    <p>© 2026 HASSLICH HOLTZ LIMITED (trading as SALTIE Cruises). All rights reserved.</p>
                     <div className="flex items-center gap-4 flex-wrap justify-center">
                         {/* Mobile-only legal links */}
-                        <div className="flex items-center gap-4 md:hidden">
+                        <div className="flex items-center gap-4 flex-wrap justify-center md:hidden">
                             <a href="/privacy" className="hover:text-neon-aqua transition-colors">Privacy</a>
                             <a href="/terms" className="hover:text-neon-aqua transition-colors">Terms</a>
+                            <a href="/cancellation" className="hover:text-neon-aqua transition-colors">Cancellations</a>
                             <a href="#" className="hover:text-neon-aqua transition-colors">Cookies</a>
                         </div>
                         <p className="flex items-center gap-2 italic">

@@ -308,7 +308,7 @@ export default function CheckoutPage() {
 
                             {/* Cancellation policy notice */}
                             <p className="text-[10px] text-slate-400 mt-4 text-center font-space">
-                                Cancellation charges apply. See our full <a href="#" className="text-amber-600 underline">cancellation policy</a>.
+                                Cancellation charges apply. See our full <a href="/cancellation" target="_blank" rel="noopener noreferrer" className="text-amber-600 underline">cancellation policy</a>.
                             </p>
 
                             {/* Book and Pay button */}
