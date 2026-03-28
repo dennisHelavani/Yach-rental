@@ -1,4 +1,5 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
+import { useEffect } from 'react'
 import ScrollToTop from './components/ScrollToTop'
 import HomePage from './pages/HomePage'
 import HowItWorksPage from './pages/HowItWorksPage'
@@ -25,6 +26,24 @@ import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
 import CancellationPolicyPage from './pages/CancellationPolicyPage'
 
 export default function App() {
+  // [INFLUENCER TRACKING] — capture ?via= param on landing
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const via = params.get('via')
+    if (!via) return
+
+    const API_BASE = import.meta.env.VITE_API_URL || 'https://api.saltiecruises.com'
+    fetch(`${API_BASE}/api/track/${encodeURIComponent(via)}`)
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.clickId) {
+          sessionStorage.setItem('influencer_code', via)
+          sessionStorage.setItem('click_id', data.clickId)
+        }
+      })
+      .catch(() => { /* fail silently */ })
+  }, [])
+
   return (
     <>
       <ScrollToTop />

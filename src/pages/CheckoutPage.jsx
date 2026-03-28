@@ -98,7 +98,10 @@ export default function CheckoutPage() {
                 alcoholQuantity: (!wholeYacht && !wholeCabin && alcohol) ? guestCount : alcoholQuantity,
                 luggageStorageBags: 0
             },
-            paymentPreference: paymentOption.toUpperCase() === 'FULL' ? 'full' : 'installments'
+            paymentPreference: paymentOption.toUpperCase() === 'FULL' ? 'full' : 'installments',
+            // [INFLUENCER TRACKING]
+            influencerCode: sessionStorage.getItem('influencer_code') || null,
+            clickId: sessionStorage.getItem('click_id') || null,
         };
 
         console.log('[SALTIE Checkout] Sending payload:', JSON.stringify(payload, null, 2))
@@ -126,6 +129,9 @@ export default function CheckoutPage() {
             const redirectUrl = data.checkoutUrl || data.url;
 
             if (res.ok && redirectUrl) {
+                // [INFLUENCER TRACKING] — clear tracking data before redirect
+                sessionStorage.removeItem('influencer_code')
+                sessionStorage.removeItem('click_id')
                 // Redirect to Stripe Checkout (full browser redirect)
                 window.location.href = redirectUrl;
                 return;
