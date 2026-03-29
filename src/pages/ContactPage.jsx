@@ -3,17 +3,72 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import SEO from '../components/SEO'
 
+// ─── Formspree endpoints (replace with your real form IDs) ───
+const CLIENT_ENDPOINT = 'https://formspree.io/f/mojpqozz'
+const COMPANY_ENDPOINT = 'https://formspree.io/f/maqlepvq'
+
 export default function ContactPage() {
-    const [formStatus, setFormStatus] = useState('idle') // idle, submitting, success
     const [formType, setFormType] = useState('individual') // 'individual' | 'company'
 
-    const handleSubmit = (e) => {
+    // ─── Independent state for the Client (Individual) form ───
+    const [isClientLoading, setIsClientLoading] = useState(false)
+    const [clientStatus, setClientStatus] = useState('idle') // idle | success | error
+    const [clientError, setClientError] = useState('')
+
+    // ─── Independent state for the Company form ───
+    const [isCompanyLoading, setIsCompanyLoading] = useState(false)
+    const [companyStatus, setCompanyStatus] = useState('idle') // idle | success | error
+    const [companyError, setCompanyError] = useState('')
+
+    // ─── Generic submit handler ───
+    async function handleSubmit(e, type) {
         e.preventDefault()
-        setFormStatus('submitting')
-        setTimeout(() => {
-            setFormStatus('success')
-        }, 1500)
+
+        const form = e.target
+        const formData = new FormData(form)
+        const data = Object.fromEntries(formData.entries())
+
+        const isClient = type === 'individual'
+        const endpoint = isClient ? CLIENT_ENDPOINT : COMPANY_ENDPOINT
+        const setLoading = isClient ? setIsClientLoading : setIsCompanyLoading
+        const setStatus = isClient ? setClientStatus : setCompanyStatus
+        const setError = isClient ? setClientError : setCompanyError
+
+        setLoading(true)
+        setStatus('idle')
+        setError('')
+
+        try {
+            const res = await fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+
+            if (res.ok) {
+                setStatus('success')
+                form.reset()
+            } else {
+                const json = await res.json().catch(() => ({}))
+                setError(json?.errors?.map((err) => err.message).join(', ') || 'Something went wrong. Please try again.')
+                setStatus('error')
+            }
+        } catch {
+            setError('Network error. Please check your connection and try again.')
+            setStatus('error')
+        } finally {
+            setLoading(false)
+        }
     }
+
+    // Derive active state based on which tab is shown
+    const isLoading = formType === 'individual' ? isClientLoading : isCompanyLoading
+    const status = formType === 'individual' ? clientStatus : companyStatus
+    const error = formType === 'individual' ? clientError : companyError
+    const setStatus = formType === 'individual' ? setClientStatus : setCompanyStatus
 
     return (
         <div className="bg-background-sand text-slate-900 selection:bg-neon-pink selection:text-white overflow-x-hidden min-h-screen flex flex-col">
@@ -76,7 +131,7 @@ export default function ContactPage() {
 
                     {/* RIGHT COLUMN: CONTACT FORM with Individual / Company tabs */}
                     <div className="bg-white p-8 md:p-10 rounded-[2rem] shadow-xl border border-slate-100 relative">
-                        {formStatus === 'success' ? (
+                        {status === 'success' ? (
                             <div className="h-full flex flex-col items-center justify-center text-center py-12 animate-fade-in">
                                 <div className="w-20 h-20 bg-neon-aqua/10 text-neon-aqua rounded-full flex items-center justify-center mb-6">
                                     <span className="material-icons text-4xl">check_circle</span>
@@ -84,14 +139,14 @@ export default function ContactPage() {
                                 <h3 className="font-punchy text-3xl uppercase italic tracking-tighter mb-4">Message Sent!</h3>
                                 <p className="text-slate-500 mb-8 max-w-xs">We've received your message and will get back to you shortly.</p>
                                 <button
-                                    onClick={() => setFormStatus('idle')}
+                                    onClick={() => setStatus('idle')}
                                     className="bg-slate-900 text-white px-8 py-3 rounded-xl font-bold uppercase tracking-widest text-xs hover:bg-neon-aqua hover:text-slate-900 transition-colors"
                                 >
                                     Send Another
                                 </button>
                             </div>
                         ) : (
-                            <form onSubmit={handleSubmit} className="space-y-6">
+                            <form onSubmit={(e) => handleSubmit(e, formType)} className="space-y-6">
                                 <h3 className="font-punchy text-2xl uppercase tracking-tighter mb-2">Send a Message</h3>
 
                                 {/* Individual / Company toggle */}
@@ -99,22 +154,20 @@ export default function ContactPage() {
                                     <button
                                         type="button"
                                         onClick={() => setFormType('individual')}
-                                        className={`flex-1 py-2.5 rounded-lg text-xs font-bold uppercase tracking-widest font-space transition-all cursor-pointer ${
-                                            formType === 'individual'
-                                                ? 'bg-white text-slate-900 shadow-sm'
-                                                : 'text-slate-400 hover:text-slate-600'
-                                        }`}
+                                        className={`flex-1 py-2.5 rounded-lg text-xs font-bold uppercase tracking-widest font-space transition-all cursor-pointer ${formType === 'individual'
+                                            ? 'bg-white text-slate-900 shadow-sm'
+                                            : 'text-slate-400 hover:text-slate-600'
+                                            }`}
                                     >
                                         Individual
                                     </button>
                                     <button
                                         type="button"
                                         onClick={() => setFormType('company')}
-                                        className={`flex-1 py-2.5 rounded-lg text-xs font-bold uppercase tracking-widest font-space transition-all cursor-pointer ${
-                                            formType === 'company'
-                                                ? 'bg-white text-slate-900 shadow-sm'
-                                                : 'text-slate-400 hover:text-slate-600'
-                                        }`}
+                                        className={`flex-1 py-2.5 rounded-lg text-xs font-bold uppercase tracking-widest font-space transition-all cursor-pointer ${formType === 'company'
+                                            ? 'bg-white text-slate-900 shadow-sm'
+                                            : 'text-slate-400 hover:text-slate-600'
+                                            }`}
                                     >
                                         Company
                                     </button>
@@ -128,6 +181,7 @@ export default function ContactPage() {
                                     <input
                                         type="text"
                                         id="name"
+                                        name="name"
                                         required
                                         className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-neon-aqua focus:bg-white transition-colors"
                                         placeholder={formType === 'company' ? 'Jane Smith' : 'John Doe'}
@@ -141,6 +195,7 @@ export default function ContactPage() {
                                         <input
                                             type="text"
                                             id="company"
+                                            name="company"
                                             required
                                             className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-neon-aqua focus:bg-white transition-colors"
                                             placeholder="Acme Corp"
@@ -156,6 +211,7 @@ export default function ContactPage() {
                                     <input
                                         type="email"
                                         id="email"
+                                        name="email"
                                         required
                                         className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-neon-aqua focus:bg-white transition-colors"
                                         placeholder={formType === 'company' ? 'bookings@company.com' : 'john@example.com'}
@@ -169,6 +225,7 @@ export default function ContactPage() {
                                         <input
                                             type="number"
                                             id="groupSize"
+                                            name="groupSize"
                                             min="1"
                                             className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-neon-aqua focus:bg-white transition-colors"
                                             placeholder="e.g. 20"
@@ -181,6 +238,7 @@ export default function ContactPage() {
                                     <label htmlFor="subject" className="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2 font-space">Subject</label>
                                     <select
                                         id="subject"
+                                        name="subject"
                                         className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-neon-aqua focus:bg-white transition-colors text-slate-700"
                                     >
                                         {formType === 'individual' ? (
@@ -207,6 +265,7 @@ export default function ContactPage() {
                                     <label htmlFor="message" className="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2 font-space">Message</label>
                                     <textarea
                                         id="message"
+                                        name="message"
                                         rows="4"
                                         required
                                         className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-neon-aqua focus:bg-white transition-colors resize-none"
@@ -214,12 +273,20 @@ export default function ContactPage() {
                                     ></textarea>
                                 </div>
 
+                                {/* Error message */}
+                                {status === 'error' && (
+                                    <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm animate-fade-in">
+                                        <span className="material-icons text-sm align-text-bottom mr-1">error_outline</span>
+                                        {error}
+                                    </div>
+                                )}
+
                                 <button
                                     type="submit"
-                                    disabled={formStatus === 'submitting'}
+                                    disabled={isLoading}
                                     className="w-full bg-neon-aqua text-slate-900 font-punchy uppercase tracking-widest text-lg py-4 rounded-xl hover:bg-slate-900 hover:text-white transition-all shadow-lg shadow-neon-aqua/20 disabled:opacity-70 disabled:cursor-not-allowed"
                                 >
-                                    {formStatus === 'submitting' ? 'Sending...' : 'Send Message'}
+                                    {isLoading ? 'Sending...' : 'Send Message'}
                                 </button>
                             </form>
                         )}
