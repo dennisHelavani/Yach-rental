@@ -2,7 +2,7 @@
 // Full checkout with T&C, disclaimers, real backend API call
 // Reads booking state from URL params
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useRef } from 'react'
 import { useSearchParams, Link, useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
@@ -45,6 +45,27 @@ export default function CheckoutPage() {
         packageId, alcohol, alcoholQuantity, guestCount, paymentOption, wholeYacht, wholeCabin,
         departureDate: date || null,
     }), [packageId, alcohol, alcoholQuantity, guestCount, paymentOption, wholeYacht, wholeCabin, date])
+
+    // ── Influencer alcohol price override (UI display only) ──
+    // Read once on mount so toggling tabs doesn't re-read
+    const influencerCode = useRef(sessionStorage.getItem('influencer_code') || '').current
+    const isSharedMode = !wholeYacht && !wholeCabin
+
+    const influencerAlcoholOverride = useMemo(() => {
+        if (!alcohol || !isSharedMode) return null
+
+        // CHEERS99: shared alcohol shown as €99 instead of €199
+        if (influencerCode === 'CHEERS99') {
+            return { unitPrice: 99, label: 'CHEERS99 Promo' }
+        }
+
+        // FREE5N-*: shared + 5N package → alcohol shown as FREE (€0)
+        if (influencerCode.startsWith('FREE5N-') && packageId === '5n') {
+            return { unitPrice: 0, label: 'FREE Alcohol Promo' }
+        }
+
+        return null // no override — show standard price
+    }, [alcohol, isSharedMode, influencerCode, packageId])
 
     const yacht = yachtId ? yachtsData.find(y => y.slug === yachtId.replace(/_/g, '-')) : null
     const fleetYacht = yachtId ? getFleetYacht(yachtId) : null
@@ -276,7 +297,7 @@ export default function CheckoutPage() {
                     {/* Right — Payment summary */}
                     <div className="md:col-span-2 space-y-4">
                         <div className="md:sticky md:top-24">
-                            <PriceBreakdownCard pricing={pricing} state={state} />
+                            <PriceBreakdownCard pricing={pricing} state={state} influencerAlcoholOverride={influencerAlcoholOverride} />
 
                             {/* EU-compliant mandatory checkboxes */}
                             <div className="mt-4 space-y-3">

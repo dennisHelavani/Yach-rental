@@ -1,7 +1,7 @@
 // ── Price Breakdown Card (installments vs full + discount) ──
 import { isDiscountEligible, DATA } from '../../lib/pricingEngine'
 
-export default function PriceBreakdownCard({ pricing, state }) {
+export default function PriceBreakdownCard({ pricing, state, influencerAlcoholOverride }) {
     if (!pricing) return null
 
     const { subtotal, earlyBird, lastMinute, discountAmount, total, amountDueToday, remaining, paymentOption, guestCount } = pricing
@@ -13,6 +13,12 @@ export default function PriceBreakdownCard({ pricing, state }) {
     const alcoholTotal = pricing.alcoholTotal || 0
     const alcoholQty = pricing.alcoholQuantity != null ? pricing.alcoholQuantity : (pricing.addonPerPerson > 0 ? guestCount : 0)
     const alcoholUnitPrice = pricing.addonPerPerson || 0
+
+    // ── Influencer override for display ──
+    const hasAlcoholOverride = influencerAlcoholOverride != null && alcoholTotal > 0
+    const displayAlcoholUnit = hasAlcoholOverride ? influencerAlcoholOverride.unitPrice : alcoholUnitPrice
+    const displayAlcoholTotal = hasAlcoholOverride ? (influencerAlcoholOverride.unitPrice * alcoholQty) : alcoholTotal
+    const alcoholSavings = hasAlcoholOverride ? (alcoholTotal - displayAlcoholTotal) : 0
 
     // Determine booking type label
     const bookingLabel = pricing.wholeYacht
@@ -42,10 +48,20 @@ export default function PriceBreakdownCard({ pricing, state }) {
             {alcoholTotal > 0 && (
                 <div className="flex justify-between text-sm">
                     <span className="text-slate-500">
-                        Alcohol Add-on ({alcoholQty} × €{alcoholUnitPrice})
+                        Alcohol Add-on ({alcoholQty} × {hasAlcoholOverride && displayAlcoholUnit === 0 ? 'FREE' : `€${displayAlcoholUnit}`})
                         {(pricing.wholeYacht || pricing.wholeCabin) && <span className="text-[9px] text-amber-600 ml-1 font-bold">DISCOUNTED</span>}
+                        {hasAlcoholOverride && (
+                            <span className="text-[9px] text-emerald-600 ml-1 font-bold">{influencerAlcoholOverride.label}</span>
+                        )}
                     </span>
-                    <span className={`font-bold ${(pricing.wholeYacht || pricing.wholeCabin) ? 'text-amber-600' : 'text-neon-pink'}`}>+€{alcoholTotal}</span>
+                    <span className="flex items-center gap-1.5">
+                        {hasAlcoholOverride && displayAlcoholUnit < alcoholUnitPrice && (
+                            <span className="text-slate-400 line-through text-xs">€{alcoholTotal}</span>
+                        )}
+                        <span className={`font-bold ${hasAlcoholOverride ? 'text-emerald-600' : (pricing.wholeYacht || pricing.wholeCabin) ? 'text-amber-600' : 'text-neon-pink'}`}>
+                            {displayAlcoholTotal === 0 ? 'FREE' : `+€${displayAlcoholTotal}`}
+                        </span>
+                    </span>
                 </div>
             )}
 
