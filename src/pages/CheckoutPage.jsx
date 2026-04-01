@@ -67,6 +67,16 @@ export default function CheckoutPage() {
         return null // no override — show standard price
     }, [alcohol, isSharedMode, influencerCode, packageId])
 
+    // [MATH FIX: ACTIVE ALCOHOL PRICE]
+    // Compute the display-adjusted "amount due today" for the checkout button.
+    // Must match the same math used in PriceBreakdownCard.
+    const displayAmountDueToday = useMemo(() => {
+        if (!influencerAlcoholOverride || !pricing.alcoholTotal) return pricing.amountDueToday
+        const alcoholSavings = pricing.alcoholTotal - (influencerAlcoholOverride.unitPrice * guestCount)
+        if (pricing.paymentOption === 'FULL') return pricing.amountDueToday - alcoholSavings
+        return pricing.amountDueToday - Math.round(alcoholSavings * 0.33)
+    }, [influencerAlcoholOverride, pricing, guestCount])
+
     const yacht = yachtId ? yachtsData.find(y => y.slug === yachtId.replace(/_/g, '-')) : null
     const fleetYacht = yachtId ? getFleetYacht(yachtId) : null
     const route = DATA.routes.find(r => r.id === (packageId === '7n' ? 'route_greece_7n' : 'route_greece_5n'))
@@ -347,7 +357,7 @@ export default function CheckoutPage() {
                                         : (!termsAccepted || !privacyAccepted) ? 'bg-slate-200 text-slate-400 cursor-not-allowed'
                                         : 'bg-amber-500 text-white hover:bg-slate-900 cursor-pointer'}`}
                             >
-                                {processing ? 'Processing...' : `Book and Pay €${pricing.amountDueToday} →`}
+                                {processing ? 'Processing...' : `Book and Pay €${displayAmountDueToday} →`}
                             </button>
 
                             <p className="text-center text-[10px] text-slate-400 mt-2 font-space">

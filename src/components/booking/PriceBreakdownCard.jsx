@@ -20,6 +20,25 @@ export default function PriceBreakdownCard({ pricing, state, influencerAlcoholOv
     const displayAlcoholTotal = hasAlcoholOverride ? (influencerAlcoholOverride.unitPrice * alcoholQty) : alcoholTotal
     const alcoholSavings = hasAlcoholOverride ? (alcoholTotal - displayAlcoholTotal) : 0
 
+    // [MATH FIX: ACTIVE ALCOHOL PRICE]
+    // Recompute all display totals using the active (possibly discounted) alcohol price.
+    // Discounts (early bird, last-minute, full-pay) only ever apply to the base trip price,
+    // so subtracting the alcohol savings from the engine's totals is arithmetically exact.
+    const displaySubtotal = subtotal - alcoholSavings
+    const displayTotal = total - alcoholSavings
+    const displayAmountDueToday = paymentOption === 'FULL'
+        ? amountDueToday - alcoholSavings
+        : amountDueToday - Math.round(alcoholSavings * 0.33)
+    const displayRemaining = paymentOption === 'FULL' ? 0 : displaySubtotal - displayAmountDueToday
+
+    // Adjusted installment schedule amounts (only used for the 3-installment display table)
+    const displayInstallmentAmounts = (() => {
+        if (!alcoholSavings || !pricing.installments) return pricing.installments?.amounts
+        const second = Math.round(displaySubtotal * 33 / 100)
+        const third = displaySubtotal - displayAmountDueToday - second
+        return [displayAmountDueToday, second, third]
+    })()
+
     // Determine booking type label
     const bookingLabel = pricing.wholeYacht
         ? `Whole Yacht (${pricing.pkg?.nights || '?'}N)`
@@ -68,7 +87,7 @@ export default function PriceBreakdownCard({ pricing, state, influencerAlcoholOv
             {/* Subtotal */}
             <div className="border-t border-slate-200 pt-2 flex justify-between text-sm">
                 <span className="text-slate-500">Subtotal</span>
-                <span className="font-bold">€{subtotal}</span>
+                <span className="font-bold">€{displaySubtotal}</span>
             </div>
 
             {/* Discount */}
@@ -96,7 +115,7 @@ export default function PriceBreakdownCard({ pricing, state, influencerAlcoholOv
                                     <p className="text-[10px] text-emerald-400 mt-0.5 font-bold">Saving €{discountAmount} on your booking payment!</p>
                                 )}
                             </div>
-                            <span className="font-punchy text-2xl italic text-white">€{amountDueToday}</span>
+                            <span className="font-punchy text-2xl italic text-white">€{displayAmountDueToday}</span>
                         </div>
                     </div>
 
@@ -112,7 +131,7 @@ export default function PriceBreakdownCard({ pricing, state, influencerAlcoholOv
                                         {pricing.paymentPlan === 'SHORT_NOTICE' ? 'Due within 7 days' : 'In weekly installments'}
                                     </p>
                                 </div>
-                                <span className="font-bold text-lg text-slate-600">€{remaining}</span>
+                                <span className="font-bold text-lg text-slate-600">€{displayRemaining}</span>
                             </div>
                         </div>
                     )}
@@ -120,7 +139,7 @@ export default function PriceBreakdownCard({ pricing, state, influencerAlcoholOv
                     {/* Total trip price */}
                     <div className="border-t border-slate-200 pt-2 flex justify-between font-bold text-base">
                         <span>Total trip price</span>
-                        <span>€{subtotal}</span>
+                        <span>€{displaySubtotal}</span>
                     </div>
                 </div>
             ) : (
@@ -137,7 +156,7 @@ export default function PriceBreakdownCard({ pricing, state, influencerAlcoholOv
                                     <p className="text-[10px] text-emerald-400 mt-0.5 font-bold">You're saving €{discountAmount} with {lastMinute ? 'last-minute' : 'full payment'} discount!</p>
                                 )}
                             </div>
-                            <span className="font-punchy text-2xl italic text-white">€{total}</span>
+                            <span className="font-punchy text-2xl italic text-white">€{displayTotal}</span>
                         </div>
                     </div>
 
@@ -145,7 +164,7 @@ export default function PriceBreakdownCard({ pricing, state, influencerAlcoholOv
                     {(earlyBird || lastMinute) && discountAmount > 0 && (
                         <div className="flex justify-between text-sm">
                             <span className="text-slate-400">Original price</span>
-                            <span className="text-slate-400 line-through">€{subtotal}</span>
+                            <span className="text-slate-400 line-through">€{displaySubtotal}</span>
                         </div>
                     )}
                 </div>
@@ -160,7 +179,7 @@ export default function PriceBreakdownCard({ pricing, state, influencerAlcoholOv
                             <div key={i} className="flex justify-between text-xs">
                                 <span className="text-slate-500">{label}</span>
                                 <span className={`font-bold ${i === 0 && earlyBird && discountAmount > 0 ? 'text-emerald-600' : ''}`}>
-                                    €{pricing.installments.amounts[i]}
+                                    €{displayInstallmentAmounts?.[i] ?? pricing.installments.amounts[i]}
                                 </span>
                             </div>
                         ))}
