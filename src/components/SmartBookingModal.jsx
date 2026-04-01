@@ -25,6 +25,17 @@ const FLOW_STEPS = {
     BOOK_WHOLE_CABIN: ['Yacht', 'Package', 'Date', 'Add-ons', 'Payment', 'Summary'],
 }
 
+// [STRICT MATH SYNC]
+// Centralized helper: compute the active alcohol unit price based on influencer code.
+// Only applies to "shared" mode (not whole yacht / whole cabin).
+function getActiveAlcoholPrice(isShared, packageId) {
+    if (!isShared) return null // no override for private modes
+    const currentCode = sessionStorage.getItem('influencer_code') || ''
+    if (currentCode === 'CHEERS99') return { unitPrice: 99, label: 'CHEERS99 Promo' }
+    if (currentCode.startsWith('FREE5N-') && packageId === '5n') return { unitPrice: 0, label: 'FREE Alcohol Promo' }
+    return null
+}
+
 export default function SmartBookingModal() {
     const { isOpen, state, pricing, closeBooking, setFlow, nextStep, prevStep, updateState, updateQuote } = useBooking()
     const navigate = useNavigate()
@@ -381,9 +392,13 @@ export default function SmartBookingModal() {
         if (step === 5) {
             const eligible = isEarlyBirdEligible()
             const basePrice = pricing.subtotal - (pricing.alcoholTotal || 0)
-            const alcoholTotal = pricing.alcoholTotal || 0
-            const fullPay = computeFullPayment(basePrice, eligible, alcoholTotal)
-            const installments = computeInstallments(basePrice, eligible, alcoholTotal)
+            const origAlcoholTotal = pricing.alcoholTotal || 0
+            // [STRICT MATH SYNC]
+            const override = getActiveAlcoholPrice(true, state.packageId)
+            const activeAlcoholTotal = override && state.alcohol ? (override.unitPrice * state.guestCount) : origAlcoholTotal
+            const displaySubtotal = basePrice + activeAlcoholTotal
+            const fullPay = computeFullPayment(basePrice, eligible, activeAlcoholTotal)
+            const installments = computeInstallments(basePrice, eligible, activeAlcoholTotal)
             const showInstallments = pricing.paymentPlan === 'INSTALLMENTS_3'
             // Auto-select FULL when installments not available
             if (!showInstallments && state.paymentOption !== 'FULL') updateState({ paymentOption: 'FULL' })
@@ -420,11 +435,11 @@ export default function SmartBookingModal() {
                                     </div>
                                     <div className="flex justify-between text-xs">
                                         <span className="text-slate-400">Left to pay</span>
-                                        <span className="text-slate-500">€{pricing.subtotal - installments.amounts[0]}</span>
+                                        <span className="text-slate-500">€{displaySubtotal - installments.amounts[0]}</span>
                                     </div>
                                     <div className="flex justify-between text-xs">
                                         <span className="text-slate-400">Total trip price</span>
-                                        <span className="text-slate-500">€{pricing.subtotal}</span>
+                                        <span className="text-slate-500">€{displaySubtotal}</span>
                                     </div>
                                 </div>
                             </button>
@@ -450,7 +465,7 @@ export default function SmartBookingModal() {
                                     <>
                                         <div className="flex justify-between text-xs">
                                             <span className="text-slate-400">Original price</span>
-                                            <span className="text-slate-400 line-through">€{pricing.subtotal}</span>
+                                            <span className="text-slate-400 line-through">€{displaySubtotal}</span>
                                         </div>
                                         <div className="flex justify-between text-xs">
                                             <span className="text-emerald-600 font-bold">You save</span>
@@ -467,6 +482,11 @@ export default function SmartBookingModal() {
         }
 
         // Step 6 — Summary
+        // [STRICT MATH SYNC]
+        const summaryOverride = getActiveAlcoholPrice(true, state.packageId)
+        const summaryAlcSavings = (summaryOverride && state.alcohol) ? ((pricing.alcoholTotal || 0) - summaryOverride.unitPrice * state.guestCount) : 0
+        const summaryAmountDueToday = pricing.paymentOption === 'FULL' ? pricing.amountDueToday - summaryAlcSavings : pricing.amountDueToday - Math.round(summaryAlcSavings * 0.33)
+        const summaryRemaining = pricing.paymentOption === 'FULL' ? 0 : (pricing.subtotal - summaryAlcSavings) - summaryAmountDueToday
         return (
             <div className="space-y-5">
                 <h2 className="font-punchy text-2xl italic uppercase">Booking <span className="text-amber-500">Summary</span></h2>
@@ -479,7 +499,7 @@ export default function SmartBookingModal() {
                         </div>
                     </div>
                 )}
-                <PriceBreakdownCard pricing={pricing} state={state} />
+                <PriceBreakdownCard pricing={pricing} state={state} influencerAlcoholOverride={summaryOverride && state.alcohol ? summaryOverride : null} />
                 <RouteCard packageId={state.packageId} />
                 <button
                     onClick={() => {
@@ -498,7 +518,7 @@ export default function SmartBookingModal() {
                     Continue to Checkout <span className="inline-block ml-1 group-hover:translate-x-1 transition-transform">→</span>
                 </button>
                 <p className="text-center text-xs text-slate-400">
-                    {state.paymentOption !== 'FULL' ? `Only €${pricing.amountDueToday} today — remaining €${pricing.remaining} in installments` : 'Full payment — no further charges'}
+                    {state.paymentOption !== 'FULL' ? `Only €${summaryAmountDueToday} today — remaining €${summaryRemaining} in installments` : 'Full payment — no further charges'}
                 </p>
             </div>
         )
@@ -662,9 +682,13 @@ export default function SmartBookingModal() {
         if (step === 5) {
             const eligible = isEarlyBirdEligible()
             const basePrice = pricing.subtotal - (pricing.alcoholTotal || 0)
-            const alcoholTotal = pricing.alcoholTotal || 0
-            const fullPay = computeFullPayment(basePrice, eligible, alcoholTotal)
-            const installments = computeInstallments(basePrice, eligible, alcoholTotal)
+            const origAlcoholTotal = pricing.alcoholTotal || 0
+            // [STRICT MATH SYNC]
+            const override = getActiveAlcoholPrice(true, state.packageId)
+            const activeAlcoholTotal = override && state.alcohol ? (override.unitPrice * state.guestCount) : origAlcoholTotal
+            const displaySubtotal = basePrice + activeAlcoholTotal
+            const fullPay = computeFullPayment(basePrice, eligible, activeAlcoholTotal)
+            const installments = computeInstallments(basePrice, eligible, activeAlcoholTotal)
             const showInstallments = pricing.paymentPlan === 'INSTALLMENTS_3'
             if (!showInstallments && state.paymentOption !== 'FULL') updateState({ paymentOption: 'FULL' })
             return (
@@ -698,11 +722,11 @@ export default function SmartBookingModal() {
                                     </div>
                                     <div className="flex justify-between text-xs">
                                         <span className="text-slate-400">Left to pay</span>
-                                        <span className="text-slate-500">€{pricing.subtotal - installments.amounts[0]}</span>
+                                        <span className="text-slate-500">€{displaySubtotal - installments.amounts[0]}</span>
                                     </div>
                                     <div className="flex justify-between text-xs">
                                         <span className="text-slate-400">Total trip price</span>
-                                        <span className="text-slate-500">€{pricing.subtotal}</span>
+                                        <span className="text-slate-500">€{displaySubtotal}</span>
                                     </div>
                                 </div>
                             </button>
@@ -727,7 +751,7 @@ export default function SmartBookingModal() {
                                     <>
                                         <div className="flex justify-between text-xs">
                                             <span className="text-slate-400">Original price</span>
-                                            <span className="text-slate-400 line-through">€{pricing.subtotal}</span>
+                                            <span className="text-slate-400 line-through">€{displaySubtotal}</span>
                                         </div>
                                         <div className="flex justify-between text-xs">
                                             <span className="text-emerald-600 font-bold">You save</span>
@@ -744,6 +768,11 @@ export default function SmartBookingModal() {
         }
 
         // Step 6 — Summary
+        // [STRICT MATH SYNC]
+        const tourSummaryOverride = getActiveAlcoholPrice(true, state.packageId)
+        const tourAlcSavings = (tourSummaryOverride && state.alcohol) ? ((pricing.alcoholTotal || 0) - tourSummaryOverride.unitPrice * state.guestCount) : 0
+        const tourAmountDueToday = pricing.paymentOption === 'FULL' ? pricing.amountDueToday - tourAlcSavings : pricing.amountDueToday - Math.round(tourAlcSavings * 0.33)
+        const tourRemaining = pricing.paymentOption === 'FULL' ? 0 : (pricing.subtotal - tourAlcSavings) - tourAmountDueToday
         return (
             <div className="space-y-5">
                 <h2 className="font-punchy text-2xl italic uppercase">Booking <span className="text-amber-500">Summary</span></h2>
@@ -756,7 +785,7 @@ export default function SmartBookingModal() {
                         </div>
                     </div>
                 )}
-                <PriceBreakdownCard pricing={pricing} state={state} />
+                <PriceBreakdownCard pricing={pricing} state={state} influencerAlcoholOverride={tourSummaryOverride && state.alcohol ? tourSummaryOverride : null} />
                 <RouteCard packageId={state.packageId} />
                 <TrustCard compact />
                 <button
@@ -776,7 +805,7 @@ export default function SmartBookingModal() {
                     Continue to Checkout <span className="inline-block ml-1 group-hover:translate-x-1 transition-transform">→</span>
                 </button>
                 <p className="text-center text-xs text-slate-400">
-                    {state.paymentOption !== 'FULL' ? `Only €${pricing.amountDueToday} today — remaining €${pricing.remaining} in installments` : 'Full payment — no further charges'}
+                    {state.paymentOption !== 'FULL' ? `Only €${tourAmountDueToday} today — remaining €${tourRemaining} in installments` : 'Full payment — no further charges'}
                 </p>
             </div>
         )
